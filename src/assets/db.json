@@ -1,0 +1,90 @@
+{
+  "allCategories": [
+    { "name": "Entertainment", "id": 1 },
+    { "name": "Food", "id": 2 },
+    { "name": "Other", "id": 3 },
+    { "name": "Auto", "id": 4 },
+    { "name": "Travel", "id": 5 },
+    { "name": "Health", "id": 6 },
+    { "name": "House", "id": 7 },
+    { "name": "Child", "id": 8 },
+    { "name": "Family", "id": 9 },
+    { "name": "Utility bills", "id": 10 },
+    { "name": "Lunch", "id": 11 },
+    { "name": "Major purchases", "id": 11 }
+  ],
+  "2024.02": {
+    "categories": [
+      { "name": "Entertainment", "id": 1 },
+      { "name": "Food", "id": 2 },
+      { "name": "Other", "id": 3 },
+      { "name": "Auto", "id": 4 },
+      { "name": "Travel", "id": 5 },
+      { "name": "Health", "id": 6 },
+      { "name": "House", "id": 7 },
+      { "name": "Child", "id": 8 },
+      { "name": "Family", "id": 9 },
+      { "name": "Utility bills", "id": 10 },
+      { "name": "Lunch", "id": 11 }
+    ],
+    "incomes": [
+      { "name": "Salary", "id": 1, "amount": 10000, "date": "2024.03.01" },
+      { "name": "Other", "id": 2, "amount": 10000, "date": "2024.03.01" }
+    ],
+    "costs": [
+      {
+        "id": 1,
+        "costs": [
+          { "category_id": 1, "amount": 1000, "comment": "" },
+          { "category_id": 3, "amount": 500, "comment": "Lunch" }
+        ],
+        "date": 2
+      },
+      {
+        "id": 1,
+        "costs": [
+          { "category_id": 1, "amount": 1000 },
+          { "category_id": 3, "amount": 500, "comment": "Lunch" }
+        ],
+        "date": 3
+      }
+    ]
+  },
+  "2024.03": {
+    "categories": [
+      { "name": "Entertainment", "id": 1 },
+      { "name": "Food", "id": 2 },
+      { "name": "Other", "id": 3 },
+      { "name": "Auto", "id": 4 },
+      { "name": "Travel", "id": 5 },
+      { "name": "Health", "id": 6 },
+      { "name": "House", "id": 7 },
+      { "name": "Child", "id": 8 },
+      { "name": "Family", "id": 9 },
+      { "name": "Utility bills", "id": 10 },
+      { "name": "Lunch", "id": 11 }
+    ],
+    "incomes": [
+      { "name": "Salary", "id": 1, "amount": 10000, "date": "2024.03.01" },
+      { "name": "Other", "id": 2, "amount": 10000, "date": "2024.03.01" }
+    ],
+    "costs": [
+      {
+        "id": 1,
+        "costs": [
+          { "category_id": 1, "amount": 1000, "comment": "" },
+          { "category_id": 3, "amount": 500, "comment": "Lunch" }
+        ],
+        "date": 2
+      },
+      {
+        "id": 1,
+        "costs": [
+          { "category_id": 1, "amount": 1000, "comment": "Кино" },
+          { "category_id": 3, "amount": 500, "comment": "Lunch" }
+        ],
+        "date": 3
+      }
+    ]
+  }
+}
