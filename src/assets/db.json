@@ -1,90 +1,417 @@
 {
-  "allCategories": [
-    { "name": "Entertainment", "id": 1 },
-    { "name": "Food", "id": 2 },
-    { "name": "Other", "id": 3 },
-    { "name": "Auto", "id": 4 },
-    { "name": "Travel", "id": 5 },
-    { "name": "Health", "id": 6 },
-    { "name": "House", "id": 7 },
-    { "name": "Child", "id": 8 },
-    { "name": "Family", "id": 9 },
-    { "name": "Utility bills", "id": 10 },
-    { "name": "Lunch", "id": 11 },
-    { "name": "Major purchases", "id": 11 }
+  "categories": [
+    {
+      "name": "Entertainment",
+      "id": 1
+    },
+    {
+      "name": "Food",
+      "id": 2
+    },
+    {
+      "name": "Other",
+      "id": 3
+    },
+    {
+      "name": "Auto",
+      "id": 4
+    },
+    {
+      "name": "Travel",
+      "id": 5
+    },
+    {
+      "name": "Health",
+      "id": 6
+    },
+    {
+      "name": "House",
+      "id": 7
+    },
+    {
+      "name": "Child",
+      "id": 8
+    },
+    {
+      "name": "Family",
+      "id": 9
+    },
+    {
+      "name": "Utility bills",
+      "id": 10
+    },
+    {
+      "name": "Lunch",
+      "id": 11
+    },
+    {
+      "name": "Major purchases",
+      "id": 11
+    }
   ],
-  "2024.02": {
-    "categories": [
-      { "name": "Entertainment", "id": 1 },
-      { "name": "Food", "id": 2 },
-      { "name": "Other", "id": 3 },
-      { "name": "Auto", "id": 4 },
-      { "name": "Travel", "id": 5 },
-      { "name": "Health", "id": 6 },
-      { "name": "House", "id": 7 },
-      { "name": "Child", "id": 8 },
-      { "name": "Family", "id": 9 },
-      { "name": "Utility bills", "id": 10 },
-      { "name": "Lunch", "id": 11 }
-    ],
-    "incomes": [
-      { "name": "Salary", "id": 1, "amount": 10000, "date": "2024.03.01" },
-      { "name": "Other", "id": 2, "amount": 10000, "date": "2024.03.01" }
-    ],
-    "costs": [
-      {
-        "id": 1,
-        "costs": [
-          { "category_id": 1, "amount": 1000, "comment": "" },
-          { "category_id": 3, "amount": 500, "comment": "Lunch" }
-        ],
-        "date": 2
-      },
-      {
-        "id": 1,
-        "costs": [
-          { "category_id": 1, "amount": 1000 },
-          { "category_id": 3, "amount": 500, "comment": "Lunch" }
-        ],
-        "date": 3
-      }
-    ]
-  },
-  "2024.03": {
-    "categories": [
-      { "name": "Entertainment", "id": 1 },
-      { "name": "Food", "id": 2 },
-      { "name": "Other", "id": 3 },
-      { "name": "Auto", "id": 4 },
-      { "name": "Travel", "id": 5 },
-      { "name": "Health", "id": 6 },
-      { "name": "House", "id": 7 },
-      { "name": "Child", "id": 8 },
-      { "name": "Family", "id": 9 },
-      { "name": "Utility bills", "id": 10 },
-      { "name": "Lunch", "id": 11 }
-    ],
-    "incomes": [
-      { "name": "Salary", "id": 1, "amount": 10000, "date": "2024.03.01" },
-      { "name": "Other", "id": 2, "amount": 10000, "date": "2024.03.01" }
-    ],
-    "costs": [
-      {
-        "id": 1,
-        "costs": [
-          { "category_id": 1, "amount": 1000, "comment": "" },
-          { "category_id": 3, "amount": 500, "comment": "Lunch" }
-        ],
-        "date": 2
-      },
-      {
-        "id": 1,
-        "costs": [
-          { "category_id": 1, "amount": 1000, "comment": "Кино" },
-          { "category_id": 3, "amount": 500, "comment": "Lunch" }
-        ],
-        "date": 3
-      }
-    ]
-  }
+  "data": [
+    {
+      "month": "2024-02",
+      "data": [
+        {
+          "user_name": "Вася",
+          "budget_data": {
+            "categories": [
+              {
+                "name": "Entertainment",
+                "id": 1
+              },
+              {
+                "name": "Food",
+                "id": 2
+              },
+              {
+                "name": "Other",
+                "id": 3
+              },
+              {
+                "name": "Auto",
+                "id": 4
+              },
+              {
+                "name": "Travel",
+                "id": 5
+              },
+              {
+                "name": "Health",
+                "id": 6
+              },
+              {
+                "name": "House",
+                "id": 7
+              },
+              {
+                "name": "Child",
+                "id": 8
+              },
+              {
+                "name": "Family",
+                "id": 9
+              },
+              {
+                "name": "Utility bills",
+                "id": 10
+              },
+              {
+                "name": "Lunch",
+                "id": 11
+              }
+            ],
+            "incomes": [
+              {
+                "name": "Salary",
+                "id": 1,
+                "amount": 10000,
+                "date": "2024.03.01",
+                "comments": ""
+              },
+              {
+                "name": "Other",
+                "id": 2,
+                "amount": 10000,
+                "date": "2024.03.01",
+                "comments": ""
+              }
+            ],
+            "costs": [
+              {
+                "id": 1,
+                "costs": [
+                  {
+                    "category_id": 1,
+                    "amount": 1000,
+                    "comment": ""
+                  },
+                  {
+                    "category_id": 3,
+                    "amount": 500,
+                    "comment": "Lunch"
+                  }
+                ],
+                "date": 2
+              },
+              {
+                "id": 1,
+                "costs": [
+                  {
+                    "category_id": 1,
+                    "amount": 1000
+                  },
+                  {
+                    "category_id": 3,
+                    "amount": 500,
+                    "comment": "Lunch"
+                  }
+                ],
+                "date": 3
+              }
+            ]
+          },
+          "id": 1
+        },
+        {
+          "user_name": "admin",
+          "budget_data": {
+            "categories": [
+              {
+                "name": "Entertainment",
+                "id": 1
+              },
+              {
+                "name": "Food",
+                "id": 2
+              },
+              {
+                "name": "Other",
+                "id": 3
+              },
+              {
+                "name": "Auto",
+                "id": 4
+              },
+              {
+                "name": "Travel",
+                "id": 5
+              },
+              {
+                "name": "Health",
+                "id": 6
+              },
+              {
+                "name": "House",
+                "id": 7
+              },
+              {
+                "name": "Child",
+                "id": 8
+              },
+              {
+                "name": "Family",
+                "id": 9
+              },
+              {
+                "name": "Utility bills",
+                "id": 10
+              },
+              {
+                "name": "Lunch",
+                "id": 11
+              }
+            ],
+            "incomes": [
+              {
+                "name": "Salary",
+                "id": 1,
+                "amount": 10000,
+                "date": "2024.03.01"
+              },
+              {
+                "name": "Other",
+                "id": 2,
+                "amount": 10000,
+                "date": "2024.03.01"
+              }
+            ],
+            "costs": [
+              {
+                "id": 1,
+                "costs": [
+                  {
+                    "category_id": 1,
+                    "amount": 1000,
+                    "comment": ""
+                  },
+                  {
+                    "category_id": 3,
+                    "amount": 500,
+                    "comment": "Lunch"
+                  }
+                ],
+                "date": 2
+              },
+              {
+                "id": 1,
+                "costs": [
+                  {
+                    "category_id": 1,
+                    "amount": 1000
+                  },
+                  {
+                    "category_id": 3,
+                    "amount": 500,
+                    "comment": "Lunch"
+                  }
+                ],
+                "date": 3
+              }
+            ]
+          },
+          "id": 2
+        }
+      ]
+    },
+    {
+      "month": "2024-03",
+      "data": [
+        {
+          "user_name": "admin",
+          "budget_data": {
+            "categories": [
+              {
+                "name": "Entertainment",
+                "id": 1
+              },
+              {
+                "name": "Food",
+                "id": 2
+              },
+              {
+                "name": "Other",
+                "id": 3
+              },
+              {
+                "name": "Auto",
+                "id": 4
+              },
+              {
+                "name": "Travel",
+                "id": 5
+              },
+              {
+                "name": "Health",
+                "id": 6
+              },
+              {
+                "name": "House",
+                "id": 7
+              },
+              {
+                "name": "Child",
+                "id": 8
+              },
+              {
+                "name": "Family",
+                "id": 9
+              },
+              {
+                "name": "Utility bills",
+                "id": 10
+              },
+              {
+                "name": "Lunch",
+                "id": 11
+              }
+            ],
+            "incomes": [
+              {
+                "name": "Salary",
+                "id": 1,
+                "amount": 10000,
+                "date": "2024.03.01"
+              },
+              {
+                "name": "Other",
+                "id": 2,
+                "amount": 10000,
+                "date": "2024.03.01"
+              }
+            ],
+            "costs": [
+              {
+                "id": 1,
+                "costs": [
+                  {
+                    "category_id": 1,
+                    "amount": 1000,
+                    "comment": ""
+                  },
+                  {
+                    "category_id": 3,
+                    "amount": 500,
+                    "comment": "Lunch"
+                  }
+                ],
+                "date": 2
+              },
+              {
+                "id": 1,
+                "costs": [
+                  {
+                    "category_id": 1,
+                    "amount": 1000
+                  },
+                  {
+                    "category_id": 3,
+                    "amount": 500,
+                    "comment": "Lunch"
+                  }
+                ],
+                "date": 3
+              }
+            ]
+          },
+          "id": 1
+        }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "username": "username",
+      "password": "$2b$04$wukKFFZjkrKdS0NbEIPEvuZLvPrKT8FzV1vSZV5Cwdxjst0oUAN4C"
+    },
+    {
+      "username": "Вася",
+      "password": "$2b$04$/JOlZ8WUa3WrKAU2uJ.8luwod5nv/SuaiA7517HgTkrCGVygKGCPO"
+    },
+    {
+      "username": "admin",
+      "password": "$2b$04$YXmjQb0L5.Pwwtg8S5IMU./dEJSLcvSaPxOviB0QJWzL6gWqpn1Y."
+    },
+    {
+      "username": "Вася1 ",
+      "password": "$2b$04$EcxEtYO4HbrRIm1zxK5lguF5sHlGJoGzm83LlzRo/bsfnSjThtHsu"
+    }
+  ],
+  "access_tokens": [
+    {
+      "username": "username",
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDk4ODk4OTIsImV4cCI6MTcwOTkzMzA5Mn0.810sg-Crg8_TbTQO_XJTiAN93e4nbEIWJ6vH1YkNkUQ"
+    },
+    {
+      "username": "Вася",
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDk4OTAyOTMsImV4cCI6MTcwOTkzMzQ5M30.DZvDKpQvQfWsRIwgFe0uvHQsjMejf7R9e_TB2RJnBW8"
+    },
+    {
+      "username": "admin",
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTAxNzk0MDQsImV4cCI6MTcxMDIyMjYwNH0.Q-ZtkUtOaeisdMs1Ipnq_psKpBvQwz0JaAXQICVf-Og"
+    },
+    {
+      "username": "Вася1 ",
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTA4NjY2NTAsImV4cCI6MTcxMDkwOTg1MH0.Q1enW_99H_7nkK5kTWYDwqMZseJM0n2p5eM3ZwY5bZY"
+    }
+  ],
+  "refresh_tokens": [
+    {
+      "username": "username",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDk4ODk4OTIsImV4cCI6MTcxMDQ5NDY5Mn0.lL23iqa1yH-2_bgVtjSBSizIVZVkhPr58GjN2cTLeac"
+    },
+    {
+      "username": "Вася",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDk4OTAyOTMsImV4cCI6MTcxMDQ5NTA5M30.By7B2d-YNGjO118Wfntmip0RkIoiZYvi4PomaLDEJTQ"
+    },
+    {
+      "username": "admin",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTAxNzk0MDQsImV4cCI6MTcxMDc4NDIwNH0.oFo2c7Oz3r1LsiWNyqse_DV2fw7EeTWSVWiX1XcvHFU"
+    },
+    {
+      "username": "Вася1 ",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTA4NjY2NTAsImV4cCI6MTcxMTQ3MTQ1MH0.RjEJCyu4uBjnfI2UbTy3rKt1IhMMP7hK4wcMsniKics"
+    }
+  ]
 }
