@@ -15,8 +15,6 @@ export const SuccessResponse = ({
   data,
   noNestedData,
 }: ISuccessResponseProps) => {
-  console.log(data)
-
   return {
     success: true,
     data: noNestedData ? data?.data : data?.data?.data ?? data?.data,

@@ -4,6 +4,7 @@ const router = jsonServer.router('./src/assets/db.json')
 const middlewares = jsonServer.defaults()
 server.use(jsonServer.bodyParser)
 const setupRoutes = require('./routes.cjs')
+require('dotenv').config({ path: '../.env' })
 
 const authenticateToken = require('./authMiddleware.cjs')
 

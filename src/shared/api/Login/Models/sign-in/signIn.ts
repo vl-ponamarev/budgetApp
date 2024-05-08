@@ -13,7 +13,6 @@ export const signIn = async (payload: ILocalPayload): Promise<any> => {
     data: payload,
   })
 
-  console.log(response)
   return {
     ...response,
     success: response?.success ?? false,

@@ -45,7 +45,6 @@ export const apiQuery = async <T = any>({
               clarifyTimeoutError: false,
             },
     }
-    console.log(data)
 
     config = applyLibConfig(libConfig, config)
 
@@ -53,7 +52,6 @@ export const apiQuery = async <T = any>({
       config.headers = extraHeaders
     }
 
-    console.log('config', config)
     const response: AxiosResponse = await axiosInstance(config)
 
     if (debug) {

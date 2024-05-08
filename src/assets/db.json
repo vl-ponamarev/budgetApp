@@ -1,47 +1,47 @@
 {
-  "categories": [
+  "costs_categories": [
     {
-      "name": "Entertainment",
+      "name": "Развлечения",
       "id": 1
     },
     {
-      "name": "Food",
+      "name": "Еда",
       "id": 2
     },
     {
-      "name": "Other",
+      "name": "Прочее",
       "id": 3
     },
     {
-      "name": "Auto",
+      "name": "Обслуживание авто",
       "id": 4
     },
     {
-      "name": "Travel",
+      "name": "Путешествия",
       "id": 5
     },
     {
-      "name": "Health",
+      "name": "Здоровье",
       "id": 6
     },
     {
-      "name": "House",
+      "name": "Содержание дома",
       "id": 7
     },
     {
-      "name": "Child",
+      "name": "Дети",
       "id": 8
     },
     {
-      "name": "Family",
+      "name": "Семья",
       "id": 9
     },
     {
-      "name": "Utility bills",
+      "name": "Коммунальные услуги",
       "id": 10
     },
     {
-      "name": "Lunch",
+      "name": "Бизнес-ланч",
       "id": 11
     },
     {
@@ -49,315 +49,167 @@
       "id": 11
     }
   ],
+  "incomes_categories": [
+    {
+      "name": "Зарплата",
+      "id": 1
+    },
+    {
+      "name": "Проценты по вкладам",
+      "id": 2
+    },
+    {
+      "name": "Инвестиции",
+      "id": 3
+    },
+    {
+      "name": "Аренда квартиры",
+      "id": 4
+    }
+  ],
   "data": [
     {
       "month": "2024-02",
-      "data": [
-        {
-          "user_name": "Вася",
-          "budget_data": {
-            "categories": [
-              {
-                "name": "Entertainment",
-                "id": 1
-              },
-              {
-                "name": "Food",
-                "id": 2
-              },
-              {
-                "name": "Other",
-                "id": 3
-              },
-              {
-                "name": "Auto",
-                "id": 4
-              },
-              {
-                "name": "Travel",
-                "id": 5
-              },
-              {
-                "name": "Health",
-                "id": 6
-              },
-              {
-                "name": "House",
-                "id": 7
-              },
-              {
-                "name": "Child",
-                "id": 8
-              },
-              {
-                "name": "Family",
-                "id": 9
-              },
-              {
-                "name": "Utility bills",
-                "id": 10
-              },
-              {
-                "name": "Lunch",
-                "id": 11
-              }
-            ],
-            "incomes": [
-              {
-                "name": "Salary",
-                "id": 1,
-                "amount": 10000,
-                "date": "2024.03.01",
-                "comments": ""
-              },
-              {
-                "name": "Other",
-                "id": 2,
-                "amount": 10000,
-                "date": "2024.03.01",
-                "comments": ""
-              }
-            ],
-            "costs": [
-              {
-                "id": 1,
-                "costs": [
-                  {
-                    "category_id": 1,
-                    "amount": 1000,
-                    "comment": ""
-                  },
-                  {
-                    "category_id": 3,
-                    "amount": 500,
-                    "comment": "Lunch"
-                  }
-                ],
-                "date": 2
-              },
-              {
-                "id": 1,
-                "costs": [
-                  {
-                    "category_id": 1,
-                    "amount": 1000
-                  },
-                  {
-                    "category_id": 3,
-                    "amount": 500,
-                    "comment": "Lunch"
-                  }
-                ],
-                "date": 3
-              }
-            ]
-          },
-          "id": 1
-        },
+      "users_data": [
         {
           "user_name": "admin",
           "budget_data": {
-            "categories": [
+            "incomes_categories": [
               {
-                "name": "Entertainment",
+                "name": "Зарплата",
                 "id": 1
               },
               {
-                "name": "Food",
+                "name": "Проценты по вкладам",
                 "id": 2
               },
               {
-                "name": "Other",
+                "name": "Инвестиции",
+                "id": 3
+              }
+            ],
+            "costs_categories": [
+              {
+                "name": "Развлечения",
+                "id": 1
+              },
+              {
+                "name": "Еда",
+                "id": 2
+              },
+              {
+                "name": "Прочее",
                 "id": 3
               },
               {
-                "name": "Auto",
+                "name": "Обслуживание авто",
                 "id": 4
               },
               {
-                "name": "Travel",
+                "name": "Путешествия",
                 "id": 5
               },
               {
-                "name": "Health",
+                "name": "Здоровье",
                 "id": 6
               },
               {
-                "name": "House",
+                "name": "Содержание дома",
                 "id": 7
               },
               {
-                "name": "Child",
+                "name": "Дети",
                 "id": 8
               },
               {
-                "name": "Family",
+                "name": "Семья",
                 "id": 9
               },
               {
-                "name": "Utility bills",
+                "name": "Коммунальные услуги",
                 "id": 10
               },
               {
-                "name": "Lunch",
+                "name": "Бизнес-ланч",
+                "id": 11
+              },
+              {
+                "name": "Содержание мотоцикла",
                 "id": 11
               }
             ],
             "incomes": [
               {
-                "name": "Salary",
+                "category_id": 2,
+                "amount": 20000,
+                "date": "2024.02.01",
                 "id": 1,
-                "amount": 10000,
-                "date": "2024.03.01"
+                "comment": ""
               },
               {
-                "name": "Other",
+                "category_id": 1,
+                "amount": 320000,
+                "date": "2024.02.01",
                 "id": 2,
-                "amount": 10000,
-                "date": "2024.03.01"
+                "comment": ""
               }
             ],
             "costs": [
               {
-                "id": 1,
-                "costs": [
-                  {
-                    "category_id": 1,
-                    "amount": 1000,
-                    "comment": ""
-                  },
-                  {
-                    "category_id": 3,
-                    "amount": 500,
-                    "comment": "Lunch"
-                  }
-                ],
-                "date": 2
+                "category_id": 1,
+                "amount": 1000,
+                "comment": "Кино",
+                "date": "2024.02.01",
+                "id": 1
               },
               {
-                "id": 1,
-                "costs": [
-                  {
-                    "category_id": 1,
-                    "amount": 1000
-                  },
-                  {
-                    "category_id": 3,
-                    "amount": 500,
-                    "comment": "Lunch"
-                  }
-                ],
-                "date": 3
+                "category_id": 2,
+                "amount": 1500,
+                "comment": "Ашан",
+                "id": 2,
+                "date": "2024.02.01"
+              },
+              {
+                "category_id": 3,
+                "amount": 500,
+                "comment": "Ремонт велосипеда",
+                "id": 3,
+                "date": "2024.02.02"
+              },
+              {
+                "category_id": 3,
+                "amount": 500,
+                "comment": "Подарки",
+                "id": 4,
+                "date": "2024.02.03"
+              },
+              {
+                "category_id": 4,
+                "amount": 760,
+                "comment": "Замена колёс",
+                "id": 5,
+                "date": "2024.02.03"
+              },
+              {
+                "category_id": 5,
+                "amount": 790,
+                "comment": "Коломенское",
+                "id": 6,
+                "date": "2024.02.03"
+              },
+              {
+                "category_id": 5,
+                "amount": 11760,
+                "comment": "Суздаль",
+                "id": 7,
+                "date": "2024.02.04"
               }
             ]
           },
           "id": 2
         }
-      ]
-    },
-    {
-      "month": "2024-03",
-      "data": [
-        {
-          "user_name": "admin",
-          "budget_data": {
-            "categories": [
-              {
-                "name": "Entertainment",
-                "id": 1
-              },
-              {
-                "name": "Food",
-                "id": 2
-              },
-              {
-                "name": "Other",
-                "id": 3
-              },
-              {
-                "name": "Auto",
-                "id": 4
-              },
-              {
-                "name": "Travel",
-                "id": 5
-              },
-              {
-                "name": "Health",
-                "id": 6
-              },
-              {
-                "name": "House",
-                "id": 7
-              },
-              {
-                "name": "Child",
-                "id": 8
-              },
-              {
-                "name": "Family",
-                "id": 9
-              },
-              {
-                "name": "Utility bills",
-                "id": 10
-              },
-              {
-                "name": "Lunch",
-                "id": 11
-              }
-            ],
-            "incomes": [
-              {
-                "name": "Salary",
-                "id": 1,
-                "amount": 10000,
-                "date": "2024.03.01"
-              },
-              {
-                "name": "Other",
-                "id": 2,
-                "amount": 10000,
-                "date": "2024.03.01"
-              }
-            ],
-            "costs": [
-              {
-                "id": 1,
-                "costs": [
-                  {
-                    "category_id": 1,
-                    "amount": 1000,
-                    "comment": ""
-                  },
-                  {
-                    "category_id": 3,
-                    "amount": 500,
-                    "comment": "Lunch"
-                  }
-                ],
-                "date": 2
-              },
-              {
-                "id": 1,
-                "costs": [
-                  {
-                    "category_id": 1,
-                    "amount": 1000
-                  },
-                  {
-                    "category_id": 3,
-                    "amount": 500,
-                    "comment": "Lunch"
-                  }
-                ],
-                "date": 3
-              }
-            ]
-          },
-          "id": 1
-        }
-      ]
+      ],
+      "id": 1
     }
   ],
   "users": [

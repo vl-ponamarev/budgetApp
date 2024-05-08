@@ -79,7 +79,6 @@ module.exports = function (app) {
     })
   })
   app.post('/usersdata', async (req, res) => {
-    console.log('запрос ====>>>>> ,req.body', req.body)
     const { username, date } = req.body
     if (username) {
       await getUsersData(username, date)
@@ -98,7 +97,6 @@ module.exports = function (app) {
 
   app.post('/login', async (req, res) => {
     const { username, password } = req.body
-    console.log('req.body', req.body)
     if (username && password) {
       try {
         const db = router.db

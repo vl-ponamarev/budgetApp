@@ -14,14 +14,12 @@ instance.interceptors.request.use((config) => {
   }
   config.headers = config.headers || {}
   config.headers.Authorization = `Bearer ${sessionStorage.getItem('token')}`
-  console.log(config)
 
   return config
 })
 
 instance.interceptors.response.use(
   (config) => {
-    console.log(config)
     return config
   },
   async (error) => {
@@ -42,7 +40,6 @@ instance.interceptors.response.use(
             withCredentials: true,
           },
         )
-        console.log(response)
 
         localStorage.setItem('token', response.data.accessToken)
         return instance.request(originalRequest)

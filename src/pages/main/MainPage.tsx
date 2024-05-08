@@ -1,11 +1,11 @@
 import { useCallback, useEffect } from 'react'
-import { useAccountStore } from '../../shared/stores/accounts'
 import { Button } from 'antd'
-import { PieChart } from '../../entities/pie-chart/PieChart'
-import { budgetStore } from '../../shared/stores/budget'
-import dayjs from 'dayjs'
+import budgetStore, { IBudgetStore } from '../../shared/stores/budget'
 import MonthPicker from '../../entities/ui/MonthPicker'
-import IncomesTable from '../../entities/incomes-table/IncomesTable'
+import { PieChartCosts } from '../../entities/pie-chart/PieChartCosts'
+import { useAccountStore } from '../../shared/stores/accounts'
+import { PieChartIncomes } from '../../entities/pie-chart/PieChartIncomes'
+import CostsTableSummary from '../../entities/costs-table/CostsTableSummary'
 
 const MainPage = () => {
   const logout = useAccountStore((s) => s.logout)
@@ -16,34 +16,51 @@ const MainPage = () => {
     localStorage.removeItem('selectedModeId')
   }, [logout])
 
-  const [getBudgetData, createBudgetData] = budgetStore((s) => [
+  const [
+    selectedMonth,
+    getUserBudgetData,
+    getMonthData,
+    monthBudgetData,
+    getBudgetData,
+    budgetData,
+  ] = budgetStore((s: IBudgetStore) => [
+    s.selectedMonth,
+    s.getUserBudgetData,
+    s.getMonthData,
+    s.monthBudgetData,
     s.getBudgetData,
-    s.createBudgetData,
+    s.budgetData,
   ])
-  const currentDate = dayjs().format('YYYY.MM')
+  // const getUserBudgetData = budgetStore((s: IBudgetStore) => s.getUserBudgetData)
 
-  const getData = useCallback(() => {
-    getBudgetData(username, '2024.03')
-    createBudgetData({ username: 'user', budget_data: {} }, '2024.03')
-  }, [])
+  console.log('selectedMonth', selectedMonth)
+
+  console.log('username', username)
+
+  // createBudgetData({ username: 'user', budget_data: {} }, '2024-03')
 
   useEffect(() => {
-    if (username) {
-      getBudgetData(username, currentDate)
+    if (username && selectedMonth) {
+      getUserBudgetData(username, selectedMonth)
+      getMonthData(1)
+      getBudgetData()
     }
-  }, [username])
+  }, [getUserBudgetData, selectedMonth, username])
+  console.log(monthBudgetData)
+  console.log(budgetData)
 
   return (
     <>
       <Button style={{ margin: '16px 10px 0' }} onClick={() => handleLogout()}>
         Выйти
       </Button>
-      <Button style={{ margin: '16px 10px 0' }} onClick={() => getData()}>
-        GetData
-      </Button>
       <MonthPicker />
-      <PieChart />
-      <IncomesTable />
+      <div style={{ display: 'flex', margin: '16px', width: '100%' }}>
+        <PieChartIncomes />
+        <PieChartCosts />
+      </div>
+      <CostsTableSummary />
+      {/* <IncomesTable /> */}
     </>
   )
 }

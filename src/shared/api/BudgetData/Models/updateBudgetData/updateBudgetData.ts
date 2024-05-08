@@ -8,16 +8,14 @@ interface ILocalPayload {
 export const updateBudgetData = async (
   payload: ILocalPayload,
   month: string,
-  username: string,
 ): Promise<any> => {
   const endpoint = { ...API_BUDGET.updateData }
   const response = await API.apiQuery<IFullAccount>({
     method: endpoint.method,
-    url: `${endpoint.url}data/${month}/data/${username}`,
-    data: { budget_data: payload },
+    url: `${endpoint.url}data/${month}`,
+    data: payload,
   })
 
-  console.log(response)
   return {
     ...response,
     success: response?.success ?? false,
