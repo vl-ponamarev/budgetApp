@@ -3,6 +3,7 @@ import { IApiEntityScheme } from '../ApiSPA'
 export const API_BUDGET_ENDPOINTS = [
   'getData',
   'updateData',
+  'createData',
   'getMonthData',
 ] as const
 
@@ -15,6 +16,10 @@ export const API_BUDGET: IApiEntityScheme<IEndpoint> = {
   },
   updateData: {
     method: 'PATCH',
+    url: `${import.meta.env.VITE_BASE_URL}`,
+  },
+  createData: {
+    method: 'POST',
     url: `${import.meta.env.VITE_BASE_URL}`,
   },
   getMonthData: {

@@ -6,6 +6,7 @@ import { IAuthStore, authStore } from '../auth/index'
 import { Modal } from 'antd'
 import { login } from '../../api/Login/Models/login'
 import { signIn } from '../../api/Login/Models/sign-in'
+import budgetStore from '../budget'
 
 export interface IFullAccount {
   token: string
@@ -92,6 +93,8 @@ export const useAccountStore = create<IAccountStore>()(
               username,
               password,
             })
+            console.log(response)
+
             if (
               (response?.success && response?.code === 200) ||
               (response?.success && response?.code === 201)
@@ -134,6 +137,8 @@ export const useAccountStore = create<IAccountStore>()(
               isAuth: false,
             }))
             localStorage.removeItem('token')
+            localStorage.removeItem('username')
+            sessionStorage.removeItem('token')
           },
         }),
         { name: 'accountStore' },

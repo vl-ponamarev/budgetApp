@@ -11,26 +11,35 @@ const MainPage = () => {
   const logout = useAccountStore((s) => s.logout)
   const { username } = useAccountStore((s) => s.store.data)
 
-  const handleLogout = useCallback(() => {
-    logout()
-    localStorage.removeItem('selectedModeId')
-  }, [logout])
-
   const [
     selectedMonth,
     getUserBudgetData,
     getMonthData,
     monthBudgetData,
-    getBudgetData,
-    budgetData,
+    getCostsCategories,
+    getIncomesCategories,
+    userBudgetData,
+    updateMonthBudgetData,
+    createMonthBudgetData,
+    clearStore,
   ] = budgetStore((s: IBudgetStore) => [
     s.selectedMonth,
     s.getUserBudgetData,
     s.getMonthData,
     s.monthBudgetData,
-    s.getBudgetData,
-    s.budgetData,
+    s.getCostsCategories,
+    s.getIncomesCategories,
+    s.userBudgetData,
+    s.updateMonthBudgetData,
+    s.createMonthBudgetData,
+    s.clearStore,
   ])
+
+  const handleLogout = useCallback(() => {
+    logout()
+    localStorage.removeItem('selectedModeId')
+    clearStore()
+  }, [logout])
   // const getUserBudgetData = budgetStore((s: IBudgetStore) => s.getUserBudgetData)
 
   console.log('selectedMonth', selectedMonth)
@@ -42,12 +51,73 @@ const MainPage = () => {
   useEffect(() => {
     if (username && selectedMonth) {
       getUserBudgetData(username, selectedMonth)
-      getMonthData(1)
-      getBudgetData()
+      getMonthData(Number(selectedMonth.split('-')[1]) - 1)
     }
   }, [getUserBudgetData, selectedMonth, username])
+
+  useEffect(() => {
+    getCostsCategories()
+    getIncomesCategories()
+  }, [])
   console.log(monthBudgetData)
-  console.log(budgetData)
+
+  useEffect(() => {
+    if (monthBudgetData && Object.keys(monthBudgetData).length > 0) {
+      const { users_data } = monthBudgetData
+      const user = users_data?.find((u: any) => u.user_name === username)
+      console.log(user)
+      if (user) {
+        return
+      } else {
+        console.log('oks')
+        const newUserDataID = monthBudgetData?.usersData?.length + 1
+        const newUserData = {
+          user_name: username,
+          budget_data: {
+            incomes_categories: [],
+            costs_categories: [],
+            incomes: [],
+            costs: [],
+          },
+          id: newUserDataID,
+        }
+
+        const updatedData = { users_data: newUserData }
+        const updatedMonthBudgetData = {
+          ...monthBudgetData,
+          usersData: updatedData,
+        }
+
+        console.log(monthBudgetData)
+        console.log(updatedMonthBudgetData)
+
+        updateMonthBudgetData(
+          updatedMonthBudgetData,
+          Number(selectedMonth?.split('-')[1]) - 1,
+        )
+      }
+    } else {
+      console.log('ok')
+
+      const newUserData = {
+        user_name: username,
+        budget_data: {
+          incomes_categories: [],
+          costs_categories: [],
+          incomes: [],
+          costs: [],
+        },
+        id: 1,
+      }
+      if (selectedMonth && selectedMonth?.length > 0) {
+        const monthBudgetData = {
+          month: selectedMonth,
+          users_data: [newUserData],
+        }
+        // createMonthBudgetData(monthBudgetData)
+      }
+    }
+  }, [selectedMonth])
 
   return (
     <>
@@ -55,10 +125,12 @@ const MainPage = () => {
         Выйти
       </Button>
       <MonthPicker />
+
       <div style={{ display: 'flex', margin: '16px', width: '100%' }}>
         <PieChartIncomes />
         <PieChartCosts />
       </div>
+
       <CostsTableSummary />
       {/* <IncomesTable /> */}
     </>

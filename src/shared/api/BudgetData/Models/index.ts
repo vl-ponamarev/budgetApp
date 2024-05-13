@@ -1,11 +1,15 @@
 import { getUserBudgetData } from './getUserBudgetData'
 import { getMonthData } from './getMonthData/getMonthData'
 import { updateBudgetData } from './updateBudgetData'
-import { getAllBudgetData } from './getAllBudgetData'
+import { getCostsCategories } from './getCostsCategories'
+import { getIncomesCategories } from './getIncomesCategories'
+import { createMonthBudgetData } from './createMonthBudgetData'
 
 export default {
   getUserBudgetData,
   updateBudgetData,
   getMonthData,
-  getAllBudgetData,
+  getCostsCategories,
+  getIncomesCategories,
+  createMonthBudgetData,
 }

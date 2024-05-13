@@ -20,13 +20,27 @@ interface DataType {
 type ColumnTypes = Exclude<EditableTableProps['columns'], undefined>
 
 const CostsTableSummary: React.FC = () => {
-  const [selectedMonth, userBudgetData] = budgetStore((s: IBudgetStore) => [
+  const [
+    selectedMonth,
+    userBudgetData,
+    costsCategories,
+    incomesCategories,
+    monthBudgetData,
+    updateMonthBudgetData,
+  ] = budgetStore((s: IBudgetStore) => [
     s.selectedMonth,
     s.userBudgetData,
+    s.costsCategories,
+    s.incomesCategories,
+    s.monthBudgetData,
+    s.updateMonthBudgetData,
   ])
   // const { Text } = Typography
   console.log(dayjs(selectedMonth).format('MM.YYYY'))
   console.log(userBudgetData)
+  console.log(costsCategories)
+  console.log(incomesCategories)
+  console.log(monthBudgetData)
 
   const { Text } = Typography
   // const {
@@ -75,8 +89,8 @@ const CostsTableSummary: React.FC = () => {
   const [selectOptions, setSelectOptions] = useState([])
 
   useEffect(() => {
-    const options = userBudgetData?.budget_data?.costs_categories
-      .map((category: { name: string; id: number }) => {
+    const options = costsCategories
+      ?.map((category: { name: string; id: number }) => {
         return { value: category.id, label: category.name }
       })
       .filter((category: any) => {
@@ -113,10 +127,9 @@ const CostsTableSummary: React.FC = () => {
       let selectTargetValueObject
       const [selectValue] = selectTargetValue
       if (selectTargetValue.length > 0) {
-        selectTargetValueObject =
-          userBudgetData?.budget_data?.costs_categories.find(
-            (category: any) => String(category.id) === String(selectValue),
-          )
+        selectTargetValueObject = costsCategories?.find(
+          (category: any) => String(category.id) === String(selectValue),
+        )
       }
       const value =
         selectTargetValue.length > 0
@@ -138,7 +151,20 @@ const CostsTableSummary: React.FC = () => {
     setAddNewItemState(false)
     setSelectTargetValue('')
     setInputTargetValue('')
+    const costs_categories = newData.map((data: any) => {
+      return { name: data.cost, id: data.key }
+    })
+    const users_data = monthBudgetData.users_data.find(
+      (data: any) => String(data.id) === String(userBudgetData.id),
+    )
+    const { budget_data } = users_data
+    const updatedBudgetData = { ...budget_data, costs_categories }
+    const updatedUserData = { ...users_data, budget_data: updatedBudgetData }
+    const { id } = userBudgetData
+    console.log('updatedUserData', updatedUserData)
+    updateMonthBudgetData(updatedUserData, id)
   }
+
   console.log(dataSource)
 
   const onInputChange = (
@@ -154,13 +180,13 @@ const CostsTableSummary: React.FC = () => {
     {
       title: 'Расход ',
       dataIndex: 'cost',
-      width: '50%',
+      width: '70%',
       render: (_, record) => {
         if (record.isNew) {
           return (
             <>
               <Select
-                placeholder="Выберете существующую статью расхода из списка"
+                placeholder="Выберете статью расхода из списка"
                 onChange={(value) => handleSelectChange(value)}
                 options={selectOptions}
                 style={{ width: '100%' }}
@@ -168,7 +194,7 @@ const CostsTableSummary: React.FC = () => {
                 maxCount={1}
                 disabled={inputTargetValue ? true : false}
               />
-              <Text mark style={{ padding: 20 }}>
+              <Text mark style={{ padding: 40 }}>
                 или
               </Text>
               <Input
@@ -188,34 +214,39 @@ const CostsTableSummary: React.FC = () => {
       title: 'Общая сумма',
       dataIndex: 'sum',
       editable: false,
+      width: '15%',
     },
     {
       title: 'Действия',
       dataIndex: 'action',
+      width: '15%',
+
       render: (_, record) => {
         if (record.isNew) {
           return (
-            <>
+            <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
               <Button onClick={() => handleSaveNewItem(record.key)}>
                 Save
               </Button>
 
-              <Popconfirm
+              {/* <Popconfirm
                 title="Sure to cancel?"
                 onConfirm={() => handleCancel(record.key)}
-              >
-                <Button>Cancel</Button>
-              </Popconfirm>
-            </>
+              > */}
+              <Button onClick={() => handleCancel(record.key)}>Cancel</Button>
+              {/* </Popconfirm> */}
+            </div>
           )
         }
         return (
-          <Popconfirm
-            title="Sure to delete?"
-            onConfirm={() => handleDelete(record.key)}
-          >
-            <Button>Delete</Button>
-          </Popconfirm>
+          <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+            <Popconfirm
+              title="Sure to delete?"
+              onConfirm={() => handleDelete(record.key)}
+            >
+              <Button>Delete</Button>
+            </Popconfirm>
+          </div>
         ) // Или отображаем что-то другое для существующих записей
       },
     },
@@ -271,7 +302,7 @@ const CostsTableSummary: React.FC = () => {
 
   return (
     <>
-      <div style={{ width: '90%' }}>
+      <div style={{ width: '90%', marginTop: 30 }}>
         <Button
           onClick={handleAdd}
           type="primary"
