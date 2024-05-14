@@ -41,7 +41,7 @@
   ],
   "data": [
     {
-      "month": "2024-05",
+      "month": 5,
       "users_data": [
         {
           "user_name": "admin234",
@@ -52,11 +52,8 @@
             "costs": []
           },
           "id": 1
-        }
-      ],
-      "id": 1,
-      "usersData": {
-        "users_data": {
+        },
+        {
           "user_name": "admin555",
           "budget_data": {
             "incomes_categories": [],
@@ -64,99 +61,40 @@
             "incomes": [],
             "costs": []
           },
-          "id": null
-        }
-      }
-    },
-    {
-      "month": "2024-05",
-      "users_data": [
-        {
-          "user_name": "admin234",
-          "budget_data": {
-            "incomes_categories": [],
-            "costs_categories": [],
-            "incomes": [],
-            "costs": []
-          },
-          "id": 1
+          "id": 2
         }
       ],
-      "id": 2,
-      "usersData": {
-        "users_data": {
-          "user_name": "admin",
-          "budget_data": {
-            "incomes_categories": [],
-            "costs_categories": [],
-            "incomes": [],
-            "costs": []
-          },
-          "id": null
-        }
-      }
-    },
-    {
-      "month": "2024-05",
-      "users_data": [
-        {
-          "user_name": "admin234",
-          "budget_data": {
-            "incomes_categories": [],
-            "costs_categories": [],
-            "incomes": [],
-            "costs": []
-          },
-          "id": 1
-        }
-      ],
-      "id": 3,
-      "usersData": {
-        "users_data": {
-          "user_name": "admin",
-          "budget_data": {
-            "incomes_categories": [],
-            "costs_categories": [],
-            "incomes": [],
-            "costs": []
-          },
-          "id": null
-        }
-      }
-    },
-    {
-      "month": "2024-05",
-      "users_data": [
-        {
-          "user_name": "admin234",
-          "budget_data": {
-            "incomes_categories": [],
-            "costs_categories": [],
-            "incomes": [],
-            "costs": []
-          },
-          "id": 1
-        }
-      ],
-      "id": 4
+      "id": "5"
     }
   ],
   "users": [
     {
       "username": "admin",
       "password": "$2b$04$YXmjQb0L5.Pwwtg8S5IMU./dEJSLcvSaPxOviB0QJWzL6gWqpn1Y."
+    },
+    {
+      "username": "admin777",
+      "password": "$2b$04$8OwMFnD0PEJaATD6Rw3r8.oY1qCOc2mB4ac6juUHKKQfka8OvW5j6"
     }
   ],
   "access_tokens": [
     {
       "username": "admin",
       "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTAxNzk0MDQsImV4cCI6MTcxMDIyMjYwNH0.Q-ZtkUtOaeisdMs1Ipnq_psKpBvQwz0JaAXQICVf-Og"
+    },
+    {
+      "username": "admin777",
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTU2MTgyMjMsImV4cCI6MTcxNTY2MTQyM30.z_5FkUkr7O4LJ-0RseiX8cfUfcotebhNW1_CHoz2H2A"
     }
   ],
   "refresh_tokens": [
     {
       "username": "admin",
       "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTAxNzk0MDQsImV4cCI6MTcxMDc4NDIwNH0.oFo2c7Oz3r1LsiWNyqse_DV2fw7EeTWSVWiX1XcvHFU"
+    },
+    {
+      "username": "admin777",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTU2MTgyMjMsImV4cCI6MTcxNjIyMzAyM30.n2X7Vm5zes_6YoEUH1MD-OKh5XFX8LM-v83v5vqOKgU"
     }
   ]
 }

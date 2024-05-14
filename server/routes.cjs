@@ -20,6 +20,7 @@ module.exports = function (app) {
         // Получаем доступ к базе данных
         const db = router.db
         const userExists = db.get('users').find({ username }).value()
+        console.log('userExists !!!!!!!', userExists)
         if (userExists) {
           res
             .status(400)
@@ -118,6 +119,43 @@ module.exports = function (app) {
       }
     } else {
       return res.status(400).json({ message: 'Пропущены логин или пароль' })
+    }
+  })
+  app.patch('/data/:id/users_data/:userId', (req, res) => {
+    const { id, userId } = req.params
+    const updatedUserData = req.body
+
+    console.log('month, userId ======', id, userId)
+    console.log('updatedUserData', updatedUserData)
+
+    const db = router.db
+    const dataEntry = db.get('data').find({ month: 5 }).value()
+
+    console.log('dataEntry<<>>>', dataEntry)
+
+    if (dataEntry) {
+      const usersData = dataEntry.users_data
+      const userIndex = usersData.findIndex((user) => user.id == userId)
+
+      if (userIndex > -1) {
+        // Update user's data
+        usersData[userIndex] = { ...usersData[userIndex], ...updatedUserData }
+
+        // Save the updated data back to the db
+        db.get('data')
+          .find({ month: month })
+          .assign({ users_data: usersData })
+          .write()
+
+        res.json({
+          message: 'Пользователь успешно обновлен',
+          updatedData: usersData[userIndex],
+        })
+      } else {
+        res.status(404).json({ error: 'Пользователь не найден' })
+      }
+    } else {
+      res.status(404).json({ error: 'Запись для данного месяца не найдена' })
     }
   })
 }
