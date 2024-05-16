@@ -40,11 +40,17 @@ module.exports = function (app) {
               db.get('refresh_tokens')
                 .push({ username: newUser.username, refreshToken })
                 .write()
+              res.cookie('refreshToken', refreshToken, {
+                httpOnly: true,
+                secure: false, // Используйте true, если ваш сервер работает по HTTPS
+                maxAge: 1000 * 60 * 60 * 24 * 7, // 7 дней
+                sameSite: 'Strict',
+              })
               res.status(201).json({
                 message: 'Пользователь успешно зарегистрирован',
                 username: newUser.username,
                 accessToken,
-                refreshToken,
+                // refreshToken,
               })
             })
             .catch((error) => {
@@ -109,7 +115,14 @@ module.exports = function (app) {
         if (passwordMatch) {
           const accessToken = await createAccessToken(username)
           const refreshToken = await createRefreshToken(username)
-          res.status(200).json({ accessToken, refreshToken, username })
+          res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            secure: false, // Используйте true, если ваш сервер работает по HTTPS
+            maxAge: 1000 * 60 * 60 * 24 * 7, // 7 дней
+            sameSite: 'Strict',
+            path: '/',
+          })
+          res.status(200).json({ accessToken, username })
         } else {
           return res.sendStatus(401) // Incorrect password
         }
@@ -121,41 +134,73 @@ module.exports = function (app) {
       return res.status(400).json({ message: 'Пропущены логин или пароль' })
     }
   })
-  app.patch('/data/:id/users_data/:userId', (req, res) => {
-    const { id, userId } = req.params
+  app.patch('/data/:month/users_data/:userId', (req, res) => {
+    const { month, userId } = req.params
     const updatedUserData = req.body
-
-    console.log('month, userId ======', id, userId)
     console.log('updatedUserData', updatedUserData)
 
     const db = router.db
-    const dataEntry = db.get('data').find({ month: 5 }).value()
+    const dataEntry = db
+      .get('data')
+      .find({ month: Number(month) })
+      .value()
+
+    console.log('dataEntry<<>>>', dataEntry)
+
+    console.log('userId', userId)
+
+    if (dataEntry) {
+      const userData = dataEntry.users_data
+      const updatedUserData = userData.map((user) =>
+        String(user.id) === String(userId) ? req.body : user,
+      )
+      // Save the updated data back to the db
+      db.get('data')
+        .find({ month: Number(month) })
+        .assign({ users_data: updatedUserData })
+        .write()
+      res.json({
+        message: 'Пользователь успешно обновлен',
+        users_data: updatedUserData,
+      })
+    } else {
+      res.status(404).json({ error: 'Запись для данного месяца не найдена' })
+    }
+  })
+
+  app.post('/data/:month/users_data', (req, res) => {
+    const { month } = req.params
+    const newUser = req.body
+
+    const db = router.db
+    const monthNumber = Number(month)
+
+    const dataEntry = db.get('data').find({ month: monthNumber }).value()
 
     console.log('dataEntry<<>>>', dataEntry)
 
     if (dataEntry) {
-      const usersData = dataEntry.users_data
-      const userIndex = usersData.findIndex((user) => user.id == userId)
-
-      if (userIndex > -1) {
-        // Update user's data
-        usersData[userIndex] = { ...usersData[userIndex], ...updatedUserData }
-
-        // Save the updated data back to the db
-        db.get('data')
-          .find({ month: month })
-          .assign({ users_data: usersData })
-          .write()
-
-        res.json({
-          message: 'Пользователь успешно обновлен',
-          updatedData: usersData[userIndex],
-        })
-      } else {
-        res.status(404).json({ error: 'Пользователь не найден' })
-      }
+      db.get('data')
+        .find({ month: monthNumber })
+        .get('users_data')
+        .push(newUser)
+        .write()
+      res.json({
+        message: 'Пользователь успешно добавлен',
+        newUser: newUser,
+      })
     } else {
-      res.status(404).json({ error: 'Запись для данного месяца не найдена' })
+      db.get('data')
+        .push({
+          month: monthNumber,
+          users_data: [newUser],
+          id: monthNumber,
+        })
+        .write()
+      res.json({
+        message: 'Новый месяц и пользователь успешно добавлены',
+        newUser: newUser,
+      })
     }
   })
 }

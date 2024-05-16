@@ -46,7 +46,10 @@ const createRefreshToken = (user) => {
 }
 
 const refreshAccessToken = (req, res) => {
-  const { refreshToken } = req.body
+  // const { refreshToken } = req.body
+  const refreshToken = req.cookies.refreshToken
+  console.log('-----refreshToken----', refreshToken)
+
   const refreshSecret = process.env.JWT_REFRESH_SECRET || 'jwt_refresh_secret'
 
   jwt.verify(refreshToken, refreshSecret, (error, decoded) => {

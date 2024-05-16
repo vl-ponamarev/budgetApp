@@ -44,12 +44,16 @@
       "month": 5,
       "users_data": [
         {
-          "user_name": "admin234",
+          "user_name": "admin555",
           "budget_data": {
             "incomes_categories": [],
             "costs_categories": [],
             "incomes": [],
-            "costs": []
+            "costs": [
+              1000,
+              2000,
+              500
+            ]
           },
           "id": 1
         },
@@ -62,9 +66,43 @@
             "costs": []
           },
           "id": 2
+        },
+        {
+          "user_name": "admin777",
+          "budget_data": {
+            "incomes_categories": [],
+            "costs_categories": [],
+            "incomes": [],
+            "costs": [
+              1000,
+              2000,
+              5000,
+              99
+            ]
+          }
         }
       ],
       "id": "5"
+    },
+    {
+      "month": 6,
+      "users_data": [
+        {
+          "user_name": "admin777",
+          "budget_data": {
+            "incomes_categories": [],
+            "costs_categories": [],
+            "incomes": [],
+            "costs": [
+              1000,
+              2000,
+              5000,
+              99
+            ]
+          }
+        }
+      ],
+      "id": 6
     }
   ],
   "users": [
