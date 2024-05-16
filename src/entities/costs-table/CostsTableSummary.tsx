@@ -68,7 +68,7 @@ const CostsTableSummary: React.FC = () => {
       const costName = userBudgetData?.budget_data?.costs_categories.find(
         (category: any) => String(category.id) === key,
       )
-      const { name } = costName
+      const { name } = costName ?? ''
       const obj: DataType = {
         sum: totalAmountByCategory[key],
         cost: name,

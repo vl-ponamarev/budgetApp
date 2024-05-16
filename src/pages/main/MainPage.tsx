@@ -6,16 +6,13 @@ import { PieChartCosts } from '../../entities/pie-chart/PieChartCosts'
 import { useAccountStore } from '../../shared/stores/accounts'
 import { PieChartIncomes } from '../../entities/pie-chart/PieChartIncomes'
 import CostsTableSummary from '../../entities/costs-table/CostsTableSummary'
+import Paragraph from 'antd/es/skeleton/Paragraph'
 
 const MainPage = () => {
   const logout = useAccountStore((s) => s.logout)
-  const { username } = useAccountStore((s) => s.store.data)
-
   const [
     selectedMonth,
     getUserBudgetData,
-    getMonthData,
-    monthBudgetData,
     getCostsCategories,
     getIncomesCategories,
     userBudgetData,
@@ -25,8 +22,6 @@ const MainPage = () => {
   ] = budgetStore((s: IBudgetStore) => [
     s.selectedMonth,
     s.getUserBudgetData,
-    s.getMonthData,
-    s.monthBudgetData,
     s.getCostsCategories,
     s.getIncomesCategories,
     s.userBudgetData,
@@ -38,86 +33,51 @@ const MainPage = () => {
   const handleLogout = useCallback(() => {
     logout()
     localStorage.removeItem('selectedModeId')
+    sessionStorage.removeItem('id')
     clearStore()
   }, [logout])
   // const getUserBudgetData = budgetStore((s: IBudgetStore) => s.getUserBudgetData)
 
   console.log('selectedMonth', selectedMonth)
 
-  console.log('username', username)
+  console.log('userBudgetData', userBudgetData)
 
-  // createBudgetData({ username: 'user', budget_data: {} }, '2024-03')
+  const userName = localStorage.getItem('username')
 
   useEffect(() => {
-    if (username && selectedMonth) {
-      getUserBudgetData(username, selectedMonth)
-      getMonthData(Number(selectedMonth.split('-')[1]) - 1)
+    const id = sessionStorage.getItem('id')
+    if (id && selectedMonth) {
+      console.log(id)
+
+      getUserBudgetData(selectedMonth, Number(id))
+      // getMonthData(Number(selectedMonth.split('-')[1]) - 1)
     }
-  }, [getUserBudgetData, selectedMonth, username])
+  }, [getUserBudgetData, selectedMonth])
 
   useEffect(() => {
     getCostsCategories()
     getIncomesCategories()
   }, [])
-  console.log(monthBudgetData)
 
   useEffect(() => {
-    if (monthBudgetData && Object.keys(monthBudgetData).length > 0) {
-      const { users_data } = monthBudgetData
-      const user = users_data?.find((u: any) => u.user_name === username)
-      console.log(user)
-      if (user) {
-        return
-      } else {
-        console.log('oks')
-        const newUserDataID = monthBudgetData?.usersData?.length + 1
-        const newUserData = {
-          user_name: username,
-          budget_data: {
-            incomes_categories: [],
-            costs_categories: [],
-            incomes: [],
-            costs: [],
-          },
-          id: newUserDataID,
-        }
-
-        const updatedData = { users_data: newUserData }
-        const updatedMonthBudgetData = {
-          ...monthBudgetData,
-          usersData: updatedData,
-        }
-
-        console.log(monthBudgetData)
-        console.log(updatedMonthBudgetData)
-
-        updateMonthBudgetData(
-          updatedMonthBudgetData,
-          Number(selectedMonth?.split('-')[1]) - 1,
-        )
-      }
+    if (userBudgetData && Object.keys(userBudgetData).length > 0) {
+      return
     } else {
-      console.log('ok')
-
+      const id = sessionStorage.getItem('id')
       const newUserData = {
-        user_name: username,
+        user_id: Number(id),
         budget_data: {
           incomes_categories: [],
           costs_categories: [],
           incomes: [],
           costs: [],
         },
-        id: 1,
       }
-      if (selectedMonth && selectedMonth?.length > 0) {
-        const monthBudgetData = {
-          month: selectedMonth,
-          users_data: [newUserData],
-        }
-        // createMonthBudgetData(monthBudgetData)
+      if (selectedMonth) {
+        updateMonthBudgetData(newUserData, selectedMonth, Number(id))
       }
     }
-  }, [selectedMonth])
+  }, [userBudgetData, selectedMonth])
 
   return (
     <>
@@ -125,10 +85,11 @@ const MainPage = () => {
         Выйти
       </Button>
       <MonthPicker />
+      <div>{userName}</div>
 
       <div style={{ display: 'flex', margin: '16px', width: '100%' }}>
-        <PieChartIncomes />
-        <PieChartCosts />
+        {/* <PieChartIncomes />
+        <PieChartCosts /> */}
       </div>
 
       <CostsTableSummary />

@@ -4,7 +4,6 @@ export enum ROUTES {
   LOGIN = 'login',
   REFRESH = 'refresh',
   SIGN_IN = 'register',
-  BUDGET_DATA = 'usersdata',
 }
 
 export enum ROUTES_COMMON {

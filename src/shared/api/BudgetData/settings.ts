@@ -11,8 +11,8 @@ type IEndpoint = (typeof API_BUDGET_ENDPOINTS)[number]
 
 export const API_BUDGET: IApiEntityScheme<IEndpoint> = {
   getData: {
-    method: 'POST',
-    url: `${import.meta.env.VITE_BASE_URL}${ROUTES.BUDGET_DATA}`,
+    method: 'GET',
+    url: `${import.meta.env.VITE_BASE_URL}data/`,
   },
   updateData: {
     method: 'PATCH',

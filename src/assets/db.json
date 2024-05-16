@@ -44,61 +44,79 @@
       "month": 5,
       "users_data": [
         {
-          "user_name": "admin555",
+          "user_id": 1,
           "budget_data": {
             "incomes_categories": [],
             "costs_categories": [],
             "incomes": [],
             "costs": [
-              1000,
-              2000,
-              500
+              {
+                "id": 1,
+                "category_id": 1,
+                "amount": 100,
+                "date": null,
+                "comment": "Развлечения"
+              }
             ]
-          },
-          "id": 1
+          }
         },
         {
-          "user_name": "admin555",
+          "user_id": 2,
+          "budget_data": {
+            "incomes_categories": [],
+            "costs_categories": [],
+            "incomes": [],
+            "costs": [2000, 3000, 4000, 5000]
+          }
+        },
+        {
+          "user_id": 3,
           "budget_data": {
             "incomes_categories": [],
             "costs_categories": [],
             "incomes": [],
             "costs": []
-          },
-          "id": 2
+          }
         },
         {
-          "user_name": "admin777",
+          "user_id": 4,
           "budget_data": {
             "incomes_categories": [],
             "costs_categories": [],
             "incomes": [],
-            "costs": [
-              1000,
-              2000,
-              5000,
-              99
-            ]
+            "costs": []
           }
         }
-      ],
-      "id": "5"
+      ]
     },
     {
       "month": 6,
       "users_data": [
         {
-          "user_name": "admin777",
+          "user_id": 2,
           "budget_data": {
             "incomes_categories": [],
             "costs_categories": [],
             "incomes": [],
-            "costs": [
-              1000,
-              2000,
-              5000,
-              99
-            ]
+            "costs": []
+          }
+        },
+        {
+          "user_id": 1,
+          "budget_data": {
+            "incomes_categories": [],
+            "costs_categories": [],
+            "incomes": [],
+            "costs": []
+          }
+        },
+        {
+          "user_id": 3,
+          "budget_data": {
+            "incomes_categories": [],
+            "costs_categories": [],
+            "incomes": [],
+            "costs": []
           }
         }
       ],
@@ -108,11 +126,23 @@
   "users": [
     {
       "username": "admin",
-      "password": "$2b$04$YXmjQb0L5.Pwwtg8S5IMU./dEJSLcvSaPxOviB0QJWzL6gWqpn1Y."
+      "password": "$2b$04$YXmjQb0L5.Pwwtg8S5IMU./dEJSLcvSaPxOviB0QJWzL6gWqpn1Y.",
+      "id": 1
     },
     {
       "username": "admin777",
-      "password": "$2b$04$8OwMFnD0PEJaATD6Rw3r8.oY1qCOc2mB4ac6juUHKKQfka8OvW5j6"
+      "password": "$2b$04$8OwMFnD0PEJaATD6Rw3r8.oY1qCOc2mB4ac6juUHKKQfka8OvW5j6",
+      "id": 2
+    },
+    {
+      "username": "admin222",
+      "password": "$2b$04$4oviCD50wY.Gn48IsXwCTejec54z6EyfMlEbJi.7aJELa.C0YRCya",
+      "id": 3
+    },
+    {
+      "username": "admin444",
+      "password": "$2b$04$ZgPpTE6vATHOvEQkusRvpeWmUW/XkMHQIrWn3CfLvXjtnxOweGyUi",
+      "id": 4
     }
   ],
   "access_tokens": [
@@ -123,6 +153,14 @@
     {
       "username": "admin777",
       "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTU2MTgyMjMsImV4cCI6MTcxNTY2MTQyM30.z_5FkUkr7O4LJ-0RseiX8cfUfcotebhNW1_CHoz2H2A"
+    },
+    {
+      "username": "admin222",
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTU4NjA4MDgsImV4cCI6MTcxNTkwNDAwOH0.p9cLlso5ho_zE8GmVRzZ9VyF5CL2-YLk-n3JMbaAtU4"
+    },
+    {
+      "username": "admin444",
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTU4NjA4NTgsImV4cCI6MTcxNTkwNDA1OH0.UAt1HuQ1acjoFGCzxIrbwNU8LLdVcMzYEMgCKZOwdTk"
     }
   ],
   "refresh_tokens": [
@@ -133,6 +171,14 @@
     {
       "username": "admin777",
       "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTU2MTgyMjMsImV4cCI6MTcxNjIyMzAyM30.n2X7Vm5zes_6YoEUH1MD-OKh5XFX8LM-v83v5vqOKgU"
+    },
+    {
+      "username": "admin222",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTU4NjA4MDgsImV4cCI6MTcxNjQ2NTYwOH0.TE2-c-TYMmnAFQYAVrtFFmSN8CyFCL9AVd9I6WW4l90"
+    },
+    {
+      "username": "admin444",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTU4NjA4NTgsImV4cCI6MTcxNjQ2NTY1OH0.Gg8FzYTCuz6CZL-KLnjLf3mVxwj0yhVGhSk3BGzSz34"
     }
   ]
 }

@@ -31,9 +31,8 @@ export function PieChartCosts() {
       return acc
     }, [])
     .map((item: any) => {
-      const { name } = costs_categories.find(
-        (c: any) => c.id === item.category_id,
-      )
+      const { name } =
+        costs_categories?.find((c: any) => c.id === item.category_id) ?? ''
       return [name, item.amount]
     })
 

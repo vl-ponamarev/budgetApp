@@ -19,15 +19,21 @@ module.exports = function (app) {
       } else {
         // Получаем доступ к базе данных
         const db = router.db
+        const users = db.get('users').value()
         const userExists = db.get('users').find({ username }).value()
-        console.log('userExists !!!!!!!', userExists)
+
         if (userExists) {
           res
             .status(400)
             .json({ error: 'Пользователь с таким именем уже существует' })
         } else {
           // Создаем нового пользователя и сохраняем в db.json
-          const newUser = { username, password: hashedPassword }
+          console.log('users.length', users.length)
+          const newUser = {
+            username,
+            password: hashedPassword,
+            id: users.length + 1,
+          }
           db.get('users').push(newUser).write()
           Promise.all([
             createAccessToken(newUser.username),
@@ -49,6 +55,7 @@ module.exports = function (app) {
               res.status(201).json({
                 message: 'Пользователь успешно зарегистрирован',
                 username: newUser.username,
+                id: users.length,
                 accessToken,
                 // refreshToken,
               })
@@ -122,7 +129,7 @@ module.exports = function (app) {
             sameSite: 'Strict',
             path: '/',
           })
-          res.status(200).json({ accessToken, username })
+          res.status(200).json({ accessToken, username, id: user.id })
         } else {
           return res.sendStatus(401) // Incorrect password
         }
@@ -134,27 +141,51 @@ module.exports = function (app) {
       return res.status(400).json({ message: 'Пропущены логин или пароль' })
     }
   })
-  app.patch('/data/:month/users_data/:userId', (req, res) => {
-    const { month, userId } = req.params
-    const updatedUserData = req.body
-    console.log('updatedUserData', updatedUserData)
 
+  app.get('/data/:month/users_data/:userId', (req, res) => {
+    const { month, userId } = req.params
     const db = router.db
     const dataEntry = db
       .get('data')
       .find({ month: Number(month) })
       .value()
 
-    console.log('dataEntry<<>>>', dataEntry)
+    if (dataEntry) {
+      const usersData = dataEntry?.users_data
+      const currentUserData = usersData.find((user) => {
+        return String(user.user_id) === String(userId)
+      })
+      if (currentUserData) {
+        res.json({
+          message: `Данные пользователя id: ${userId}`,
+          users_data: currentUserData,
+        })
+      } else {
+        res
+          .status(404)
+          .json({ error: `Данные пользователя id: ${userId} не найдены` })
+      }
+    } else {
+      res
+        .status(404)
+        .json({ error: `Данные пользователя id: ${userId} не найдены` })
+    }
+  })
 
-    console.log('userId', userId)
+  app.patch('/data/:month/users_data/:userId', (req, res) => {
+    const { month, userId } = req.params
+    // const updatedUserData = req.body
+    const db = router.db
+    const dataEntry = db
+      .get('data')
+      .find({ month: Number(month) })
+      .value()
 
     if (dataEntry) {
-      const userData = dataEntry.users_data
+      const userData = dataEntry?.users_data
       const updatedUserData = userData.map((user) =>
         String(user.id) === String(userId) ? req.body : user,
       )
-      // Save the updated data back to the db
       db.get('data')
         .find({ month: Number(month) })
         .assign({ users_data: updatedUserData })
@@ -168,18 +199,21 @@ module.exports = function (app) {
     }
   })
 
-  app.post('/data/:month/users_data', (req, res) => {
-    const { month } = req.params
+  app.post('/data/:month/users_data/:userId', (req, res) => {
+    const { month, userId } = req.params
     const newUser = req.body
-
     const db = router.db
     const monthNumber = Number(month)
-
     const dataEntry = db.get('data').find({ month: monthNumber }).value()
+    const usersData = dataEntry?.users_data
+    let currentUserData
+    if (usersData) {
+      currentUserData = usersData?.find((user) => {
+        return String(user.user_id) === String(userId)
+      })
+    }
 
-    console.log('dataEntry<<>>>', dataEntry)
-
-    if (dataEntry) {
+    if (dataEntry && !currentUserData) {
       db.get('data')
         .find({ month: monthNumber })
         .get('users_data')
@@ -189,7 +223,7 @@ module.exports = function (app) {
         message: 'Пользователь успешно добавлен',
         newUser: newUser,
       })
-    } else {
+    } else if (!dataEntry) {
       db.get('data')
         .push({
           month: monthNumber,
@@ -200,6 +234,11 @@ module.exports = function (app) {
       res.json({
         message: 'Новый месяц и пользователь успешно добавлены',
         newUser: newUser,
+      })
+    } else {
+      res.json({
+        message:
+          'Пользователь уже существует, данные отправлены в userBudgetData',
       })
     }
   })

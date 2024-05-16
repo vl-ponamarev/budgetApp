@@ -57,10 +57,12 @@ export const useAccountStore = create<IAccountStore>()(
             })
             if (response?.success && response?.code === 200) {
               if (response?.data !== undefined) {
-                const { username, accessToken, refreshToken } = response.data
+                const { username, accessToken, refreshToken, id } =
+                  response.data
                 sessionStorage.setItem('token', accessToken)
                 localStorage.setItem('refreshToken', refreshToken)
                 localStorage.setItem('username', username)
+                sessionStorage.setItem('id', id)
                 get().setData(response.data)
                 set((state) => ({
                   ...state,
@@ -100,9 +102,9 @@ export const useAccountStore = create<IAccountStore>()(
               (response?.success && response?.code === 201)
             ) {
               if (response?.data !== undefined) {
-                const { username, accessToken, refreshToken } = response.data
+                const { username, accessToken, id } = response.data
                 sessionStorage.setItem('token', accessToken)
-                localStorage.setItem('refreshToken', refreshToken)
+                sessionStorage.setItem('id', id)
                 localStorage.setItem('username', username)
                 get().setData(response.data)
                 set((state) => ({

@@ -45,7 +45,7 @@ function isAuthenticated(req, res, next) {
   }
 }
 
-// server.use(isAuthenticated)
+server.use(isAuthenticated)
 
 server.use(router)
 
