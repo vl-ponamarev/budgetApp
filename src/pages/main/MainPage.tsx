@@ -88,8 +88,8 @@ const MainPage = () => {
       <div>{userName}</div>
 
       <div style={{ display: 'flex', margin: '16px', width: '100%' }}>
-        {/* <PieChartIncomes />
-        <PieChartCosts /> */}
+        {/* <PieChartIncomes /> */}
+        <PieChartCosts />
       </div>
 
       <CostsTableSummary />

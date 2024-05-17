@@ -120,9 +120,9 @@ const CostsTableSummary: React.FC = () => {
   }
   const [inputTargetValue, setInputTargetValue] = useState('')
   const handleSaveNewItem = (key: React.Key) => {
-    const newData = dataSource.map((item) => {
+    const newData = dataSource?.map((item) => {
       const listNum = String(
-        userBudgetData?.budget_data?.costs_categories.length + 1,
+        (userBudgetData?.budget_data?.costs_categories?.length ?? 0) + 1,
       )
       let selectTargetValueObject
       const [selectValue] = selectTargetValue
@@ -157,11 +157,7 @@ const CostsTableSummary: React.FC = () => {
     const users_data = monthBudgetData.users_data.find(
       (data: any) => String(data.id) === String(userBudgetData.id),
     )
-    const { budget_data } = users_data
-    const updatedBudgetData = { ...budget_data, costs_categories }
-    const updatedUserData = { ...users_data, budget_data: updatedBudgetData }
-    const { id } = userBudgetData
-    console.log('updatedUserData', updatedUserData)
+
     updateMonthBudgetData(updatedUserData, id)
   }
 
