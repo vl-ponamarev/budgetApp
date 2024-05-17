@@ -49,7 +49,7 @@
             "incomes_categories": [],
             "costs_categories": [
               { "id": 1, "name": "Развлечения" },
-              { "id": 6, "name": "Здоровье" }
+              { "id": 7, "name": "Здоровье" }
             ],
             "incomes": [],
             "costs": [
