@@ -120,6 +120,7 @@ const CostsTableSummary: React.FC = () => {
   }
   const [inputTargetValue, setInputTargetValue] = useState('')
   const handleSaveNewItem = (key: React.Key) => {
+    let neWCostsCategory
     const newData = dataSource?.map((item) => {
       const listNum = String(
         (userBudgetData?.budget_data?.costs_categories?.length ?? 0) + 1,
@@ -137,6 +138,7 @@ const CostsTableSummary: React.FC = () => {
           : inputTargetValue
       const keyValue =
         selectTargetValue.length > 0 ? selectTargetValueObject?.id : listNum
+      neWCostsCategory = { id: keyValue, name: value }
       return item.key === key
         ? {
             sum: 0,
@@ -151,14 +153,10 @@ const CostsTableSummary: React.FC = () => {
     setAddNewItemState(false)
     setSelectTargetValue('')
     setInputTargetValue('')
-    const costs_categories = newData.map((data: any) => {
-      return { name: data.cost, id: data.key }
-    })
-    const users_data = monthBudgetData.users_data.find(
-      (data: any) => String(data.id) === String(userBudgetData.id),
-    )
 
-    updateMonthBudgetData(updatedUserData, id)
+    const updatedUserBudgetData = { ...userBudgetData }
+    updatedUserBudgetData?.budget_data?.costs_categories.push(neWCostsCategory)
+    // updateMonthBudgetData(updatedUserData, id)
   }
 
   console.log(dataSource)

@@ -48,11 +48,12 @@ const MainPage = () => {
     const id = sessionStorage.getItem('id')
     if (id && selectedMonth) {
       console.log(id)
+      console.log(selectedMonth)
 
       getUserBudgetData(selectedMonth, Number(id))
       // getMonthData(Number(selectedMonth.split('-')[1]) - 1)
     }
-  }, [getUserBudgetData, selectedMonth])
+  }, [selectedMonth])
 
   useEffect(() => {
     getCostsCategories()
@@ -74,7 +75,7 @@ const MainPage = () => {
         },
       }
       if (selectedMonth) {
-        updateMonthBudgetData(newUserData, selectedMonth, Number(id))
+        createMonthBudgetData(newUserData, selectedMonth, Number(id))
       }
     }
   }, [userBudgetData, selectedMonth])

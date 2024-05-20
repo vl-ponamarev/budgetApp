@@ -48,8 +48,14 @@
           "budget_data": {
             "incomes_categories": [],
             "costs_categories": [
-              { "id": 1, "name": "Развлечения" },
-              { "id": 7, "name": "Здоровье" }
+              {
+                "id": 1,
+                "name": "Развлечения"
+              },
+              {
+                "id": 7,
+                "name": "Здоровье"
+              }
             ],
             "incomes": [],
             "costs": [
@@ -60,7 +66,6 @@
                 "date": "2024.05.01",
                 "comment": "Развлечения"
               },
-
               {
                 "id": 2,
                 "category_id": 6,
@@ -77,10 +82,30 @@
             "incomes_categories": [],
             "costs_categories": [],
             "incomes": [],
-            "costs": [2000, 3000, 4000, 5000]
+            "costs": [
+              2000,
+              3000,
+              4000,
+              5000
+            ]
           }
         }
       ]
+    },
+    {
+      "month": 8,
+      "users_data": [
+        {
+          "user_id": 1,
+          "budget_data": {
+            "incomes_categories": [],
+            "costs_categories": [],
+            "incomes": [],
+            "costs": []
+          }
+        }
+      ],
+      "id": 8
     }
   ],
   "users": [
