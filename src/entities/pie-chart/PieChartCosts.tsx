@@ -12,8 +12,14 @@ export function PieChartCosts() {
 
   const selectedMonth = budgetStore((s: IBudgetStore) => s.selectedMonth)
 
+  const date = selectedMonth
+    ? dayjs()
+        .month(selectedMonth - 1)
+        .format('MM.YYYY')
+    : dayjs().format('MM.YYYY')
+
   const options = {
-    title: `Статистика расходов за ${dayjs(selectedMonth).format('MM.YYYY')}`,
+    title: `Статистика расходов за ${date}`,
     is3D: true,
   }
 
@@ -23,9 +29,9 @@ export function PieChartCosts() {
         (c: any) => c.category_id === item.category_id,
       )
       if (existingCategory) {
-        existingCategory.amount += item.amount
+        existingCategory.amount += Number(item.amount)
       } else {
-        acc.push({ category_id: item.category_id, amount: item.amount })
+        acc.push({ category_id: item.category_id, amount: Number(item.amount) })
       }
 
       return acc

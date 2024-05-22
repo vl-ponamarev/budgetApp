@@ -184,15 +184,16 @@ module.exports = function (app) {
     if (dataEntry) {
       const userData = dataEntry?.users_data
       const updatedUserData = userData.map((user) =>
-        String(user.id) === String(userId) ? req.body : user,
+        String(user.user_id) === String(userId) ? req.body : user,
       )
       db.get('data')
         .find({ month: Number(month) })
         .assign({ users_data: updatedUserData })
         .write()
+
       res.json({
         message: 'Пользователь успешно обновлен',
-        users_data: updatedUserData,
+        users_data: req.body,
       })
     } else {
       res.status(404).json({ error: 'Запись для данного месяца не найдена' })
@@ -212,7 +213,6 @@ module.exports = function (app) {
         return String(user.user_id) === String(userId)
       })
     }
-
     if (dataEntry && !currentUserData) {
       db.get('data')
         .find({ month: monthNumber })

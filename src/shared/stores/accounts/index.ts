@@ -6,7 +6,6 @@ import { IAuthStore, authStore } from '../auth/index'
 import { Modal } from 'antd'
 import { login } from '../../api/Login/Models/login'
 import { signIn } from '../../api/Login/Models/sign-in'
-import budgetStore from '../budget'
 
 export interface IFullAccount {
   token: string
@@ -57,12 +56,10 @@ export const useAccountStore = create<IAccountStore>()(
             })
             if (response?.success && response?.code === 200) {
               if (response?.data !== undefined) {
-                const { username, accessToken, refreshToken, id } =
-                  response.data
-                sessionStorage.setItem('token', accessToken)
-                localStorage.setItem('refreshToken', refreshToken)
+                const { username, accessToken, id } = response.data
+                localStorage.setItem('token', accessToken)
                 localStorage.setItem('username', username)
-                sessionStorage.setItem('id', id)
+                localStorage.setItem('id', id)
                 get().setData(response.data)
                 set((state) => ({
                   ...state,
@@ -95,16 +92,14 @@ export const useAccountStore = create<IAccountStore>()(
               username,
               password,
             })
-            console.log(response)
-
             if (
               (response?.success && response?.code === 200) ||
               (response?.success && response?.code === 201)
             ) {
               if (response?.data !== undefined) {
                 const { username, accessToken, id } = response.data
-                sessionStorage.setItem('token', accessToken)
-                sessionStorage.setItem('id', id)
+                localStorage.setItem('token', accessToken)
+                localStorage.setItem('id', id)
                 localStorage.setItem('username', username)
                 get().setData(response.data)
                 set((state) => ({
@@ -140,7 +135,6 @@ export const useAccountStore = create<IAccountStore>()(
             }))
             localStorage.removeItem('token')
             localStorage.removeItem('username')
-            sessionStorage.removeItem('token')
           },
         }),
         { name: 'accountStore' },

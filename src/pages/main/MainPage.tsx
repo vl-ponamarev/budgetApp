@@ -6,7 +6,6 @@ import { PieChartCosts } from '../../entities/pie-chart/PieChartCosts'
 import { useAccountStore } from '../../shared/stores/accounts'
 import { PieChartIncomes } from '../../entities/pie-chart/PieChartIncomes'
 import CostsTableSummary from '../../entities/costs-table/CostsTableSummary'
-import Paragraph from 'antd/es/skeleton/Paragraph'
 
 const MainPage = () => {
   const logout = useAccountStore((s) => s.logout)
@@ -16,7 +15,6 @@ const MainPage = () => {
     getCostsCategories,
     getIncomesCategories,
     userBudgetData,
-    updateMonthBudgetData,
     createMonthBudgetData,
     clearStore,
   ] = budgetStore((s: IBudgetStore) => [
@@ -25,7 +23,6 @@ const MainPage = () => {
     s.getCostsCategories,
     s.getIncomesCategories,
     s.userBudgetData,
-    s.updateMonthBudgetData,
     s.createMonthBudgetData,
     s.clearStore,
   ])
@@ -33,23 +30,16 @@ const MainPage = () => {
   const handleLogout = useCallback(() => {
     logout()
     localStorage.removeItem('selectedModeId')
-    sessionStorage.removeItem('id')
+    localStorage.removeItem('id')
     clearStore()
   }, [logout])
   // const getUserBudgetData = budgetStore((s: IBudgetStore) => s.getUserBudgetData)
 
-  console.log('selectedMonth', selectedMonth)
-
-  console.log('userBudgetData', userBudgetData)
-
   const userName = localStorage.getItem('username')
 
   useEffect(() => {
-    const id = sessionStorage.getItem('id')
+    const id = localStorage.getItem('id')
     if (id && selectedMonth) {
-      console.log(id)
-      console.log(selectedMonth)
-
       getUserBudgetData(selectedMonth, Number(id))
       // getMonthData(Number(selectedMonth.split('-')[1]) - 1)
     }
@@ -64,7 +54,7 @@ const MainPage = () => {
     if (userBudgetData && Object.keys(userBudgetData).length > 0) {
       return
     } else {
-      const id = sessionStorage.getItem('id')
+      const id = localStorage.getItem('id')
       const newUserData = {
         user_id: Number(id),
         budget_data: {
@@ -90,7 +80,7 @@ const MainPage = () => {
 
       <div style={{ display: 'flex', margin: '16px', width: '100%' }}>
         {/* <PieChartIncomes /> */}
-        <PieChartCosts />
+        {/* <PieChartCosts /> */}
       </div>
 
       <CostsTableSummary />

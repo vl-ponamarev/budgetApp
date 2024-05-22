@@ -29,7 +29,7 @@ export interface IBudgetStore {
   getIncomesCategories: () => Promise<any>
   getCostsCategories: () => Promise<any>
   setMonthBudgetData: (data?: any) => void
-  updateMonthBudgetData: (
+  updateBudgetData: (
     data: any,
     month: number | undefined,
     userId: number,
@@ -57,6 +57,8 @@ const budgetStore = create<IBudgetStore>(
         getIncomesCategories: async () => {
           try {
             const response = await SERVICES_BUDGET.Models.getIncomesCategories()
+            console.log(response)
+
             if (response?.success) {
               if (response?.data !== undefined) {
                 const data = produce((draft: IBudgetStore) => {
@@ -84,6 +86,8 @@ const budgetStore = create<IBudgetStore>(
         getCostsCategories: async () => {
           try {
             const response = await SERVICES_BUDGET.Models.getCostsCategories()
+            console.log(response)
+
             if (response?.success) {
               if (response?.data !== undefined) {
                 const data = produce((draft: IBudgetStore) => {
@@ -114,6 +118,8 @@ const budgetStore = create<IBudgetStore>(
               month,
               userId,
             })
+            console.log(response)
+
             if (response?.success) {
               if (response?.data !== undefined) {
                 const users_data = response?.data?.users_data
@@ -192,28 +198,32 @@ const budgetStore = create<IBudgetStore>(
             })
           }
         },
-        // updateBudgetData: async (data: any) => {
-        //   try {
-        //     const response = await SERVICES_BUDGET.Models.updateBudgetData(data)
-        //     if (response?.status === 200) {
-        //       const data = produce((draft: IBudgetStore) => {
-        //         draft.monthBudgetData = response?.data
-        //       })
+        updateBudgetData: async (data: any, month: number, userId: number) => {
+          try {
+            const response = await SERVICES_BUDGET.Models.updateBudgetData(
+              data,
+              month,
+              userId,
+            )
+            if (response?.status === 200) {
+              const data = produce((draft: IBudgetStore) => {
+                draft.userBudgetData = response?.data?.users_data
+              })
 
-        //       set(data)
-        //       // set((draft: any) => {
-        //       //   draft.store.jsonDirectionsData = response?.data;
-        //       //   draft.store.directionsData = response?.data;
-        //       // });
-        //     }
-        //   } catch (error: any) {
-        //     produce(get(), (draft: IBudgetStore) => {
-        //       draft.state = 'Ошибка при обновлении хранилища'
-        //       draft.error =
-        //         error instanceof Error ? error.message : String(error)
-        //     })
-        //   }
-        // },
+              set(data)
+              // set((draft: any) => {
+              //   draft.store.jsonDirectionsData = response?.data;
+              //   draft.store.directionsData = response?.data;
+              // });
+            }
+          } catch (error: any) {
+            produce(get(), (draft: IBudgetStore) => {
+              draft.state = 'Ошибка при обновлении хранилища'
+              draft.error =
+                error instanceof Error ? error.message : String(error)
+            })
+          }
+        },
         setSelectedMonth: (month: number) => {
           set((state: IBudgetStore) => {
             state.selectedMonth = month

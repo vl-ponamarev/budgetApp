@@ -13,7 +13,7 @@ type EditableTableProps = Parameters<typeof Table>[0]
 interface DataType {
   key: React.Key
   cost: string
-  sum: string
+  sum: string | number
   isNew: boolean
 }
 
@@ -26,51 +26,62 @@ const CostsTableSummary: React.FC = () => {
     costsCategories,
     incomesCategories,
     monthBudgetData,
-    updateMonthBudgetData,
+    updateBudgetData,
   ] = budgetStore((s: IBudgetStore) => [
     s.selectedMonth,
     s.userBudgetData,
     s.costsCategories,
     s.incomesCategories,
     s.monthBudgetData,
-    s.updateMonthBudgetData,
+    s.updateBudgetData,
   ])
+
   // const { Text } = Typography
-  console.log(dayjs(selectedMonth).format('MM.YYYY'))
+  console.log(selectedMonth)
   console.log(userBudgetData)
   console.log(costsCategories)
   console.log(incomesCategories)
   console.log(monthBudgetData)
 
   const { Text } = Typography
-  // const {
-  //   budget_data: { costs },
-  // } = userBudgetData || {}
-  // console.log(costs)
+  // const { user_id } = userBudgetData
+  // console.log(user_id)
 
   const [dataSource, setDataSource] = useState<DataType[]>([])
 
   useEffect(() => {
-    let totalAmountByCategory
+    let totalAmountByCategory: { [key: number]: number } = {}
     if (userBudgetData) {
       totalAmountByCategory =
         userBudgetData?.budget_data?.costs?.reduce((acc: any, entry: any) => {
           if (acc[entry.category_id]) {
-            acc[entry.category_id] += entry.amount
+            acc[entry.category_id] += Number(entry.amount)
           } else {
-            acc[entry.category_id] = entry.amount
+            acc[entry.category_id] = Number(entry.amount)
           }
           return acc
         }, {}) ?? []
     }
+
+    const updatedTotalAmountByCategory = { ...totalAmountByCategory }
+
+    userBudgetData?.budget_data?.costs_categories.forEach((category) => {
+      const { id } = category
+      if (!(id in updatedTotalAmountByCategory)) {
+        updatedTotalAmountByCategory[id] = 0
+      }
+    })
+
     const dataSourcePrepare: DataType[] = []
-    for (const key in totalAmountByCategory) {
+
+    for (const key in updatedTotalAmountByCategory) {
       const costName = userBudgetData?.budget_data?.costs_categories.find(
-        (category: any) => String(category.id) === key,
+        (category: any) => String(category.id) === String(key),
       )
+
       const { name } = costName ?? ''
       const obj: DataType = {
-        sum: totalAmountByCategory[key],
+        sum: Number(updatedTotalAmountByCategory[key]),
         cost: name,
         isNew: false,
         key,
@@ -102,8 +113,6 @@ const CostsTableSummary: React.FC = () => {
     setSelectOptions(options)
   }, [userBudgetData, dataSource])
 
-  // const dateFormat = 'YYYY-MM-DD'
-
   const [count, setCount] = useState(2)
 
   const handleDelete = (key: React.Key) => {
@@ -111,6 +120,21 @@ const CostsTableSummary: React.FC = () => {
     setDataSource(newData)
     setSelectTargetValue('')
     setInputTargetValue('')
+
+    const userBudgetDataCopy = structuredClone(userBudgetData)
+    const newCostsCategories =
+      userBudgetDataCopy?.budget_data?.costs_categories.filter(
+        (item) => String(item.id) !== String(key),
+      )
+    const updatedCosts = userBudgetDataCopy?.budget_data?.costs.filter(
+      (item) => String(item.category_id) !== String(key),
+    )
+    userBudgetDataCopy.budget_data.costs_categories = newCostsCategories
+    userBudgetDataCopy.budget_data.costs = updatedCosts
+    console.log('userBudgetDataCopy', userBudgetDataCopy)
+    console.log(key)
+
+    updateBudgetData(userBudgetDataCopy, selectedMonth, userBudgetData?.user_id)
   }
 
   const handleCancel = (key: React.Key) => {
@@ -148,18 +172,23 @@ const CostsTableSummary: React.FC = () => {
           }
         : item
     })
-    //@ts-expect-error
     setDataSource(newData)
     setAddNewItemState(false)
     setSelectTargetValue('')
     setInputTargetValue('')
 
-    const updatedUserBudgetData = { ...userBudgetData }
-    updatedUserBudgetData?.budget_data?.costs_categories.push(neWCostsCategory)
-    // updateMonthBudgetData(updatedUserData, id)
-  }
+    const userBudgetDataCopy = structuredClone(userBudgetData)
+    userBudgetDataCopy?.budget_data?.costs_categories.push(neWCostsCategory)
+    console.log(userBudgetDataCopy)
 
-  console.log(dataSource)
+    if (userBudgetData?.user_id) {
+      updateBudgetData(
+        userBudgetDataCopy,
+        selectedMonth,
+        userBudgetData?.user_id,
+      )
+    }
+  }
 
   const onInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -235,7 +264,7 @@ const CostsTableSummary: React.FC = () => {
         return (
           <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
             <Popconfirm
-              title="Sure to delete?"
+              title={`При удалении категории будут \n удалены все ее записи. Удалить?`}
               onConfirm={() => handleDelete(record.key)}
             >
               <Button>Delete</Button>
@@ -246,7 +275,6 @@ const CostsTableSummary: React.FC = () => {
     },
   ]
 
-  console.log(dataSource)
   const [addNewItemState, setAddNewItemState] = useState(false)
   const handleAdd = () => {
     const newData: DataType = {

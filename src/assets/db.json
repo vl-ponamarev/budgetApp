@@ -19,6 +19,10 @@
     {
       "name": "Путешествия",
       "id": 5
+    },
+    {
+      "id": 7,
+      "name": "Здоровье"
     }
   ],
   "incomes_categories": [
@@ -49,48 +53,67 @@
             "incomes_categories": [],
             "costs_categories": [
               {
-                "id": 1,
-                "name": "Развлечения"
+                "id": 2,
+                "name": "Еда"
               },
               {
-                "id": 7,
-                "name": "Здоровье"
+                "id": 4,
+                "name": "Обслуживание авто"
+              },
+              {
+                "id": 5,
+                "name": "Путешествия"
               }
             ],
             "incomes": [],
             "costs": [
               {
-                "id": 1,
-                "category_id": 1,
-                "amount": 100,
-                "date": "2024.05.01",
-                "comment": "Развлечения"
+                "id": 2,
+                "category_id": 2,
+                "amount": "1000",
+                "date": "2024-05-22T08:07:24.751Z",
+                "comment": "La Mare"
               },
               {
                 "id": 2,
-                "category_id": 6,
-                "amount": 100,
-                "date": "2024.05.02",
-                "comment": "Зубной"
+                "category_id": 2,
+                "amount": "5000",
+                "date": "2024-05-22T08:16:37.587Z",
+                "comment": "Буратино"
+              },
+              {
+                "id": 3,
+                "category_id": 4,
+                "amount": "850",
+                "date": "2024-05-22T08:17:06.899Z",
+                "comment": "Очиститель"
+              },
+              {
+                "id": 4,
+                "category_id": 4,
+                "amount": "700",
+                "date": "2024-05-22T08:17:32.171Z",
+                "comment": "Мойка"
+              },
+              {
+                "id": 5,
+                "category_id": 4,
+                "amount": "3200",
+                "date": "2024-05-22T08:17:56.066Z",
+                "comment": "Заправка"
+              },
+              {
+                "id": 6,
+                "category_id": 5,
+                "amount": "12000",
+                "date": "2024-05-22T08:26:48.200Z",
+                "comment": "Суздаль"
               }
             ]
           }
-        },
-        {
-          "user_id": 2,
-          "budget_data": {
-            "incomes_categories": [],
-            "costs_categories": [],
-            "incomes": [],
-            "costs": [
-              2000,
-              3000,
-              4000,
-              5000
-            ]
-          }
         }
-      ]
+      ],
+      "id": 5
     },
     {
       "month": 8,
@@ -106,6 +129,36 @@
         }
       ],
       "id": 8
+    },
+    {
+      "month": 9,
+      "users_data": [
+        {
+          "user_id": 1,
+          "budget_data": {
+            "incomes_categories": [],
+            "costs_categories": [],
+            "incomes": [],
+            "costs": []
+          }
+        }
+      ],
+      "id": 9
+    },
+    {
+      "month": 6,
+      "users_data": [
+        {
+          "user_id": 1,
+          "budget_data": {
+            "incomes_categories": [],
+            "costs_categories": [],
+            "incomes": [],
+            "costs": []
+          }
+        }
+      ],
+      "id": 6
     }
   ],
   "users": [

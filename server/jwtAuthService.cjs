@@ -31,8 +31,8 @@ const verifyToken = (req, res, next) => {
 }
 const createRefreshToken = (user) => {
   const refreshSecret = process.env.JWT_REFRESH_SECRET || 'jwt_refresh_secret'
-  const payload = { name: user.name } // Используйте необходимые данные пользователя
-  const options = { expiresIn: '7d' } // Например, refreshToken действителен 7 дней
+  const payload = { name: user.name }
+  const options = { expiresIn: '7d' }
 
   return new Promise((resolve, reject) => {
     jwt.sign(payload, refreshSecret, options, (error, refreshToken) => {
@@ -48,8 +48,6 @@ const createRefreshToken = (user) => {
 const refreshAccessToken = (req, res) => {
   // const { refreshToken } = req.body
   const refreshToken = req.cookies.refreshToken
-  console.log('-----refreshToken----', refreshToken)
-
   const refreshSecret = process.env.JWT_REFRESH_SECRET || 'jwt_refresh_secret'
 
   jwt.verify(refreshToken, refreshSecret, (error, decoded) => {
@@ -59,6 +57,8 @@ const refreshAccessToken = (req, res) => {
 
     // Предполагая, что decoded содержит информацию о пользователе:
     const user = { name: decoded.name }
+
+    console.log('user----->>>>>>', user)
 
     createAccessToken(user)
       .then((accessToken) => {

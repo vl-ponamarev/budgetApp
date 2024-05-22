@@ -13,7 +13,7 @@ instance.interceptors.request.use((config) => {
     )
   }
   config.headers = config.headers || {}
-  config.headers.Authorization = `Bearer ${sessionStorage.getItem('token')}`
+  config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
 
   return config
 })

@@ -49,10 +49,13 @@ type ColumnTypes = Exclude<EditableTableProps['columns'], undefined>
 const CostsExpandedRowRender: React.FC<CostsExpandedRowRenderProps> = ({
   record,
 }) => {
-  const [selectedMonth, userBudgetData] = budgetStore((s: IBudgetStore) => [
-    s.selectedMonth,
-    s.userBudgetData,
-  ])
+  const [selectedMonth, userBudgetData, updateBudgetData] = budgetStore(
+    (s: IBudgetStore) => [
+      s.selectedMonth,
+      s.userBudgetData,
+      s.updateBudgetData,
+    ],
+  )
 
   console.log(record)
   console.log(userBudgetData)
@@ -90,10 +93,16 @@ const CostsExpandedRowRender: React.FC<CostsExpandedRowRenderProps> = ({
   const [count, setCount] = useState(2)
 
   const handleDelete = (key: React.Key) => {
-    console.log(key)
-
     const newData = dataSource.filter((item) => item.key !== key)
     setDataSource(newData)
+
+    const userBudgetDataCopy = structuredClone(userBudgetData)
+    const updatedCosts = userBudgetDataCopy?.budget_data?.costs.filter(
+      (item) => String(item.id) !== String(key),
+    )
+    userBudgetDataCopy.budget_data.costs = updatedCosts
+
+    updateBudgetData(userBudgetDataCopy, selectedMonth, userBudgetData?.user_id)
   }
 
   const handleCancel = (key: React.Key) => {
@@ -115,6 +124,28 @@ const CostsExpandedRowRender: React.FC<CostsExpandedRowRenderProps> = ({
     })
     setDataSource(newData)
     setAddNewItemState(false)
+    const newCost = dataSource.find((item) => item.key === key)
+
+    const newItemCost = {
+      id: userBudgetData
+        ? userBudgetData?.budget_data?.costs?.length + 1
+        : null,
+      category_id: newCost?.category_id,
+      amount: newCost?.amount,
+      date: newCost?.date.toDate(),
+      comment: newCost?.comment,
+    }
+
+    const userBudgetDataCopy = structuredClone(userBudgetData)
+    userBudgetDataCopy?.budget_data?.costs.push(newItemCost)
+
+    if (userBudgetData?.user_id) {
+      updateBudgetData(
+        userBudgetDataCopy,
+        selectedMonth,
+        userBudgetData?.user_id,
+      )
+    }
   }
   console.log(dataSource)
 
@@ -192,7 +223,7 @@ const CostsExpandedRowRender: React.FC<CostsExpandedRowRenderProps> = ({
         return (
           <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
             <Popconfirm
-              title="Sure to delete?"
+              title="Удалить запись?"
               onConfirm={() => handleDelete(record.key)}
             >
               <Button
@@ -212,7 +243,6 @@ const CostsExpandedRowRender: React.FC<CostsExpandedRowRenderProps> = ({
     },
   ]
 
-  console.log(dataSource)
   const [addNewItemState, setAddNewItemState] = useState(false)
   const handleAdd = () => {
     const newData: DataType = {
