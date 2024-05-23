@@ -50,7 +50,12 @@
         {
           "user_id": 1,
           "budget_data": {
-            "incomes_categories": [],
+            "incomes_categories": [
+              {
+                "id": 1,
+                "name": "Зарплата"
+              }
+            ],
             "costs_categories": [
               {
                 "id": 2,

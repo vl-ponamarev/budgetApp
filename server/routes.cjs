@@ -142,6 +142,28 @@ module.exports = function (app) {
     }
   })
 
+  app.get('/costs_categories', (req, res) => {
+    const db = router.db
+    const costCategories = db.get('costs_categories').value()
+    if (costCategories) {
+      res.json({
+        message: `Данные costs_categories`,
+        costs_categories: costCategories,
+      })
+    }
+  })
+
+  app.get('/incomes_categories', (req, res) => {
+    const db = router.db
+    const costCategories = db.get('incomes_categories').value()
+    if (costCategories) {
+      res.json({
+        message: `Данные incomes_categories`,
+        incomes_categories: costCategories,
+      })
+    }
+  })
+
   app.get('/data/:month/users_data/:userId', (req, res) => {
     const { month, userId } = req.params
     const db = router.db

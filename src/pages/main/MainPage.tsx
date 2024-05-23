@@ -6,6 +6,7 @@ import { PieChartCosts } from '../../entities/pie-chart/PieChartCosts'
 import { useAccountStore } from '../../shared/stores/accounts'
 import { PieChartIncomes } from '../../entities/pie-chart/PieChartIncomes'
 import CostsTableSummary from '../../entities/costs-table/CostsTableSummary'
+import IncomesTableSummary from '../../entities/incomes-tables/IncomsTableSummary'
 
 const MainPage = () => {
   const logout = useAccountStore((s) => s.logout)
@@ -80,11 +81,11 @@ const MainPage = () => {
 
       <div style={{ display: 'flex', margin: '16px', width: '100%' }}>
         {/* <PieChartIncomes /> */}
-        {/* <PieChartCosts /> */}
+        <PieChartCosts />
       </div>
 
       <CostsTableSummary />
-      {/* <IncomesTable /> */}
+      <IncomesTableSummary />
     </>
   )
 }

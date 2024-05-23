@@ -57,12 +57,10 @@ const budgetStore = create<IBudgetStore>(
         getIncomesCategories: async () => {
           try {
             const response = await SERVICES_BUDGET.Models.getIncomesCategories()
-            console.log(response)
-
             if (response?.success) {
               if (response?.data !== undefined) {
                 const data = produce((draft: IBudgetStore) => {
-                  draft.incomesCategories = response?.data
+                  draft.incomesCategories = response?.data?.incomes_categories
                 })
                 set(data)
                 // set((draft: any) => {
@@ -86,12 +84,10 @@ const budgetStore = create<IBudgetStore>(
         getCostsCategories: async () => {
           try {
             const response = await SERVICES_BUDGET.Models.getCostsCategories()
-            console.log(response)
-
             if (response?.success) {
               if (response?.data !== undefined) {
                 const data = produce((draft: IBudgetStore) => {
-                  draft.costsCategories = response?.data
+                  draft.costsCategories = response?.data?.costs_categories
                 })
                 set(data)
                 // set((draft: any) => {
