@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import {
   Button,
-  Form,
-  Input,
   Popconfirm,
   Table,
-  Select,
-  Typography,
   DatePicker,
   Tooltip,
   DatePickerProps,
@@ -17,12 +13,7 @@ import {
   EditableRow,
 } from '../../shared/ui/editable-row-cell/EditableRowAndCell'
 import dayjs, { Dayjs } from 'dayjs'
-import {
-  CloseOutlined,
-  DeleteOutlined,
-  PlusOutlined,
-  SaveOutlined,
-} from '@ant-design/icons'
+import { CloseOutlined, DeleteOutlined, SaveOutlined } from '@ant-design/icons'
 
 type EditableTableProps = Parameters<typeof Table>[0]
 
@@ -35,11 +26,11 @@ interface DataType {
   isNew: boolean
 }
 
-type CostsExpandedRowRenderProps = {
+type IncomesExpandedRowRenderProps = {
   record: any
 }
 
-type TCost = {
+type TIncome = {
   category_id: number
   amount: number
   comment: string
@@ -49,7 +40,7 @@ type TCost = {
 
 type ColumnTypes = Exclude<EditableTableProps['columns'], undefined>
 
-const CostsExpandedRowRender: React.FC<CostsExpandedRowRenderProps> = ({
+const IncomesExpandedRowRender: React.FC<IncomesExpandedRowRenderProps> = ({
   record,
 }) => {
   const [selectedMonth, userBudgetData, updateBudgetData] = budgetStore(
@@ -68,14 +59,14 @@ const CostsExpandedRowRender: React.FC<CostsExpandedRowRenderProps> = ({
 
   useEffect(() => {
     if (userBudgetData) {
-      const dataByCategory = userBudgetData?.budget_data?.costs
-        ?.reduce((acc: any[], cost: TCost) => {
-          if (String(cost.category_id) === record.key) {
-            acc.push(cost)
+      const dataByCategory = userBudgetData?.budget_data?.incomes
+        ?.reduce((acc: any[], income: TIncome) => {
+          if (String(income.category_id) === record.key) {
+            acc.push(income)
           }
           return acc
         }, [])
-        .map((item: TCost) => {
+        .map((item: TIncome) => {
           return {
             date: dayjs(item.date, dateFormat),
             amount: item.amount,
@@ -100,10 +91,10 @@ const CostsExpandedRowRender: React.FC<CostsExpandedRowRenderProps> = ({
     setDataSource(newData)
 
     const userBudgetDataCopy = structuredClone(userBudgetData)
-    const updatedCosts = userBudgetDataCopy?.budget_data?.costs.filter(
+    const updatedIncomes = userBudgetDataCopy?.budget_data?.incomes.filter(
       (item) => String(item.id) !== String(key),
     )
-    userBudgetDataCopy.budget_data.costs = updatedCosts
+    userBudgetDataCopy.budget_data.incomes = updatedIncomes
 
     updateBudgetData(userBudgetDataCopy, selectedMonth, userBudgetData?.user_id)
   }
@@ -127,20 +118,20 @@ const CostsExpandedRowRender: React.FC<CostsExpandedRowRenderProps> = ({
     })
     setDataSource(newData)
     setAddNewItemState(false)
-    const newCost = dataSource.find((item) => item.key === key)
+    const newIncome = dataSource.find((item) => item.key === key)
 
-    const newItemCost = {
+    const newItemIncome = {
       id: userBudgetData
-        ? userBudgetData?.budget_data?.costs?.length + 1
+        ? userBudgetData?.budget_data?.incomes?.length + 1
         : null,
-      category_id: newCost?.category_id,
-      amount: newCost?.amount,
-      date: newCost?.date.toDate(),
-      comment: newCost?.comment,
+      category_id: newIncome?.category_id,
+      amount: newIncome?.amount,
+      date: newIncome?.date.toDate(),
+      comment: newIncome?.comment,
     }
 
     const userBudgetDataCopy = structuredClone(userBudgetData)
-    userBudgetDataCopy?.budget_data?.costs.push(newItemCost)
+    userBudgetDataCopy?.budget_data?.incomes.push(newItemIncome)
 
     if (userBudgetData?.user_id) {
       updateBudgetData(
@@ -273,8 +264,6 @@ const CostsExpandedRowRender: React.FC<CostsExpandedRowRenderProps> = ({
     setDataSource(newData)
   }
 
-  console.log('dataSource', dataSource)
-
   const components = {
     body: {
       row: EditableRow,
@@ -301,14 +290,14 @@ const CostsExpandedRowRender: React.FC<CostsExpandedRowRenderProps> = ({
   return (
     <>
       <div style={{ width: '90%' }}>
-        <Tooltip title="Добавить расход">
+        <Tooltip title="Добавить доход">
           <Button
             onClick={handleAdd}
             type="default"
             style={{ marginBottom: 10, right: 0 }}
             disabled={addNewItemState}
           >
-            Добавить расход
+            Добавить доход
           </Button>{' '}
         </Tooltip>
       </div>
@@ -325,4 +314,4 @@ const CostsExpandedRowRender: React.FC<CostsExpandedRowRenderProps> = ({
   )
 }
 
-export default CostsExpandedRowRender
+export default IncomesExpandedRowRender

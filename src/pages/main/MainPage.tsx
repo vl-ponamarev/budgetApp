@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react'
-import { Button } from 'antd'
+import { Button, Flex } from 'antd'
 import budgetStore, { IBudgetStore } from '../../shared/stores/budget'
 import MonthPicker from '../../entities/ui/MonthPicker'
 import { PieChartCosts } from '../../entities/pie-chart/PieChartCosts'
@@ -73,14 +73,15 @@ const MainPage = () => {
 
   return (
     <>
-      <Button style={{ margin: '16px 10px 0' }} onClick={() => handleLogout()}>
-        Выйти
-      </Button>
-      <MonthPicker />
+      <Flex justify={'space-between'} align={'center'} style={{ height: 60 }}>
+        <MonthPicker />
+        <Button onClick={() => handleLogout()}>Выйти</Button>
+      </Flex>
+
       <div>{userName}</div>
 
       <div style={{ display: 'flex', margin: '16px', width: '100%' }}>
-        {/* <PieChartIncomes /> */}
+        <PieChartIncomes />
         <PieChartCosts />
       </div>
 

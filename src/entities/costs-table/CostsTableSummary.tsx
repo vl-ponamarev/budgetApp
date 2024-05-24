@@ -2,7 +2,10 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Input, Popconfirm, Table, Select, Typography } from 'antd'
 import budgetStore, { IBudgetStore } from '../../shared/stores/budget'
-import { EditableCell, EditableRow } from './EditableRowAndCell'
+import {
+  EditableCell,
+  EditableRow,
+} from '../../shared/ui/editable-row-cell/EditableRowAndCell'
 import CostsExpandedRowRender from './CostsExpandedRowRender'
 
 type EditableTableProps = Parameters<typeof Table>[0]

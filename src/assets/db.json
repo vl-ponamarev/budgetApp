@@ -68,9 +68,28 @@
               {
                 "id": 5,
                 "name": "Путешествия"
+              },
+              {
+                "id": 1,
+                "name": "Развлечения"
               }
             ],
-            "incomes": [],
+            "incomes": [
+              {
+                "id": 1,
+                "category_id": 1,
+                "amount": "15000",
+                "date": "2024-05-23T17:48:48.411Z",
+                "comment": "Вознаграждение"
+              },
+              {
+                "id": 2,
+                "category_id": 1,
+                "amount": "600000",
+                "date": "2024-05-23T17:49:11.471Z",
+                "comment": "Аванс"
+              }
+            ],
             "costs": [
               {
                 "id": 2,
@@ -115,6 +134,15 @@
                 "comment": "Суздаль"
               }
             ]
+          }
+        },
+        {
+          "user_id": 0,
+          "budget_data": {
+            "incomes_categories": [],
+            "costs_categories": [],
+            "incomes": [],
+            "costs": []
           }
         }
       ],

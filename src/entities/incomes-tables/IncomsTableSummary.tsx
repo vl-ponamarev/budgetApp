@@ -2,8 +2,11 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Input, Popconfirm, Table, Select, Typography } from 'antd'
 import budgetStore, { IBudgetStore } from '../../shared/stores/budget'
-import { EditableCell, EditableRow } from './EditableRowAndCell'
-// import IncomesExpandedRowRender from './IncomesExpandedRowRender'
+import {
+  EditableCell,
+  EditableRow,
+} from '../../shared/ui/editable-row-cell/EditableRowAndCell' // import IncomesExpandedRowRender from './IncomesExpandedRowRender'
+import IncomesExpandedRowRender from './IncomesExpandedRowRender'
 
 type EditableTableProps = Parameters<typeof Table>[0]
 
@@ -337,14 +340,14 @@ const IncomesTableSummary: React.FC = () => {
         bordered
         dataSource={dataSource}
         columns={columns as ColumnTypes}
-        // expandable={{
-        //   expandedRowRender: (record) => (
-        //     <IncomesExpandedRowRender record={record} />
-        //   ), // expandedRowRender: (record) => ExpandedRowRender(record),
-        //   // defaultExpandedRowKeys: ['1', '2'],
-        //   defaultExpandAllRows: true,
-        //   columnWidth: 50,
-        // }}
+        expandable={{
+          expandedRowRender: (record) => (
+            <IncomesExpandedRowRender record={record} />
+          ), // expandedRowRender: (record) => ExpandedRowRender(record),
+          // defaultExpandedRowKeys: ['1', '2'],
+          defaultExpandAllRows: true,
+          columnWidth: 50,
+        }}
         pagination={{ position: ['bottomLeft'] }}
       />
     </>
