@@ -1,28 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import {
   Button,
-  Form,
-  Input,
   Popconfirm,
   Table,
-  Select,
-  Typography,
   DatePicker,
   Tooltip,
   DatePickerProps,
 } from 'antd'
-import budgetStore, { IBudgetStore } from '../../shared/stores/budget'
+import budgetStore, { IBudgetStore } from '@/shared/stores/budget'
 import {
   EditableCell,
   EditableRow,
-} from '../../shared/ui/editable-row-cell/EditableRowAndCell'
+} from '@/shared/ui/editable-row-cell/EditableRowAndCell'
 import dayjs, { Dayjs } from 'dayjs'
-import {
-  CloseOutlined,
-  DeleteOutlined,
-  PlusOutlined,
-  SaveOutlined,
-} from '@ant-design/icons'
+import { CloseOutlined, DeleteOutlined, SaveOutlined } from '@ant-design/icons'
 
 type EditableTableProps = Parameters<typeof Table>[0]
 
@@ -100,12 +91,19 @@ const CostsExpandedRowRender: React.FC<CostsExpandedRowRenderProps> = ({
     setDataSource(newData)
 
     const userBudgetDataCopy = structuredClone(userBudgetData)
-    const updatedCosts = userBudgetDataCopy?.budget_data?.costs.filter(
-      (item) => String(item.id) !== String(key),
-    )
-    userBudgetDataCopy.budget_data.costs = updatedCosts
+    if (userBudgetDataCopy) {
+      const updatedCosts =
+        userBudgetDataCopy.budget_data.costs?.filter(
+          (item) => String(item.id) !== String(key),
+        ) ?? []
+      userBudgetDataCopy.budget_data.costs = updatedCosts
 
-    updateBudgetData(userBudgetDataCopy, selectedMonth, userBudgetData?.user_id)
+      updateBudgetData(
+        userBudgetDataCopy,
+        selectedMonth,
+        userBudgetData?.user_id,
+      )
+    }
   }
 
   const handleCancel = (key: React.Key) => {

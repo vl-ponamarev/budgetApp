@@ -1,8 +1,8 @@
 import { Chart } from 'react-google-charts'
 
 import { useEffect, useState } from 'react'
-import budgetStore, { IBudgetStore } from '../../shared/stores/budget'
-import dayjs from 'dayjs'
+import budgetStore from '@/shared/stores/budget'
+import { getCurrentDate } from '@/shared/utils/currentDate'
 
 export function PieChartCosts() {
   const userBudgetData = budgetStore((s) => s.userBudgetData)
@@ -10,18 +10,12 @@ export function PieChartCosts() {
 
   const [pieChartData, setPieChartData] = useState<any>([])
 
-  const selectedMonth = budgetStore((s: IBudgetStore) => s.selectedMonth)
-
-  const date = selectedMonth
-    ? dayjs()
-        .month(selectedMonth - 1)
-        .format('MM.YYYY')
-    : dayjs().format('MM.YYYY')
-
   const options = {
-    title: `Статистика расходов за ${date}`,
+    title: `Статистика расходов за ${getCurrentDate()}`,
     is3D: true,
   }
+
+  console.log(userBudgetData)
 
   const preparedData = userBudgetData?.budget_data?.costs
     .reduce((acc: any, item: any) => {
@@ -38,7 +32,9 @@ export function PieChartCosts() {
     }, [])
     .map((item: any) => {
       const { name } =
-        costs_categories?.find((c: any) => c.id === item.category_id) ?? ''
+        costs_categories?.find(
+          (c: any) => String(c.id) === String(item.category_id),
+        ) ?? ''
       return [name, item.amount]
     })
 

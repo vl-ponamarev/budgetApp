@@ -5,7 +5,7 @@ import budgetStore, { IBudgetStore } from '../../shared/stores/budget'
 import {
   EditableCell,
   EditableRow,
-} from '../../shared/ui/editable-row-cell/EditableRowAndCell'
+} from '@/shared/ui/editable-row-cell/EditableRowAndCell'
 import CostsExpandedRowRender from './CostsExpandedRowRender'
 
 type EditableTableProps = Parameters<typeof Table>[0]
@@ -123,14 +123,18 @@ const CostsTableSummary: React.FC = () => {
 
     const userBudgetDataCopy = structuredClone(userBudgetData)
     const newCostsCategories =
-      userBudgetDataCopy?.budget_data?.costs_categories.filter(
+      userBudgetDataCopy?.budget_data?.costs_categories?.filter(
         (item) => String(item.id) !== String(key),
-      )
-    const updatedCosts = userBudgetDataCopy?.budget_data?.costs.filter(
-      (item) => String(item.category_id) !== String(key),
-    )
-    userBudgetDataCopy.budget_data.costs_categories = newCostsCategories
-    userBudgetDataCopy.budget_data.costs = updatedCosts
+      ) ?? []
+    const updatedCosts =
+      userBudgetDataCopy?.budget_data?.costs?.filter(
+        (item) => String(item.category_id) !== String(key),
+      ) ?? []
+    if (userBudgetDataCopy) {
+      userBudgetDataCopy.budget_data.costs_categories = newCostsCategories
+      userBudgetDataCopy.budget_data.costs = updatedCosts
+    }
+
     console.log('userBudgetDataCopy', userBudgetDataCopy)
     console.log(key)
 

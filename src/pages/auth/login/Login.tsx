@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react'
 import { Button, Col, Form, Input, Row } from 'antd'
 import { Typography } from 'antd';
-import { useAccountStore } from '../../../shared/stores/accounts';
+import { useAccountStore } from '@/shared/stores/accounts';
 import { Link, useLocation } from 'react-router-dom';
 
 

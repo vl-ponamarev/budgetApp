@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useEffect, useState } from 'react'
 import { Button, Input, Popconfirm, Table, Select, Typography } from 'antd'
-import budgetStore, { IBudgetStore } from '../../shared/stores/budget'
+import budgetStore, { IBudgetStore } from '@/shared/stores/budget'
 import {
   EditableCell,
   EditableRow,
-} from '../../shared/ui/editable-row-cell/EditableRowAndCell' // import IncomesExpandedRowRender from './IncomesExpandedRowRender'
+} from '@/shared/ui/editable-row-cell/EditableRowAndCell' // import IncomesExpandedRowRender from './IncomesExpandedRowRender'
 import IncomesExpandedRowRender from './IncomesExpandedRowRender'
 
 type EditableTableProps = Parameters<typeof Table>[0]

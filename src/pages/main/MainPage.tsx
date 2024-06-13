@@ -1,12 +1,12 @@
 import { useCallback, useEffect } from 'react'
 import { Button, Flex } from 'antd'
 import budgetStore, { IBudgetStore } from '../../shared/stores/budget'
-import MonthPicker from '../../entities/ui/MonthPicker'
-import { PieChartCosts } from '../../entities/pie-chart/PieChartCosts'
-import { useAccountStore } from '../../shared/stores/accounts'
-import { PieChartIncomes } from '../../entities/pie-chart/PieChartIncomes'
-import CostsTableSummary from '../../entities/costs-table/CostsTableSummary'
-import IncomesTableSummary from '../../entities/incomes-tables/IncomsTableSummary'
+import MonthPicker from '@/entities/ui/MonthPicker'
+import { PieChartCosts } from '@/entities/pie-chart/PieChartCosts'
+import { useAccountStore } from '@/shared/stores/accounts'
+import { PieChartIncomes } from '@/entities/pie-chart/PieChartIncomes'
+import CostsTableSummary from '@/entities/costs-table/CostsTableSummary'
+import IncomesTableSummary from '@/entities/incomes-tables/IncomsTableSummary'
 
 const MainPage = () => {
   const logout = useAccountStore((s) => s.logout)

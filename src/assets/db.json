@@ -185,13 +185,144 @@
           "user_id": 1,
           "budget_data": {
             "incomes_categories": [],
+            "costs_categories": [
+              {
+                "id": 2,
+                "name": "Еда"
+              },
+              {
+                "id": "3",
+                "name": "Бензин"
+              },
+              {
+                "id": "4",
+                "name": "Коммунальные платежи"
+              },
+              {
+                "id": "5",
+                "name": "Обслуживание кредитов"
+              }
+            ],
+            "incomes": [],
+            "costs": [
+              {
+                "id": 1,
+                "category_id": 2,
+                "amount": "220",
+                "date": "2024-06-11T18:19:03.534Z",
+                "comment": "Ланч"
+              },
+              {
+                "id": 2,
+                "category_id": 2,
+                "amount": "80",
+                "date": "2024-06-11T18:19:36.291Z",
+                "comment": "Кофе"
+              },
+              {
+                "id": 3,
+                "category_id": 3,
+                "amount": "500",
+                "date": "2024-06-11T18:20:38.690Z",
+                "comment": "Заправка"
+              },
+              {
+                "id": 4,
+                "category_id": 4,
+                "amount": "1200",
+                "date": "2024-06-11T18:21:43.648Z",
+                "comment": "Электроэнергия"
+              },
+              {
+                "id": 5,
+                "category_id": 4,
+                "amount": "1400",
+                "date": "2024-06-11T18:22:21.361Z",
+                "comment": "Интернет"
+              },
+              {
+                "id": 6,
+                "category_id": 5,
+                "amount": "19500",
+                "date": "2024-06-11T18:23:14.529Z",
+                "comment": "кредит 1"
+              }
+            ]
+          }
+        }
+      ],
+      "id": 6
+    },
+    {
+      "month": 4,
+      "users_data": [
+        {
+          "user_id": 1,
+          "budget_data": {
+            "incomes_categories": [
+              {
+                "id": 1,
+                "name": "Зарплата"
+              }
+            ],
+            "costs_categories": [
+              {
+                "id": 2,
+                "name": "Еда"
+              },
+              {
+                "id": 4,
+                "name": "Обслуживание авто"
+              },
+              {
+                "id": "3",
+                "name": "Бензин"
+              }
+            ],
+            "incomes": [
+              {
+                "id": 1,
+                "category_id": 1,
+                "amount": "500000",
+                "date": "2024-05-27T18:58:54.027Z",
+                "comment": "Хорошо поработали"
+              }
+            ],
+            "costs": [
+              {
+                "id": 1,
+                "category_id": 2,
+                "amount": "5000",
+                "date": "2024-05-27T18:57:02.998Z",
+                "comment": "ресторна Аврора"
+              },
+              {
+                "id": 2,
+                "category_id": 4,
+                "amount": "2300",
+                "date": "2024-05-27T18:57:57.210Z",
+                "comment": "Масло моторное"
+              }
+            ]
+          }
+        }
+      ],
+      "id": 4
+    },
+    {
+      "month": 7,
+      "users_data": [
+        {
+          "user_id": 1,
+          "budget_data": {
+            "incomes_categories": [],
             "costs_categories": [],
             "incomes": [],
             "costs": []
           }
         }
       ],
-      "id": 6
+      "id": 7
     }
   ],
   "users": [

@@ -87,14 +87,18 @@ const IncomesExpandedRowRender: React.FC<IncomesExpandedRowRenderProps> = ({
   const [count, setCount] = useState(2)
 
   const handleDelete = (key: React.Key) => {
-    const newData = dataSource.filter((item) => item.key !== key)
+    const newData = dataSource?.filter((item) => item.key !== key)
     setDataSource(newData)
 
-    const userBudgetDataCopy = structuredClone(userBudgetData)
+    const userBudgetDataCopy = userBudgetData
+      ? structuredClone(userBudgetData)
+      : null
     const updatedIncomes = userBudgetDataCopy?.budget_data?.incomes.filter(
       (item) => String(item.id) !== String(key),
     )
-    userBudgetDataCopy.budget_data.incomes = updatedIncomes
+    if (userBudgetDataCopy) {
+      userBudgetDataCopy.budget_data.incomes = updatedIncomes ?? []
+    }
 
     updateBudgetData(userBudgetDataCopy, selectedMonth, userBudgetData?.user_id)
   }

@@ -32,7 +32,7 @@ export interface IBudgetStore {
   updateBudgetData: (
     data: any,
     month: number | undefined,
-    userId: number,
+    userId: number | undefined,
   ) => Promise<any>
   createMonthBudgetData: (
     data: any,

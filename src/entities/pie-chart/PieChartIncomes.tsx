@@ -1,17 +1,18 @@
 import { Chart } from 'react-google-charts'
 import { useEffect, useState } from 'react'
-import budgetStore, { IBudgetStore } from '../../shared/stores/budget'
-import dayjs from 'dayjs'
+import budgetStore from '@/shared/stores/budget'
+import { getCurrentDate } from '@/shared/utils/currentDate'
 
 export function PieChartIncomes() {
   const userBudgetData = budgetStore((s) => s.userBudgetData)
   const incomes_categories = userBudgetData?.budget_data?.incomes_categories
   const [pieChartData, setPieChartData] = useState<any>([])
 
-  const selectedMonth = budgetStore((s: IBudgetStore) => s.selectedMonth)
+  console.log(incomes_categories)
+  console.log(userBudgetData)
 
   const options = {
-    title: `Статистика доходов за ${dayjs(selectedMonth).format('MM.YYYY')}`,
+    title: `Статистика доходов за ${getCurrentDate()}`,
     is3D: true,
   }
 
@@ -22,19 +23,24 @@ export function PieChartIncomes() {
           (c: any) => c.category_id === item.category_id,
         )
         if (existingCategory) {
-          existingCategory.amount += item.amount
+          existingCategory.amount += Number(item.amount)
         } else {
-          acc.push({ category_id: item.category_id, amount: item.amount })
+          acc.push({
+            category_id: item.category_id,
+            amount: Number(item.amount),
+          })
         }
       }
       return acc
     }, [])
     .map((item: any) => {
-      const { name } = incomes_categories.find(
-        (c: any) => c.id === item.category_id,
-      )
+      const { name } = incomes_categories
+        ? incomes_categories.find((c: any) => c.id === item.category_id)
+        : ''
       return [name, item.amount]
     })
+
+  console.log(preparedData)
 
   const data = [...[['Task', 'Hours per Day']], ...(preparedData ?? [])]
 
@@ -43,6 +49,8 @@ export function PieChartIncomes() {
       setPieChartData(data)
     }
   }, [userBudgetData])
+
+  console.log(pieChartData)
 
   return (
     <Chart

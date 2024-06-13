@@ -7,10 +7,11 @@
       "@/hooks": ["shared/hooks"],
       "@/logic/*": ["bamodule/logic/*"],
       "@/utils": ["utils"],
-      "@/shared": ["shared"],
-      "@/features": ["features"],
-      "@/pages": ["pages"],
-      "@/types": ["utils/@types"]
+      "@/shared/*": ["shared/*"],
+      "@/features/*": ["features/*"],
+      "@/pages/*": ["pages/*"],
+      "@/types/*": ["utils/@types/*"],
+      "@/entities/*": ["entities/*"]
     },
     "target": "ES2020",
     "useDefineForClassFields": true,
