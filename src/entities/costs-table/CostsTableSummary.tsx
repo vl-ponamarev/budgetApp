@@ -148,6 +148,9 @@ const CostsTableSummary: React.FC = () => {
   }
   const [inputTargetValue, setInputTargetValue] = useState('')
   const handleSaveNewItem = (key: React.Key) => {
+    console.log(key)
+    console.log(selectTargetValue)
+
     let neWCostsCategory
     const newData = dataSource?.map((item) => {
       const listNum = String(
@@ -160,6 +163,17 @@ const CostsTableSummary: React.FC = () => {
           (category: any) => String(category.id) === String(selectValue),
         )
       }
+      console.log(inputTargetValue)
+
+      const isInputValueExist = costsCategories?.find(
+        (category: any) =>
+          category.name.toLowerCase() ===
+          String(inputTargetValue.toLowerCase()),
+      )
+      if (isInputValueExist) {
+        return item
+      }
+
       const value =
         selectTargetValue.length > 0
           ? selectTargetValueObject?.name
@@ -180,6 +194,7 @@ const CostsTableSummary: React.FC = () => {
     setAddNewItemState(false)
     setSelectTargetValue('')
     setInputTargetValue('')
+    console.log(userBudgetData)
 
     const userBudgetDataCopy = structuredClone(userBudgetData)
     userBudgetDataCopy?.budget_data?.costs_categories.push(neWCostsCategory)
