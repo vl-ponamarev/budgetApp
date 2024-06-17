@@ -1,6 +1,14 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useEffect, useState } from 'react'
-import { Button, Input, Popconfirm, Table, Select, Typography } from 'antd'
+import {
+  Button,
+  Input,
+  Popconfirm,
+  Table,
+  Select,
+  Typography,
+  message,
+} from 'antd'
 import budgetStore, { IBudgetStore } from '../../shared/stores/budget'
 import {
   EditableCell,
@@ -39,15 +47,19 @@ const CostsTableSummary: React.FC = () => {
   // const { Text } = Typography
   console.log(selectedMonth)
   console.log(userBudgetData)
-  console.log(costsCategories)
   console.log(incomesCategories)
   console.log(monthBudgetData)
 
-  const { Text } = Typography
-  // const { user_id } = userBudgetData
   // console.log(user_id)
 
+  const {
+    budget_data: { costs_categories },
+  } = userBudgetData ?? { budget_data: { costs_categories: [] } }
+
+  console.log(costs_categories)
+
   const [dataSource, setDataSource] = useState<DataType[]>([])
+  const [messageApi, contextHolder] = message.useMessage()
 
   useEffect(() => {
     let totalAmountByCategory: { [key: number]: number } = {}
@@ -147,39 +159,40 @@ const CostsTableSummary: React.FC = () => {
     setAddNewItemState(false)
   }
   const [inputTargetValue, setInputTargetValue] = useState('')
-  const handleSaveNewItem = (key: React.Key) => {
-    console.log(key)
-    console.log(selectTargetValue)
+  const updateUserBudgetDataCopy = (newCategory: any) => {
+    // Клонируем объект userBudgetData, чтобы не мутировать исходные данные
+    const userBudgetDataCopy = structuredClone(userBudgetData)
 
-    let neWCostsCategory
+    // Проверяем, существует ли путь до costs_categories и если да, то обновляем его
+    if (userBudgetDataCopy?.budget_data?.costs_categories) {
+      userBudgetDataCopy.budget_data.costs_categories = newCategory // Здесь newCategory - это новый массив или значение, которым вы хотите заменить costs_categories
+    }
+
+    return userBudgetDataCopy // Возвращаем обновлённый объект
+  }
+  const handleSaveNewItem = (key: React.Key) => {
+    let neWCostsCategory: { [key: string]: string } = {}
     const newData = dataSource?.map((item) => {
       const listNum = String(
         (userBudgetData?.budget_data?.costs_categories?.length ?? 0) + 1,
       )
       let selectTargetValueObject
       const [selectValue] = selectTargetValue
+      console.log(selectTargetValue)
+
       if (selectTargetValue.length > 0) {
-        selectTargetValueObject = costsCategories?.find(
+        selectTargetValueObject = costs_categories?.find(
           (category: any) => String(category.id) === String(selectValue),
         )
       }
       console.log(inputTargetValue)
 
-      const isInputValueExist = costsCategories?.find(
-        (category: any) =>
-          category.name.toLowerCase() ===
-          String(inputTargetValue.toLowerCase()),
-      )
-      if (isInputValueExist) {
-        return item
-      }
-
-      const value =
-        selectTargetValue.length > 0
-          ? selectTargetValueObject?.name
-          : inputTargetValue
-      const keyValue =
-        selectTargetValue.length > 0 ? selectTargetValueObject?.id : listNum
+      const value = selectTargetValueObject
+        ? selectTargetValueObject?.name
+        : inputTargetValue
+      const keyValue = selectTargetValueObject
+        ? selectTargetValueObject?.id
+        : listNum
       neWCostsCategory = { id: keyValue, name: value }
       return item.key === key
         ? {
@@ -190,22 +203,65 @@ const CostsTableSummary: React.FC = () => {
           }
         : item
     })
-    setDataSource(newData)
-    setAddNewItemState(false)
-    setSelectTargetValue('')
-    setInputTargetValue('')
-    console.log(userBudgetData)
 
-    const userBudgetDataCopy = structuredClone(userBudgetData)
-    userBudgetDataCopy?.budget_data?.costs_categories.push(neWCostsCategory)
-    console.log(userBudgetDataCopy)
+    const isInputValueExist = costs_categories?.filter(
+      (category: any) =>
+        category?.name?.toLowerCase() ===
+        String(inputTargetValue.toLowerCase()),
+    )
 
-    if (userBudgetData?.user_id) {
-      updateBudgetData(
-        userBudgetDataCopy,
-        selectedMonth,
-        userBudgetData?.user_id,
-      )
+    console.log(newData)
+
+    if (isInputValueExist.length > 0) {
+      messageApi.open({
+        type: 'error',
+        content: 'Статья расходов уже существует',
+      })
+      setAddNewItemState(false)
+      setSelectTargetValue('')
+      setInputTargetValue('')
+    } else {
+      console.log('oks')
+
+      setDataSource(newData)
+      setAddNewItemState(false)
+      setSelectTargetValue('')
+      setInputTargetValue('')
+      console.log(userBudgetData)
+
+      const userBudgetDataCopy = structuredClone(userBudgetData)
+
+      if (
+        userBudgetData?.user_id &&
+        isInputValueExist &&
+        isInputValueExist.length > 0
+      ) {
+        if (userBudgetDataCopy && userBudgetDataCopy.budget_data) {
+          const updatedCostsCategories = userBudgetDataCopy.budget_data
+            .costs_categories
+            ? userBudgetDataCopy.budget_data.costs_categories.map((category) =>
+                String(category.id) === String(neWCostsCategory?.id)
+                  ? neWCostsCategory
+                  : category,
+              )
+            : []
+
+          userBudgetDataCopy.budget_data.costs_categories =
+            updatedCostsCategories
+        }
+        updateBudgetData(
+          userBudgetDataCopy,
+          selectedMonth,
+          userBudgetData?.user_id,
+        )
+      } else {
+        userBudgetDataCopy?.budget_data?.costs_categories.push(neWCostsCategory)
+        updateBudgetData(
+          userBudgetDataCopy,
+          selectedMonth,
+          userBudgetData?.user_id,
+        )
+      }
     }
   }
 
@@ -236,7 +292,7 @@ const CostsTableSummary: React.FC = () => {
                 maxCount={1}
                 disabled={inputTargetValue ? true : false}
               />
-              <Text style={{ padding: 40 }}>или</Text>
+              <Typography.Text style={{ padding: 40 }}>или</Typography.Text>
               <Input
                 placeholder="Введите название статьи"
                 // allowClear
@@ -265,6 +321,8 @@ const CostsTableSummary: React.FC = () => {
         if (record.isNew) {
           return (
             <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+              {contextHolder}
+
               <Button onClick={() => handleSaveNewItem(record.key)}>
                 Save
               </Button>
