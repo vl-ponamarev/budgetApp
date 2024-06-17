@@ -1,0 +1,349 @@
+{
+  "costs_categories": [
+    {
+      "name": "Развлечения",
+      "id": 1
+    },
+    {
+      "name": "Еда",
+      "id": 2
+    },
+    {
+      "name": "Прочее",
+      "id": 3
+    },
+    {
+      "name": "Обслуживание авто",
+      "id": 4
+    },
+    {
+      "name": "Путешествия",
+      "id": 5
+    },
+    {
+      "name": "Дети",
+      "id": 6
+    },
+    {
+      "id": 7,
+      "name": "Здоровье"
+    }
+  ],
+  "incomes_categories": [
+    {
+      "name": "Зарплата",
+      "id": 1
+    },
+    {
+      "name": "Проценты по вкладам",
+      "id": 2
+    },
+    {
+      "name": "Инвестиции",
+      "id": 3
+    },
+    {
+      "name": "Аренда квартиры",
+      "id": 4
+    }
+  ],
+  "data": [
+    {
+      "month": 5,
+      "users_data": [
+        {
+          "user_id": 1,
+          "budget_data": {
+            "incomes_categories": [
+              {
+                "id": 1,
+                "name": "Зарплата"
+              },
+              {
+                "id": 3,
+                "name": "Инвестиции"
+              }
+            ],
+            "costs_categories": [
+              {
+                "id": 2,
+                "name": "Еда"
+              },
+              {
+                "id": 4,
+                "name": "Обслуживание авто"
+              },
+              {
+                "id": 5,
+                "name": "Путешествия"
+              },
+              {
+                "id": 1,
+                "name": "Развлечения"
+              }
+            ],
+            "incomes": [
+              {
+                "id": 1,
+                "category_id": 1,
+                "amount": "15000",
+                "date": "2024-05-23T17:48:48.411Z",
+                "comment": "Вознаграждение"
+              },
+              {
+                "id": 2,
+                "category_id": 1,
+                "amount": "600000",
+                "date": "2024-05-23T17:49:11.471Z",
+                "comment": "Аванс"
+              }
+            ],
+            "costs": [
+              {
+                "id": 2,
+                "category_id": 2,
+                "amount": "1000",
+                "date": "2024-05-22T08:07:24.751Z",
+                "comment": "La Mare"
+              },
+              {
+                "id": 2,
+                "category_id": 2,
+                "amount": "5000",
+                "date": "2024-05-22T08:16:37.587Z",
+                "comment": "Буратино"
+              },
+              {
+                "id": 3,
+                "category_id": 4,
+                "amount": "850",
+                "date": "2024-05-22T08:17:06.899Z",
+                "comment": "Очиститель"
+              },
+              {
+                "id": 4,
+                "category_id": 4,
+                "amount": "700",
+                "date": "2024-05-22T08:17:32.171Z",
+                "comment": "Мойка"
+              },
+              {
+                "id": 5,
+                "category_id": 4,
+                "amount": "3200",
+                "date": "2024-05-22T08:17:56.066Z",
+                "comment": "Заправка"
+              },
+              {
+                "id": 6,
+                "category_id": 5,
+                "amount": "12000",
+                "date": "2024-05-22T08:26:48.200Z",
+                "comment": "Суздаль"
+              }
+            ]
+          }
+        },
+        {
+          "user_id": 0,
+          "budget_data": {
+            "incomes_categories": [],
+            "costs_categories": [],
+            "incomes": [],
+            "costs": []
+          }
+        }
+      ],
+      "id": 5
+    },
+    {
+      "month": 8,
+      "users_data": [
+        {
+          "user_id": 1,
+          "budget_data": {
+            "incomes_categories": [],
+            "costs_categories": [],
+            "incomes": [],
+            "costs": []
+          }
+        }
+      ],
+      "id": 8
+    },
+    {
+      "month": 9,
+      "users_data": [
+        {
+          "user_id": 1,
+          "budget_data": {
+            "incomes_categories": [],
+            "costs_categories": [],
+            "incomes": [],
+            "costs": []
+          }
+        }
+      ],
+      "id": 9
+    },
+    {
+      "month": 6,
+      "users_data": [
+        {
+          "user_id": 1,
+          "budget_data": {
+            "incomes_categories": [
+              {
+                "id": 2,
+                "name": "Проценты по вкладам"
+              },
+              {
+                "id": "25cc4b09-1013-45af-9b22-e881e7fef3eb",
+                "name": "всяко-разно"
+              },
+              {
+                "id": 1,
+                "name": "Зарплата"
+              }
+            ],
+            "costs_categories": [
+              {
+                "id": "66c80161-ce42-4244-989a-62a1c58476e8",
+                "name": "всяко-разно"
+              },
+              {
+                "id": "c95c5116-589b-4cb4-85bf-6e852c163b0e",
+                "name": "Непредвиденные расходы"
+              },
+              {
+                "id": 2,
+                "name": "Еда"
+              }
+            ],
+            "incomes": [
+              {
+                "id": "840b778c-72b6-45e6-9313-1ec3b9c998ab",
+                "category_id": "2",
+                "amount": "20000",
+                "date": "2024-06-17T13:36:15.764Z",
+                "comment": "Альфа до 09.09"
+              },
+              {
+                "id": "5caf5603-33d5-4749-87db-0e3b5105bab9",
+                "category_id": "25cc4b09-1013-45af-9b22-e881e7fef3eb",
+                "amount": "50000",
+                "date": "2024-06-17T13:36:50.499Z",
+                "comment": "Подорок"
+              },
+              {
+                "id": "375d7d80-af47-4f35-8c74-7a6bb3579434",
+                "category_id": "1",
+                "amount": "200000",
+                "date": "2024-06-17T13:37:23.203Z",
+                "comment": "Аванс"
+              }
+            ],
+            "costs": [
+              {
+                "id": 3,
+                "category_id": "2",
+                "amount": "20000",
+                "date": "2024-06-17T13:25:39.490Z",
+                "comment": "Ла Маре"
+              }
+            ]
+          }
+        }
+      ],
+      "id": 6
+    },
+    {
+      "month": 4,
+      "users_data": [
+        {
+          "user_id": 1,
+          "budget_data": {
+            "incomes_categories": [
+              {
+                "id": 1,
+                "name": "Зарплата"
+              }
+            ],
+            "costs_categories": [
+              {
+                "id": 2,
+                "name": "Еда"
+              }
+            ],
+            "incomes": [
+              {
+                "id": 1,
+                "category_id": 1,
+                "amount": "500000",
+                "date": "2024-05-27T18:58:54.027Z",
+                "comment": "Хорошо поработали"
+              }
+            ],
+            "costs": [
+              {
+                "id": 1,
+                "category_id": 2,
+                "amount": "5000",
+                "date": "2024-05-27T18:57:02.998Z",
+                "comment": "ресторна Аврора"
+              }
+            ]
+          }
+        }
+      ],
+      "id": 4
+    },
+    {
+      "month": 7,
+      "users_data": [
+        {
+          "user_id": 1,
+          "budget_data": {
+            "incomes_categories": [],
+            "costs_categories": [],
+            "incomes": [],
+            "costs": []
+          }
+        }
+      ],
+      "id": 7
+    }
+  ],
+  "users": [
+    {
+      "username": "admin",
+      "password": "$2b$04$YXmjQb0L5.Pwwtg8S5IMU./dEJSLcvSaPxOviB0QJWzL6gWqpn1Y.",
+      "id": 1
+    },
+    {
+      "username": "admin777",
+      "password": "$2b$04$8OwMFnD0PEJaATD6Rw3r8.oY1qCOc2mB4ac6juUHKKQfka8OvW5j6",
+      "id": 2
+    }
+  ],
+  "access_tokens": [
+    {
+      "username": "admin",
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTAxNzk0MDQsImV4cCI6MTcxMDIyMjYwNH0.Q-ZtkUtOaeisdMs1Ipnq_psKpBvQwz0JaAXQICVf-Og"
+    },
+    {
+      "username": "admin777",
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTU2MTgyMjMsImV4cCI6MTcxNTY2MTQyM30.z_5FkUkr7O4LJ-0RseiX8cfUfcotebhNW1_CHoz2H2A"
+    }
+  ],
+  "refresh_tokens": [
+    {
+      "username": "admin",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTAxNzk0MDQsImV4cCI6MTcxMDc4NDIwNH0.oFo2c7Oz3r1LsiWNyqse_DV2fw7EeTWSVWiX1XcvHFU"
+    },
+    {
+      "username": "admin777",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTU2MTgyMjMsImV4cCI6MTcxNjIyMzAyM30.n2X7Vm5zes_6YoEUH1MD-OKh5XFX8LM-v83v5vqOKgU"
+    }
+  ]
+}
