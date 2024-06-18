@@ -2,7 +2,7 @@ import { API } from '../../../ApiSPA'
 import { API_BUDGET } from '../../settings'
 
 interface ILocalPayload {
-  month: number
+  month: string
   userId: number
 }
 

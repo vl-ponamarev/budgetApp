@@ -8,6 +8,8 @@ import { PieChartIncomes } from '@/entities/pie-chart/PieChartIncomes'
 import CostsTableSummary from '@/entities/costs-table/CostsTableSummary'
 import IncomesTableSummary from '@/entities/incomes-tables/IncomsTableSummary'
 import IncomesCostsSummary from '@/entities/incomes-costs-summary/IncomesCostsSummary'
+import Titles from '@/entities/pie-chart/Titles'
+import { CompareChart } from '@/entities/pie-chart/CompareChart'
 
 const MainPage = () => {
   const logout = useAccountStore((s) => s.logout)
@@ -35,15 +37,19 @@ const MainPage = () => {
     localStorage.removeItem('id')
     clearStore()
   }, [logout])
-  // const getUserBudgetData = budgetStore((s: IBudgetStore) => s.getUserBudgetData)
 
   const userName = localStorage.getItem('username')
+
+  console.log(selectedMonth)
+  console.log(userBudgetData)
 
   useEffect(() => {
     const id = localStorage.getItem('id')
     if (id && selectedMonth) {
       getUserBudgetData(selectedMonth, Number(id))
-      // getMonthData(Number(selectedMonth.split('-')[1]) - 1)
+    }
+    if (userBudgetData) {
+      console.log(userBudgetData)
     }
   }, [selectedMonth])
 
@@ -80,15 +86,16 @@ const MainPage = () => {
       </Flex>
 
       <div>{userName}</div>
-
+      <Titles />
       <div style={{ display: 'flex', margin: '16px', width: '100%' }}>
         <PieChartIncomes />
         <PieChartCosts />
+        <CompareChart />
       </div>
-      <IncomesCostsSummary />
 
-      <CostsTableSummary />
+      <IncomesCostsSummary />
       <IncomesTableSummary />
+      <CostsTableSummary />
     </>
   )
 }

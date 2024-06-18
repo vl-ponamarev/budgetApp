@@ -19,40 +19,76 @@ const IncomesCostsSummary: React.FC = () => {
 
     return result
   }
-  const incomesSum = userBudgetData?.budget_data?.incomes
-    ? addSpacesToNumber(getSummary(userBudgetData.budget_data.incomes))
+  const incomes = userBudgetData?.budget_data?.incomes
+    ? getSummary(userBudgetData?.budget_data?.incomes)
     : 0
+  const costs = userBudgetData?.budget_data?.costs
+    ? getSummary(userBudgetData?.budget_data?.costs)
+    : 0
+
+  const incomesSum = addSpacesToNumber(incomes) ?? 0
   console.log(incomesSum)
-  const costsSum = userBudgetData?.budget_data?.costs
-    ? addSpacesToNumber(getSummary(userBudgetData.budget_data.costs))
-    : 0
+  const costsSum = addSpacesToNumber(costs) ?? 0
   console.log(costsSum)
 
+  const getSummaryText = (incomes: number, costs: number) => {
+    const incomesCostsDifference = incomes - costs
+
+    if (incomesCostsDifference > 0) {
+      return `Доходы превышают расходы на ${addSpacesToNumber(
+        Math.abs(incomesCostsDifference),
+      )} ₽`
+    }
+    return `Расходы превышают доходы на ${addSpacesToNumber(
+      Math.abs(incomesCostsDifference),
+    )} ₽`
+  }
+
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', width: '60vw' }}>
       <div
         style={{
           display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          justifyContent: 'space-around',
+          width: '60vw',
         }}
       >
-        <Text strong style={{ fontSize: '12px' }}>
-          Всего доходов
-        </Text>
-        <Text keyboard style={{ fontSize: '20px' }}>{`${incomesSum} ₽`}</Text>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Text strong style={{ fontSize: '12px' }}>
+            Всего доходов
+          </Text>
+          <Text keyboard style={{ fontSize: '20px' }}>{`${incomesSum} ₽`}</Text>
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Text strong style={{ fontSize: '12px' }}>
+            Всего расходов
+          </Text>
+          <Text keyboard style={{ fontSize: '20px' }}>{`${costsSum} ₽`}</Text>
+        </div>
       </div>
       <div
         style={{
+          marginTop: '30px',
           display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          justifyContent: 'center',
+          width: '60vw',
         }}
       >
-        <Text strong style={{ fontSize: '12px' }}>
-          Всего расходов
+        <Text keyboard style={{ fontSize: '20px' }}>
+          {getSummaryText(incomes, costs)}
         </Text>
-        <Text keyboard style={{ fontSize: '20px' }}>{`${costsSum} ₽`}</Text>
       </div>
     </div>
   )

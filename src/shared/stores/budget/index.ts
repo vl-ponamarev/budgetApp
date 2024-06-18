@@ -19,24 +19,24 @@ export interface IBudgetStore {
   localeName: string
   userBudgetData: IUserBudgetData | undefined
   monthBudgetData: any
-  selectedMonth: number | undefined
+  selectedMonth: string | undefined
   costsCategories: any
   incomesCategories: any
   getCostCategories: (data?: any) => void
-  setSelectedMonth: (dateString: number) => void
-  getUserBudgetData: (month: number, userId: number) => Promise<any>
-  getMonthData: (month: number) => Promise<any>
+  setSelectedMonth: (dateString: string) => void
+  getUserBudgetData: (month: string, userId: number) => Promise<any>
+  getMonthData: (month: string) => Promise<any>
   getIncomesCategories: () => Promise<any>
   getCostsCategories: () => Promise<any>
   setMonthBudgetData: (data?: any) => void
   updateBudgetData: (
     data: any,
-    month: number | undefined,
+    month: string | undefined,
     userId: number | undefined,
   ) => Promise<any>
   createMonthBudgetData: (
     data: any,
-    month: number | undefined,
+    month: string | undefined,
     userId: number,
   ) => Promise<any>
   state: any
@@ -108,7 +108,7 @@ const budgetStore = create<IBudgetStore>(
             })
           }
         },
-        getUserBudgetData: async (month: number, userId: number) => {
+        getUserBudgetData: async (month: string, userId: number) => {
           try {
             const response = await SERVICES_BUDGET.Models.getUserBudgetData({
               month,
@@ -139,7 +139,7 @@ const budgetStore = create<IBudgetStore>(
             })
           }
         },
-        getMonthData: async (month: number) => {
+        getMonthData: async (month: string) => {
           try {
             const response = await SERVICES_BUDGET.Models.getMonthData(month)
             if (response?.success) {
@@ -164,11 +164,9 @@ const budgetStore = create<IBudgetStore>(
         },
         createMonthBudgetData: async (
           data: any,
-          month: number,
+          month: string,
           userId: number,
         ) => {
-          console.log(month)
-
           try {
             const response = await SERVICES_BUDGET.Models.createBudgetData(
               data,
@@ -220,7 +218,7 @@ const budgetStore = create<IBudgetStore>(
             })
           }
         },
-        setSelectedMonth: (month: number) => {
+        setSelectedMonth: (month: string) => {
           set((state: IBudgetStore) => {
             state.selectedMonth = month
           })

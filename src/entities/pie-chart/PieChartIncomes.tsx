@@ -12,7 +12,7 @@ export function PieChartIncomes() {
   console.log(userBudgetData)
 
   const options = {
-    title: `Статистика доходов за ${getCurrentDate()}`,
+    title: '',
     is3D: true,
     titleTextStyle: {
       fontSize: 16,

@@ -4,7 +4,7 @@ import { API_BUDGET } from '../../settings'
 
 export const createBudgetData = async (
   data: IUserBudgetData,
-  month: number,
+  month: string,
   userId: number,
 ): Promise<any> => {
   const endpoint = { ...API_BUDGET.createData }

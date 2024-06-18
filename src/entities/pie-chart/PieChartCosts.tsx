@@ -2,8 +2,6 @@ import { Chart } from 'react-google-charts'
 
 import { useEffect, useState } from 'react'
 import budgetStore from '@/shared/stores/budget'
-import { getCurrentDate } from '@/shared/utils/currentDate'
-
 export function PieChartCosts() {
   const userBudgetData = budgetStore((s) => s.userBudgetData)
   const costs_categories = userBudgetData?.budget_data?.costs_categories
@@ -11,7 +9,7 @@ export function PieChartCosts() {
   const [pieChartData, setPieChartData] = useState<any>([])
 
   const options = {
-    title: `Статистика расходов за ${getCurrentDate()}`,
+    title: '',
     is3D: true,
   }
 

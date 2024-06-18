@@ -15,7 +15,7 @@ import {
   EditableCell,
   EditableRow,
 } from '@/shared/ui/editable-row-cell/EditableRowAndCell'
-import CostsExpandedRowRender from './CostsExpandedRowRender'
+import CommonTable from '@/shared/ui/common-table/CommonTable'
 
 type EditableTableProps = Parameters<typeof Table>[0]
 
@@ -306,12 +306,12 @@ const CostsTableSummary: React.FC = () => {
           )
         }
         return (
-          <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-start' }}>
             <Popconfirm
               title={`При удалении категории будут \n удалены все ее записи. Удалить?`}
               onConfirm={() => handleDelete(record.key)}
             >
-              <Button>Delete</Button>
+              <Button>Удалить</Button>
             </Popconfirm>
           </div>
         ) // Или отображаем что-то другое для существующих записей
@@ -386,9 +386,8 @@ const CostsTableSummary: React.FC = () => {
         columns={columns as ColumnTypes}
         expandable={{
           expandedRowRender: (record) => (
-            <CostsExpandedRowRender record={record} />
-          ), // expandedRowRender: (record) => ExpandedRowRender(record),
-          // defaultExpandedRowKeys: ['1', '2'],
+            <CommonTable record={record} data="costs" />
+          ),
           defaultExpandAllRows: true,
           columnWidth: 50,
         }}

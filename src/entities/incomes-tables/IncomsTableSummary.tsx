@@ -14,8 +14,8 @@ import {
   EditableCell,
   EditableRow,
 } from '@/shared/ui/editable-row-cell/EditableRowAndCell' // import IncomesExpandedRowRender from './IncomesExpandedRowRender'
-import IncomesExpandedRowRender from './IncomesExpandedRowRender'
 import { v4 as uuidv4 } from 'uuid'
+import CommonTable from '@/shared/ui/common-table/CommonTable'
 
 type EditableTableProps = Parameters<typeof Table>[0]
 
@@ -299,15 +299,15 @@ const IncomesTableSummary: React.FC = () => {
           )
         }
         return (
-          <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-start' }}>
             <Popconfirm
               title={`При удалении категории будут \n удалены все ее записи. Удалить?`}
               onConfirm={() => handleDelete(record.key)}
             >
-              <Button>Delete</Button>
+              <Button>Удалить</Button>
             </Popconfirm>
           </div>
-        ) // Или отображаем что-то другое для существующих записей
+        )
       },
     },
   ]
@@ -371,7 +371,6 @@ const IncomesTableSummary: React.FC = () => {
         </Button>
       </div>
       <Table
-        // style={{ width: '90%' }}
         components={components}
         rowClassName={() => 'editable-row'}
         bordered
@@ -379,9 +378,8 @@ const IncomesTableSummary: React.FC = () => {
         columns={columns as ColumnTypes}
         expandable={{
           expandedRowRender: (record) => (
-            <IncomesExpandedRowRender record={record} />
-          ), // expandedRowRender: (record) => ExpandedRowRender(record),
-          // defaultExpandedRowKeys: ['1', '2'],
+            <CommonTable record={record} data="incomes" />
+          ),
           defaultExpandAllRows: true,
           columnWidth: 50,
         }}

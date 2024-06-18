@@ -2,7 +2,7 @@ import { API_BUDGET } from '../../settings'
 import { API } from '../../../ApiSPA'
 import { IFullAccount } from '../../../../stores/accounts'
 
-export const getMonthData = async (month: number): Promise<any> => {
+export const getMonthData = async (month: string): Promise<any> => {
   const endpoint = { ...API_BUDGET.getMonthData }
   const response = await API.apiQuery<IFullAccount>({
     method: endpoint.method,

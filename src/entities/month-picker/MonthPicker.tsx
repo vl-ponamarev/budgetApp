@@ -12,16 +12,13 @@ const MonthPicker = () => {
   const currentDate = dayjs()
 
   useEffect(() => {
-    const currentDateFormatMM = currentDate.format('MM')
-    console.log(currentDateFormatMM)
+    const currentDateFormatMM = currentDate.format('MM.YYYY')
 
-    setSelectedMonth(Number(currentDateFormatMM))
+    setSelectedMonth(currentDateFormatMM)
   }, [])
 
   const onChange: DatePickerProps['onChange'] = (date, dateString) => {
-    console.log(Number(dayjs(date).format('MM')))
-
-    setSelectedMonth(Number(dayjs(date).format('MM')))
+    setSelectedMonth(dayjs(date).format('MM.YYYY'))
   }
   return (
     <DatePicker onChange={onChange} picker="month" defaultValue={currentDate} />
