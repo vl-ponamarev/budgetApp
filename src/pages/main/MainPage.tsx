@@ -87,13 +87,24 @@ const MainPage = () => {
 
       <div>{userName}</div>
       <Titles />
-      <div style={{ display: 'flex', margin: '16px', width: '100%' }}>
-        <PieChartIncomes />
-        <PieChartCosts />
+      <div style={{ display: 'flex', maxWidth: '100vw' }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+          }}
+        >
+          <div style={{ display: 'flex', margin: '16px', maxWidth: '100%' }}>
+            <PieChartIncomes />
+            <PieChartCosts />
+          </div>
+          <IncomesCostsSummary />
+        </div>
+
         <CompareChart />
       </div>
 
-      <IncomesCostsSummary />
       <IncomesTableSummary />
       <CostsTableSummary />
     </>

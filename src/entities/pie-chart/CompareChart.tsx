@@ -1,6 +1,7 @@
 import { Chart } from 'react-google-charts'
 import { getCurrentDate } from '@/shared/utils/currentDate'
 import { Button, DatePicker, Typography } from 'antd'
+import { Dayjs } from 'dayjs'
 
 export const data = [
   ['Месяц', 'Доходы', 'Расходы'],
@@ -41,6 +42,18 @@ export function CompareChart() {
 
   console.log(dateArray)
 
+  const onRangeChange = (
+    dates: null | (Dayjs | null)[],
+    dateStrings: string[],
+  ) => {
+    if (dates) {
+      console.log('From: ', dates[0], ', to: ', dates[1])
+      console.log('From: ', dateStrings[0], ', to: ', dateStrings[1])
+    } else {
+      console.log('Clear')
+    }
+  }
+
   return (
     <div
       style={{
@@ -79,7 +92,7 @@ export function CompareChart() {
         >
           Выбрать месяцы
         </Text>
-        <RangePicker picker="month" />
+        <RangePicker picker="month" onChange={onRangeChange} />
         <Button style={{ marginTop: 20 }}>Сравнить</Button>
       </div>
     </div>
