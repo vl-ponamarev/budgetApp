@@ -21,7 +21,6 @@ export function CompareChart() {
   const { RangePicker } = DatePicker
   const { Text } = Typography
   const currentDate = getCurrentDate()
-  console.log(currentDate)
 
   function getPreviousDates(currentDate: string) {
     const dates = []
@@ -39,8 +38,6 @@ export function CompareChart() {
   }
 
   const dateArray = getPreviousDates(currentDate)
-
-  console.log(dateArray)
 
   const onRangeChange = (
     dates: null | (Dayjs | null)[],

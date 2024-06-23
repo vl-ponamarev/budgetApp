@@ -8,6 +8,7 @@ import {
   Select,
   Typography,
   message,
+  Tooltip,
 } from 'antd'
 import budgetStore, { IBudgetStore } from '@/shared/stores/budget'
 import {
@@ -16,6 +17,8 @@ import {
 } from '@/shared/ui/editable-row-cell/EditableRowAndCell' // import IncomesExpandedRowRender from './IncomesExpandedRowRender'
 import { v4 as uuidv4 } from 'uuid'
 import CommonTable from '@/shared/ui/common-table/CommonTable'
+import { CustomButtonDeleteIcon } from '@/shared/ui/castomDeleteIcon/customDeleteIcon'
+import { CustomAddCategoryIcon } from '@/shared/ui/customAddCategoryIcon/customAddCategoryIcon'
 
 type EditableTableProps = Parameters<typeof Table>[0]
 
@@ -44,10 +47,10 @@ const IncomesTableSummary: React.FC = () => {
   ])
 
   // const { Text } = Typography
-  console.log(selectedMonth)
-  console.log(userBudgetData)
-  console.log(incomesCategories)
-  console.log(monthBudgetData)
+  // console.log(selectedMonth)
+  // console.log(userBudgetData)
+  // console.log(incomesCategories)
+  // console.log(monthBudgetData)
 
   const { Text } = Typography
   // const { user_id } = userBudgetData
@@ -286,7 +289,7 @@ const IncomesTableSummary: React.FC = () => {
             <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
               {contextHolder}
               <Button onClick={() => handleSaveNewItem(record.key)}>
-                Save
+                Сохранить
               </Button>
 
               {/* <Popconfirm
@@ -301,10 +304,14 @@ const IncomesTableSummary: React.FC = () => {
         return (
           <div style={{ display: 'flex', justifyContent: 'space-start' }}>
             <Popconfirm
-              title={`При удалении категории будут \n удалены все ее записи. Удалить?`}
+              title={`При удалении статьи будут \n удалены все ее записи. Удалить?`}
               onConfirm={() => handleDelete(record.key)}
             >
-              <Button>Удалить</Button>
+              <Tooltip title="Удалить статью">
+                <Button style={{ border: 'none', height: '100%' }}>
+                  <CustomButtonDeleteIcon />
+                </Button>
+              </Tooltip>
             </Popconfirm>
           </div>
         )
@@ -361,14 +368,16 @@ const IncomesTableSummary: React.FC = () => {
 
   return (
     <>
-      <div style={{ width: '90%', marginTop: 30 }}>
-        <Button
-          onClick={handleAdd}
-          style={{ marginBottom: 10, right: 0 }}
-          disabled={addNewItemState}
-        >
-          Добавить статью дохода
-        </Button>
+      <div style={{ width: '90%', margin: '30px 0 10px 0' }}>
+        <Tooltip title="Добавить новую статью">
+          <Button
+            onClick={handleAdd}
+            style={{ marginBottom: 10, right: 0, border: 'none' }}
+            disabled={addNewItemState}
+          >
+            <CustomAddCategoryIcon />
+          </Button>
+        </Tooltip>
       </div>
       <Table
         components={components}

@@ -4,6 +4,7 @@ import dayjs, { Dayjs } from 'dayjs'
 import { v4 as uuidv4 } from 'uuid'
 import { CloseOutlined, DeleteOutlined, SaveOutlined } from '@ant-design/icons'
 import budgetStore, { IBudgetStore } from '@/shared/stores/budget'
+
 import {
   EditableCell,
   EditableRow,
@@ -181,7 +182,12 @@ const CommonTable: React.FC<CommonTableProps> = ({ record, data }) => {
       render: (_, record) => {
         if (record.isNew) {
           return (
-            <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-evenly',
+              }}
+            >
               <Button
                 onClick={() => handleSaveNewItem(record.key)}
                 shape="round"
@@ -211,22 +217,33 @@ const CommonTable: React.FC<CommonTableProps> = ({ record, data }) => {
           )
         }
         return (
-          <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-evenly',
+              height: '40px',
+            }}
+          >
             <Popconfirm
               title="Удалить запись?"
               onConfirm={() => handleDelete(record.key)}
             >
-              <Button
-                shape="round"
-                size="small"
-                style={{
-                  backgroundColor: '#FF2F16',
-                  color: 'white',
-                  boxShadow: '-1px 1px 5px #9CA5B1',
-                }}
+              <Tooltip
+                title={data === 'incomes' ? 'Удалить доход' : 'Удалить расход'}
               >
-                <DeleteOutlined />
-              </Button>
+                <Button
+                  shape="round"
+                  size="small"
+                  style={{
+                    backgroundColor: '#FF2F16',
+                    color: 'white',
+                    boxShadow: '-1px 1px 5px #9CA5B1',
+                    height: '100%',
+                  }}
+                >
+                  <DeleteOutlined style={{ fontSize: '16px' }} />
+                </Button>
+              </Tooltip>
             </Popconfirm>
           </div>
         )
@@ -244,7 +261,7 @@ const CommonTable: React.FC<CommonTableProps> = ({ record, data }) => {
       category_id: record.key,
     }
 
-    setDataSource([...dataSource, newData])
+    setDataSource([newData, ...dataSource])
     setCount(count + 1)
     setAddNewItemState(true)
   }

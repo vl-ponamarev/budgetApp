@@ -219,6 +219,21 @@
         }
       ],
       "id": 5.2024
+    },
+    {
+      "month": 12.2078,
+      "users_data": [
+        {
+          "user_id": 1,
+          "budget_data": {
+            "incomes_categories": [],
+            "costs_categories": [],
+            "incomes": [],
+            "costs": []
+          }
+        }
+      ],
+      "id": 12.2078
     }
   ],
   "users": [

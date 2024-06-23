@@ -27,9 +27,9 @@ const IncomesCostsSummary: React.FC = () => {
     : 0
 
   const incomesSum = addSpacesToNumber(incomes) ?? 0
-  console.log(incomesSum)
+  // console.log(incomesSum)
   const costsSum = addSpacesToNumber(costs) ?? 0
-  console.log(costsSum)
+  // console.log(costsSum)
 
   const getSummaryText = (incomes: number, costs: number) => {
     const incomesCostsDifference = incomes - costs
