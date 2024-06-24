@@ -16,9 +16,9 @@ const IncomesCostsSummary: React.FC = () => {
     : 0
 
   const incomesSum = addSpacesToNumber(incomes) ?? 0
-  console.log(incomesSum)
+  // console.log(incomesSum)
   const costsSum = addSpacesToNumber(costs) ?? 0
-  console.log(costsSum)
+  // console.log(costsSum)
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
