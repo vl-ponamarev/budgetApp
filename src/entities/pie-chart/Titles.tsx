@@ -6,7 +6,7 @@ const Titles: React.FC = () => {
 
   return (
     <div
-      style={{ display: 'flex', justifyContent: 'space-around', width: '60vw' }}
+      style={{ display: 'flex', justifyContent: 'space-around', width: '70vw' }}
     >
       <div
         style={{

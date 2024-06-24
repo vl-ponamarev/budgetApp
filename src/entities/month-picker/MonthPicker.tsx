@@ -5,10 +5,7 @@ import dayjs from 'dayjs'
 import { useEffect } from 'react'
 
 const MonthPicker = () => {
-  const [selectedMonth, setSelectedMonth] = budgetStore((s) => [
-    s.selectedMonth,
-    s.setSelectedMonth,
-  ])
+  const [setSelectedMonth] = budgetStore((s) => [s.setSelectedMonth])
   const currentDate = dayjs()
 
   useEffect(() => {

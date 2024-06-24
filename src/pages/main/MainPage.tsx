@@ -92,7 +92,7 @@ const MainPage = () => {
           style={{
             display: 'flex',
             flexDirection: 'column',
-            width: '100%',
+            width: '70vw',
           }}
         >
           <div style={{ display: 'flex', margin: '16px', maxWidth: '100%' }}>

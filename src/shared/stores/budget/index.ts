@@ -18,6 +18,7 @@ export interface IUserBudgetData {
 export interface IBudgetStore {
   localeName: string
   userBudgetData: IUserBudgetData | undefined
+  userBudgetDataOnSelectedMonth: IUserBudgetData | undefined
   monthBudgetData: any
   selectedMonth: string | undefined
   costsCategories: any
@@ -25,6 +26,10 @@ export interface IBudgetStore {
   getCostCategories: (data?: any) => void
   setSelectedMonth: (dateString: string) => void
   getUserBudgetData: (month: string, userId: number) => Promise<any>
+  getUserBudgetDataOnSelectedMonth: (
+    month: string,
+    userId: number,
+  ) => Promise<any>
   getMonthData: (month: string) => Promise<any>
   getIncomesCategories: () => Promise<any>
   getCostsCategories: () => Promise<any>
@@ -52,6 +57,7 @@ const budgetStore = create<IBudgetStore>(
         localeName: 'Данные бюджета',
         incomesCategories: undefined,
         userBudgetData: undefined,
+        userBudgetDataOnSelectedMonth: undefined,
         monthBudgetData: undefined,
         selectedMonth: undefined,
         getIncomesCategories: async () => {
@@ -123,6 +129,36 @@ const budgetStore = create<IBudgetStore>(
 
                 const data = produce((draft: IBudgetStore) => {
                   draft.userBudgetData = users_data
+                })
+                set(data)
+                // set((draft: any) => {
+                //   draft.store.jsonDirectionsData = response?.data;
+                //   draft.store.directionsData = response?.data;
+                // });
+              }
+            }
+          } catch (error: any) {
+            produce(get(), (draft: IBudgetStore) => {
+              draft.state = 'Ошибка при обновлении хранилища'
+              draft.error =
+                error instanceof Error ? error.message : String(error)
+            })
+          }
+        },
+        getUserBudgetDataOnSelectedMonth: async (
+          month: string,
+          userId: number,
+        ) => {
+          try {
+            const response = await SERVICES_BUDGET.Models.getUserBudgetData({
+              month,
+              userId,
+            })
+            if (response?.success) {
+              if (response?.data !== undefined) {
+                const users_data = response?.data?.users_data
+                const data = produce((draft: IBudgetStore) => {
+                  draft.userBudgetDataOnSelectedMonth = users_data
                 })
                 set(data)
                 // set((draft: any) => {
