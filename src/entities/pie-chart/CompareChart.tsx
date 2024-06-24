@@ -1,26 +1,41 @@
 import { Chart } from 'react-google-charts'
 import { getCurrentDate } from '@/shared/utils/currentDate'
-import { Button, DatePicker, Typography } from 'antd'
-import { Dayjs } from 'dayjs'
+import { Button, DatePicker, DatePickerProps, Typography } from 'antd'
+import dayjs, { Dayjs } from 'dayjs'
+import { useEffect, useState } from 'react'
+import budgetStore, { IBudgetStore } from '@/shared/stores/budget'
+import { getSummary } from '@/shared/utils/getSummary'
 
-export const data = [
-  ['Месяц', 'Доходы', 'Расходы'],
-  ['04.2024', 1000, 400],
-  ['05.2024', 1170, 460],
-  ['06.2024', 660, 1120],
-]
+// export const data = [
+//   ['Месяц', 'Доходы', 'Расходы'],
+//   ['04.2024', 1000, 400],
+//   ['05.2024', 1170, 460],
+//   ['06.2024', 660, 1120],
+// ]
 
-export const options = {
-  chart: {
-    title: '',
-    // subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-  },
-}
+type ChartData = [Dayjs | undefined | string[], string | number[]]
 
 export function CompareChart() {
-  const { RangePicker } = DatePicker
   const { Text } = Typography
   const currentDate = getCurrentDate()
+
+  const [
+    userBudgetData,
+    getUserBudgetDataOnSelectedMonth,
+    userBudgetDataOnSelectedMonth,
+  ] = budgetStore((s: IBudgetStore) => [
+    s.userBudgetData,
+    s.getUserBudgetDataOnSelectedMonth,
+    s.userBudgetDataOnSelectedMonth,
+  ])
+
+  const options = {
+    chart: {
+      title: '',
+      // subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+    },
+  }
+
   console.log(currentDate)
 
   function getPreviousDates(currentDate: string) {
@@ -42,17 +57,82 @@ export function CompareChart() {
 
   console.log(dateArray)
 
-  const onRangeChange = (
-    dates: null | (Dayjs | null)[],
-    dateStrings: string[],
-  ) => {
-    if (dates) {
-      console.log('From: ', dates[0], ', to: ', dates[1])
-      console.log('From: ', dateStrings[0], ', to: ', dateStrings[1])
-    } else {
-      console.log('Clear')
-    }
+  const [startDate, setStartDate] = useState<Dayjs | undefined | string>(
+    undefined,
+  )
+  const [data, setData] = useState<any>(undefined)
+  const [endDate, setEndDate] = useState<Dayjs | undefined | string>(
+    currentDate,
+  )
+
+  const onChangeStartDate: DatePickerProps['onChange'] = (date, dateString) => {
+    setStartDate(date.format('MM.YYYY'))
+    console.log(date, dateString)
   }
+  const onChangeEndDate: DatePickerProps['onChange'] = (date, dateString) => {
+    setEndDate(date.format('MM.YYYY'))
+  }
+  const currentDateDayjs = dayjs()
+
+  const [getData, setGetData] = useState<any>(true)
+
+  const compareHandler = () => {
+    setGetData(!getData)
+  }
+
+  useEffect(() => {
+    if (startDate && endDate) {
+      const id = localStorage.getItem('id')
+      if (endDate === currentDate) {
+        getUserBudgetDataOnSelectedMonth(startDate, Number(id))
+        console.log(userBudgetDataOnSelectedMonth)
+
+        if (userBudgetDataOnSelectedMonth) {
+          console.log(userBudgetDataOnSelectedMonth)
+          const incomesStartMonthSumm = getSummary(
+            userBudgetDataOnSelectedMonth.budget_data.incomes,
+          )
+          const costsStartMonthSumm = getSummary(
+            userBudgetDataOnSelectedMonth.budget_data.costs,
+          )
+          const incomesEndMonthSumm = userBudgetData
+            ? getSummary(userBudgetData?.budget_data?.incomes)
+            : 0
+          const costsEndMonthSumm = userBudgetData
+            ? getSummary(userBudgetData?.budget_data?.costs)
+            : 0
+
+          setData([
+            ['Месяц', 'Доходы', 'Расходы'],
+            [startDate, incomesStartMonthSumm, costsStartMonthSumm],
+            [endDate, incomesEndMonthSumm, costsEndMonthSumm],
+          ])
+        } else {
+          setData(undefined)
+        }
+      } else {
+        console.log('oks')
+
+        const dataArray = []
+        let startUserData
+        let endUserData
+
+        getUserBudgetDataOnSelectedMonth(startDate, Number(id))
+        if (userBudgetDataOnSelectedMonth) {
+          startUserData = userBudgetDataOnSelectedMonth
+          dataArray.push(startUserData)
+        }
+        if (dataArray.length > 0) {
+          getUserBudgetDataOnSelectedMonth(endUserData, Number(id))
+          if (userBudgetDataOnSelectedMonth) {
+            endUserData = userBudgetDataOnSelectedMonth
+            dataArray.push(endUserData)
+          }
+        }
+        console.log(dataArray)
+      }
+    }
+  }, [getData])
 
   return (
     <div
@@ -60,20 +140,22 @@ export function CompareChart() {
         display: 'flex',
         flexDirection: 'column',
 
-        width: '100%',
+        width: '30vw',
         height: '600px',
       }}
     >
       <Text style={{ fontSize: '16px', color: 'gray', marginBottom: 20 }}>
         Сравнение доходов и расходов по месяцам
       </Text>
-      <Chart
-        chartType="Bar"
-        width="100%"
-        height="400px"
-        data={data}
-        options={options}
-      />
+      {data && (
+        <Chart
+          chartType="Bar"
+          width="100%"
+          height="400px"
+          data={data}
+          options={options}
+        />
+      )}
       <div
         style={{
           marginTop: 20,
@@ -92,8 +174,27 @@ export function CompareChart() {
         >
           Выбрать месяцы
         </Text>
-        <RangePicker picker="month" onChange={onRangeChange} />
-        <Button style={{ marginTop: 20 }}>Сравнить</Button>
+        <div
+          style={{
+            display: 'flex',
+            minWidth: '64%',
+          }}
+        >
+          <DatePicker
+            onChange={onChangeStartDate}
+            picker="month"
+            // defaultValue={currentDate}
+            style={{ marginRight: 5 }}
+          />
+          <DatePicker
+            onChange={onChangeEndDate}
+            picker="month"
+            defaultValue={currentDateDayjs}
+          />
+        </div>
+        <Button style={{ marginTop: 20 }} onClick={compareHandler}>
+          Сравнить
+        </Button>
       </div>
     </div>
   )
