@@ -13,8 +13,6 @@ import { getSummary } from '@/shared/utils/getSummary'
 //   ['06.2024', 660, 1120],
 // ]
 
-type ChartData = [Dayjs | undefined | string[], string | number[]]
-
 export function CompareChart() {
   const { Text } = Typography
   const currentDate = getCurrentDate()
@@ -23,10 +21,12 @@ export function CompareChart() {
     userBudgetData,
     getUserBudgetDataOnSelectedMonth,
     userBudgetDataOnSelectedMonth,
+    monthBudgetData,
   ] = budgetStore((s: IBudgetStore) => [
     s.userBudgetData,
     s.getUserBudgetDataOnSelectedMonth,
     s.userBudgetDataOnSelectedMonth,
+    s.monthBudgetData,
   ])
 
   const options = {
@@ -37,6 +37,7 @@ export function CompareChart() {
   }
 
   console.log(currentDate)
+  console.log(monthBudgetData)
 
   function getPreviousDates(currentDate: string) {
     const dates = []
@@ -69,6 +70,10 @@ export function CompareChart() {
     setStartDate(date.format('MM.YYYY'))
     console.log(date, dateString)
   }
+
+  const onPanelChange: DatePickerProps['onPanelChange'] = (value, mode) => {
+    console.log(value, mode)
+  }
   const onChangeEndDate: DatePickerProps['onChange'] = (date, dateString) => {
     setEndDate(date.format('MM.YYYY'))
   }
@@ -81,14 +86,18 @@ export function CompareChart() {
   }
 
   useEffect(() => {
+    console.log(startDate)
+    console.log(endDate)
+
     if (startDate && endDate) {
       const id = localStorage.getItem('id')
       if (endDate === currentDate) {
-        getUserBudgetDataOnSelectedMonth(startDate, Number(id))
+        getUserBudgetDataOnSelectedMonth(startDate.toString(), Number(id))
         console.log(userBudgetDataOnSelectedMonth)
 
         if (userBudgetDataOnSelectedMonth) {
           console.log(userBudgetDataOnSelectedMonth)
+
           const incomesStartMonthSumm = getSummary(
             userBudgetDataOnSelectedMonth.budget_data.incomes,
           )
@@ -117,22 +126,59 @@ export function CompareChart() {
         let startUserData
         let endUserData
 
-        getUserBudgetDataOnSelectedMonth(startDate, Number(id))
+        console.log(startDate)
+        console.log(endDate)
+
+        getUserBudgetDataOnSelectedMonth(startDate.toString(), Number(id))
+        console.log(userBudgetDataOnSelectedMonth)
+
         if (userBudgetDataOnSelectedMonth) {
           startUserData = userBudgetDataOnSelectedMonth
-          dataArray.push(startUserData)
+          dataArray.push({ startUserData })
+        } else {
+          setData(undefined)
         }
         if (dataArray.length > 0) {
-          getUserBudgetDataOnSelectedMonth(endUserData, Number(id))
+          getUserBudgetDataOnSelectedMonth(endDate.toString(), Number(id))
           if (userBudgetDataOnSelectedMonth) {
+            console.log('oki')
+            console.log(userBudgetDataOnSelectedMonth)
+
             endUserData = userBudgetDataOnSelectedMonth
-            dataArray.push(endUserData)
+            dataArray.push({ endUserData })
+            console.log(dataArray)
+
+            const incomesStartMonthSumm = getSummary(
+              dataArray[0]?.startUserData?.budget_data.incomes,
+            )
+            const costsStartMonthSumm = getSummary(
+              dataArray[0]?.startUserData?.budget_data.costs,
+            )
+            const incomesEndMonthSumm = dataArray[1]?.endUserData
+              ? getSummary(dataArray[1]?.endUserData?.budget_data?.incomes)
+              : 0
+            const costsEndMonthSumm = dataArray[1]?.endUserData
+              ? getSummary(dataArray[1]?.endUserData?.budget_data?.costs)
+              : 0
+
+            setData([
+              ['Месяц', 'Доходы', 'Расходы'],
+              [startDate, incomesStartMonthSumm, costsStartMonthSumm],
+              [endDate, incomesEndMonthSumm, costsEndMonthSumm],
+            ])
           }
         }
-        console.log(dataArray)
+
+        console.log('dataArray', dataArray)
       }
+    } else {
+      setData(undefined)
     }
-  }, [getData])
+  }, [getData, startDate, endDate, monthBudgetData])
+
+  console.log(getData)
+
+  console.log(data)
 
   return (
     <div
@@ -144,10 +190,10 @@ export function CompareChart() {
         height: '600px',
       }}
     >
-      <Text style={{ fontSize: '16px', color: 'gray', marginBottom: 20 }}>
+      <Text style={{ fontSize: '16px', color: 'black', marginBottom: 20 }}>
         Сравнение доходов и расходов по месяцам
       </Text>
-      {data && (
+      {data ? (
         <Chart
           chartType="Bar"
           width="100%"
@@ -155,6 +201,17 @@ export function CompareChart() {
           data={data}
           options={options}
         />
+      ) : (
+        <Text
+          style={{
+            fontSize: '16px',
+            color: 'gray',
+            marginTop: 10,
+            marginBottom: 20,
+          }}
+        >
+          Данные по выбранным месяцам отсутствуют{' '}
+        </Text>
       )}
       <div
         style={{
@@ -182,6 +239,7 @@ export function CompareChart() {
         >
           <DatePicker
             onChange={onChangeStartDate}
+            onPanelChange={onPanelChange}
             picker="month"
             // defaultValue={currentDate}
             style={{ marginRight: 5 }}

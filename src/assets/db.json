@@ -221,7 +221,63 @@
       "id": 5.2024
     },
     {
-      "month": 12.2078,
+      "month": 7.2024,
+      "users_data": [
+        {
+          "user_id": 1,
+          "budget_data": {
+            "incomes_categories": [
+              {
+                "id": 1,
+                "name": "Зарплата"
+              }
+            ],
+            "costs_categories": [],
+            "incomes": [
+              {
+                "id": "80721115-9bb8-4f01-9233-0b40843c9633",
+                "category_id": "1",
+                "amount": "150000",
+                "date": "2024-07-10T21:00:00.000Z",
+                "comment": "Аванс"
+              }
+            ],
+            "costs": []
+          }
+        }
+      ],
+      "id": 7.2024
+    },
+    {
+      "month": 4.2024,
+      "users_data": [
+        {
+          "user_id": 1,
+          "budget_data": {
+            "incomes_categories": [
+              {
+                "id": 1,
+                "name": "Зарплата"
+              }
+            ],
+            "costs_categories": [],
+            "incomes": [
+              {
+                "id": "ca6daaf4-4766-4c4a-bb74-c09569b8c142",
+                "category_id": "1",
+                "amount": "200000",
+                "date": "2024-07-10T21:00:00.000Z",
+                "comment": "аванс"
+              }
+            ],
+            "costs": []
+          }
+        }
+      ],
+      "id": 4.2024
+    },
+    {
+      "month": 8.2024,
       "users_data": [
         {
           "user_id": 1,
@@ -233,7 +289,37 @@
           }
         }
       ],
-      "id": 12.2078
+      "id": 8.2024
+    },
+    {
+      "month": null,
+      "users_data": [
+        {
+          "user_id": 1,
+          "budget_data": {
+            "incomes_categories": [],
+            "costs_categories": [],
+            "incomes": [],
+            "costs": []
+          }
+        }
+      ],
+      "id": null
+    },
+    {
+      "month": null,
+      "users_data": [
+        {
+          "user_id": 1,
+          "budget_data": {
+            "incomes_categories": [],
+            "costs_categories": [],
+            "incomes": [],
+            "costs": []
+          }
+        }
+      ],
+      "id": null
     }
   ],
   "users": [

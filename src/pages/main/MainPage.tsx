@@ -21,6 +21,7 @@ const MainPage = () => {
     userBudgetData,
     createMonthBudgetData,
     clearStore,
+    monthBudgetData,
   ] = budgetStore((s: IBudgetStore) => [
     s.selectedMonth,
     s.getUserBudgetData,
@@ -29,6 +30,7 @@ const MainPage = () => {
     s.userBudgetData,
     s.createMonthBudgetData,
     s.clearStore,
+    s.monthBudgetData,
   ])
 
   const handleLogout = useCallback(() => {
@@ -42,6 +44,7 @@ const MainPage = () => {
 
   console.log(selectedMonth)
   console.log(userBudgetData)
+  console.log(monthBudgetData)
 
   useEffect(() => {
     const id = localStorage.getItem('id')
@@ -50,16 +53,6 @@ const MainPage = () => {
     }
     if (userBudgetData) {
       console.log(userBudgetData)
-    }
-  }, [selectedMonth])
-
-  useEffect(() => {
-    getCostsCategories()
-    getIncomesCategories()
-  }, [])
-
-  useEffect(() => {
-    if (userBudgetData && Object.keys(userBudgetData).length > 0) {
       return
     } else {
       const id = localStorage.getItem('id')
@@ -72,11 +65,36 @@ const MainPage = () => {
           costs: [],
         },
       }
-      if (selectedMonth) {
-        createMonthBudgetData(newUserData, selectedMonth, Number(id))
-      }
+
+      createMonthBudgetData(newUserData, selectedMonth, Number(id))
     }
-  }, [userBudgetData, selectedMonth])
+  }, [selectedMonth])
+
+  useEffect(() => {
+    getCostsCategories()
+    getIncomesCategories()
+  }, [])
+
+  // useEffect(() => {
+  //   if (userBudgetData && Object.keys(userBudgetData).length > 0) {
+  //     return
+  //   } else {
+  //     const id = localStorage.getItem('id')
+  //     const newUserData = {
+  //       user_id: Number(id),
+  //       budget_data: {
+  //         incomes_categories: [],
+  //         costs_categories: [],
+  //         incomes: [],
+  //         costs: [],
+  //       },
+  //     }
+  //     if (selectedMonth) {
+  //       createMonthBudgetData(newUserData, selectedMonth, Number(id))
+  //     }
+  //   }
+  // }, [userBudgetData, selectedMonth])
+  console.log(userBudgetData)
 
   return (
     <>

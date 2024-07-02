@@ -4,6 +4,7 @@ import { immer } from 'zustand/middleware/immer'
 import { produce } from 'immer'
 import { SERVICES_BUDGET } from '../../api/BudgetData'
 import { Modal } from 'antd'
+import { log } from 'util'
 
 export interface IUserBudgetData {
   user_id: number
@@ -127,14 +128,13 @@ const budgetStore = create<IBudgetStore>(
                 const users_data = response?.data?.users_data
                 console.log(users_data)
 
-                const data = produce((draft: IBudgetStore) => {
+                // const data = produce((draft: IBudgetStore) => {
+                //   draft.userBudgetData = users_data
+                // })
+                // set(data)
+                set((draft: any) => {
                   draft.userBudgetData = users_data
                 })
-                set(data)
-                // set((draft: any) => {
-                //   draft.store.jsonDirectionsData = response?.data;
-                //   draft.store.directionsData = response?.data;
-                // });
               }
             }
           } catch (error: any) {
@@ -149,13 +149,16 @@ const budgetStore = create<IBudgetStore>(
           month: string,
           userId: number,
         ) => {
+          const data = { month: month, userId: userId }
           try {
-            const response = await SERVICES_BUDGET.Models.getUserBudgetData({
-              month,
-              userId,
-            })
+            const response = await SERVICES_BUDGET.Models.getUserBudgetData(
+              data,
+            )
+            console.log(response)
             if (response?.success) {
               if (response?.data !== undefined) {
+                console.log(response?.data)
+
                 const users_data = response?.data?.users_data
                 const data = produce((draft: IBudgetStore) => {
                   draft.userBudgetDataOnSelectedMonth = users_data
@@ -209,16 +212,22 @@ const budgetStore = create<IBudgetStore>(
               month,
               userId,
             )
-            if (response?.status === 200) {
-              const data = produce((draft: IBudgetStore) => {
-                draft.monthBudgetData = response?.data
-              })
+            console.log(response.data)
 
-              set(data)
-              // set((draft: any) => {
-              //   draft.store.jsonDirectionsData = response?.data;
-              //   draft.store.directionsData = response?.data;
-              // });
+            if (response?.data?.message) {
+              return
+            } else {
+              console.log(response.data)
+
+              // const data = produce((draft: IBudgetStore) => {
+              //   draft.monthBudgetData = response?.data
+              // })
+
+              // set(data)
+              set((draft: any) => {
+                draft.monthBudgetData = response?.data.newUser
+                draft.userBudgetData = response?.data.newUser
+              })
             }
           } catch (error: any) {
             produce(get(), (draft: IBudgetStore) => {

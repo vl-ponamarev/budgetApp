@@ -3,7 +3,7 @@ import budgetStore from '@/shared/stores/budget'
 
 let currentDate = dayjs().format('MM.YYYY')
 
-const updateCurrentDate = (selectedMonth: string | undefined) => {
+const updateCurrentDate = (selectedMonth: any) => {
   console.log(selectedMonth)
 
   currentDate = selectedMonth

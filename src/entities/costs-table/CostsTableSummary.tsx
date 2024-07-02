@@ -17,8 +17,8 @@ import {
   EditableRow,
 } from '@/shared/ui/editable-row-cell/EditableRowAndCell'
 import CommonTable from '@/shared/ui/common-table/CommonTable'
-import { CustomButtonDeleteIcon } from '@/shared/ui/castomDeleteIcon/customDeleteIcon'
-import { CustomAddCategoryIcon } from '@/shared/ui/customAddCategoryIcon/customAddCategoryIcon'
+import { CustomAddCategoryIcon } from '@/shared/ui/customIcons/customAddCategoryIcon'
+import { CustomDeleteIcon } from '@/shared/ui/customIcons/customDeleteIcon'
 
 type EditableTableProps = Parameters<typeof Table>[0]
 
@@ -328,7 +328,7 @@ const CostsTableSummary: React.FC = () => {
             >
               <Tooltip title="Удалить статью">
                 <Button style={{ border: 'none', height: '100%' }}>
-                  <CustomButtonDeleteIcon />
+                  <CustomDeleteIcon />
                 </Button>
               </Tooltip>
             </Popconfirm>
