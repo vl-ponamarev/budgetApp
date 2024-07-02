@@ -9,6 +9,10 @@ import {
   EditableCell,
   EditableRow,
 } from '../editable-row-cell/EditableRowAndCell'
+import { CustomDeleteItemIcon } from '../customIcons/customDeleteItemIcon'
+import { CustomAddItemIcon } from '../customIcons/customAddItemIcon'
+import { CustomSaveItemIcon } from '../customIcons/customSaveIcon'
+import { CustomCancelItemIcon } from '../customIcons/customCancelIcon'
 
 type EditableTableProps = Parameters<typeof Table>[0]
 
@@ -188,64 +192,82 @@ const CommonTable: React.FC<CommonTableProps> = ({ record, data }) => {
                 justifyContent: 'space-evenly',
               }}
             >
-              <Button
-                onClick={() => handleSaveNewItem(record.key)}
-                shape="round"
-                size="small"
-                style={{
-                  backgroundColor: 'green',
-                  color: 'white',
-                  boxShadow: '-1px 1px 5px #9CA5B1',
-                }}
+              {/* <Tooltip
+                title={
+                  data === 'incomes' ? 'Добавить доход' : 'Добавить расход'
+                }
               >
-                <SaveOutlined />
-              </Button>
-
-              <Button
-                shape="round"
-                size="small"
-                style={{
-                  backgroundColor: '#FF2F16',
-                  color: 'white',
-                  boxShadow: '-1px 1px 5px #9CA5B1',
-                }}
-                onClick={() => handleCancel(record.key)}
-              >
-                <CloseOutlined />
-              </Button>
+                <Button
+                  onClick={handleAdd}
+                  shape="circle"
+                  style={{ marginBottom: 10, right: 0, border: 'none' }}
+                  disabled={addNewItemState}
+                >
+                  <CustomAddItemIcon />
+                </Button>{' '}
+              </Tooltip> */}
+              <Tooltip title={'Сохранить новую запись'}>
+                <Button
+                  onClick={() => handleSaveNewItem(record.key)}
+                  shape="circle"
+                  size="small"
+                  style={{
+                    border: 'none',
+                    // boxShadow: '-1px 1px 5px #9CA5B1',
+                  }}
+                >
+                  <CustomSaveItemIcon />
+                </Button>
+              </Tooltip>
+              <Tooltip title={'Отменить'}>
+                <Button
+                  shape="circle"
+                  size="small"
+                  style={{
+                    border: 'none',
+                    // boxShadow: '-1px 1px 5px #9CA5B1',
+                  }}
+                  onClick={() => handleCancel(record.key)}
+                >
+                  <CustomCancelItemIcon />
+                </Button>
+              </Tooltip>
             </div>
           )
         }
         return (
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-evenly',
-              height: '40px',
-            }}
+          // <div
+          //   style={{
+          //     display: 'flex',
+          //     justifyContent: 'space-evenly',
+          //     height: '40px',
+          //   }}
+          // >
+          <Popconfirm
+            title="Удалить запись?"
+            onConfirm={() => handleDelete(record.key)}
           >
-            <Popconfirm
-              title="Удалить запись?"
-              onConfirm={() => handleDelete(record.key)}
+            <Tooltip
+              title={data === 'incomes' ? 'Удалить доход' : 'Удалить расход'}
             >
-              <Tooltip
-                title={data === 'incomes' ? 'Удалить доход' : 'Удалить расход'}
+              <Button
+                shape="round"
+                size="small"
+                style={{
+                  border: 'none',
+                  height: '40px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
               >
-                <Button
-                  shape="round"
-                  size="small"
-                  style={{
-                    backgroundColor: '#FF2F16',
-                    color: 'white',
-                    boxShadow: '-1px 1px 5px #9CA5B1',
-                    height: '100%',
-                  }}
-                >
-                  <DeleteOutlined style={{ fontSize: '16px' }} />
-                </Button>
-              </Tooltip>
-            </Popconfirm>
-          </div>
+                <CustomDeleteItemIcon />
+
+                {/* <DeleteOutlined style={{ fontSize: '16px' }} /> */}
+              </Button>
+            </Tooltip>
+          </Popconfirm>
+          // </div>
         )
       },
     },
@@ -355,20 +377,20 @@ const CommonTable: React.FC<CommonTableProps> = ({ record, data }) => {
 
   return (
     <>
-      <div style={{ width: '90%' }}>
-        <Tooltip
-          title={data === 'incomes' ? 'Добавить доход' : 'Добавить расход'}
+      {/* <div style={{ width: '90%' }}> */}
+      <Tooltip
+        title={data === 'incomes' ? 'Добавить доход' : 'Добавить расход'}
+      >
+        <Button
+          onClick={handleAdd}
+          shape="circle"
+          style={{ marginBottom: 10, right: 0, border: 'none' }}
+          disabled={addNewItemState}
         >
-          <Button
-            onClick={handleAdd}
-            type="default"
-            style={{ marginBottom: 10, right: 0 }}
-            disabled={addNewItemState}
-          >
-            {data === 'incomes' ? 'Добавить доход' : 'Добавить расход'}
-          </Button>{' '}
-        </Tooltip>
-      </div>
+          <CustomAddItemIcon />
+        </Button>{' '}
+      </Tooltip>
+      {/* </div> */}
       <Table
         components={components}
         rowClassName={() => 'editable-row'}

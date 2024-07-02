@@ -17,8 +17,8 @@ import {
 } from '@/shared/ui/editable-row-cell/EditableRowAndCell' // import IncomesExpandedRowRender from './IncomesExpandedRowRender'
 import { v4 as uuidv4 } from 'uuid'
 import CommonTable from '@/shared/ui/common-table/CommonTable'
-import { CustomButtonDeleteIcon } from '@/shared/ui/castomDeleteIcon/customDeleteIcon'
-import { CustomAddCategoryIcon } from '@/shared/ui/customAddCategoryIcon/customAddCategoryIcon'
+import { CustomAddCategoryIcon } from '@/shared/ui/customIcons/customAddCategoryIcon'
+import { CustomDeleteIcon } from '@/shared/ui/customIcons/customDeleteIcon'
 
 type EditableTableProps = Parameters<typeof Table>[0]
 
@@ -56,6 +56,8 @@ const IncomesTableSummary: React.FC = () => {
   // const { user_id } = userBudgetData
   // console.log(user_id)
 
+  console.log(monthBudgetData)
+
   const {
     budget_data: { incomes_categories },
   } = userBudgetData ?? { budget_data: { incomes_categories: [] } }
@@ -76,6 +78,8 @@ const IncomesTableSummary: React.FC = () => {
           return acc
         }, {}) ?? []
     }
+
+    console.log(userBudgetData)
 
     const updatedTotalAmountByCategory = { ...totalAmountByCategory }
 
@@ -161,6 +165,9 @@ const IncomesTableSummary: React.FC = () => {
     setAddNewItemState(false)
   }
   const [inputTargetValue, setInputTargetValue] = useState('')
+
+  console.log(userBudgetData)
+
   const handleSaveNewItem = (key: React.Key) => {
     let neWIncomesCategory: { [key: string]: string } = {}
     console.log(key)
@@ -309,7 +316,7 @@ const IncomesTableSummary: React.FC = () => {
             >
               <Tooltip title="Удалить статью">
                 <Button style={{ border: 'none', height: '100%' }}>
-                  <CustomButtonDeleteIcon />
+                  <CustomDeleteIcon />
                 </Button>
               </Tooltip>
             </Popconfirm>

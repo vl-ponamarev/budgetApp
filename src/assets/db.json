@@ -221,7 +221,7 @@
       "id": 5.2024
     },
     {
-      "month": 12.2078,
+      "month": 4.2024,
       "users_data": [
         {
           "user_id": 1,
@@ -233,7 +233,72 @@
           }
         }
       ],
-      "id": 12.2078
+      "id": 4.2024
+    },
+    {
+      "month": 2.2024,
+      "users_data": [
+        {
+          "user_id": 1,
+          "budget_data": {
+            "incomes_categories": [],
+            "costs_categories": [],
+            "incomes": [],
+            "costs": []
+          }
+        }
+      ],
+      "id": 2.2024
+    },
+    {
+      "month": 3.2024,
+      "users_data": [
+        {
+          "user_id": 1,
+          "budget_data": {
+            "incomes_categories": [],
+            "costs_categories": [],
+            "incomes": [],
+            "costs": []
+          }
+        }
+      ],
+      "id": 3.2024
+    },
+    {
+      "month": 1.2024,
+      "users_data": [
+        {
+          "user_id": 1,
+          "budget_data": {
+            "incomes_categories": [
+              {
+                "id": 2,
+                "name": "Проценты по вкладам"
+              }
+            ],
+            "costs_categories": [],
+            "incomes": [],
+            "costs": []
+          }
+        }
+      ],
+      "id": 1.2024
+    },
+    {
+      "month": 7.2024,
+      "users_data": [
+        {
+          "user_id": 1,
+          "budget_data": {
+            "incomes_categories": [],
+            "costs_categories": [],
+            "incomes": [],
+            "costs": []
+          }
+        }
+      ],
+      "id": 7.2024
     }
   ],
   "users": [

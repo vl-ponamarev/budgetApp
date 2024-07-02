@@ -21,6 +21,7 @@ const MainPage = () => {
     userBudgetData,
     createMonthBudgetData,
     clearStore,
+    monthBudgetData,
   ] = budgetStore((s: IBudgetStore) => [
     s.selectedMonth,
     s.getUserBudgetData,
@@ -29,6 +30,7 @@ const MainPage = () => {
     s.userBudgetData,
     s.createMonthBudgetData,
     s.clearStore,
+    s.monthBudgetData,
   ])
 
   const handleLogout = useCallback(() => {
@@ -42,6 +44,7 @@ const MainPage = () => {
 
   console.log(selectedMonth)
   console.log(userBudgetData)
+  console.log(monthBudgetData)
 
   useEffect(() => {
     const id = localStorage.getItem('id')
@@ -77,6 +80,7 @@ const MainPage = () => {
       }
     }
   }, [userBudgetData, selectedMonth])
+  console.log(userBudgetData)
 
   return (
     <>
