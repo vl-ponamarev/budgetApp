@@ -54,6 +54,7 @@ export const useAccountStore = create<IAccountStore>()(
               username,
               password,
             })
+
             if (response?.success && response?.code === 200) {
               if (response?.data !== undefined) {
                 const { username, accessToken, id } = response.data
@@ -82,7 +83,7 @@ export const useAccountStore = create<IAccountStore>()(
               localStorage.removeItem('token')
               get().setError('Ошибка авторизации')
               Modal.error({
-                title: 'Ошибка авторизации',
+                title: `Ошибка авторизации: ${response?.data?.message}`,
                 // content: `${error}`,
               })
             }
@@ -123,7 +124,7 @@ export const useAccountStore = create<IAccountStore>()(
               localStorage.removeItem('token')
               get().setError('Ошибка авторизации')
               Modal.error({
-                title: 'Ошибка авторизации',
+                title: `Ошибка авторизации: ${response?.data?.error}`,
                 // content: `${error}`,
               })
             }

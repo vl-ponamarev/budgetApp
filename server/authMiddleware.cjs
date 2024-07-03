@@ -1,18 +1,20 @@
 const jwt = require('jsonwebtoken')
-const { createRefreshToken } = require('./jwtAuthService.cjs')
-const { createAccessToken } = require('./jwtAuthService.cjs')
+const {
+  createRefreshToken,
+  createAccessToken,
+} = require('./jwtAuthService.cjs')
+const jsonServer = require('json-server')
+const router = jsonServer.router('./src/assets/db.json')
 
-const authenticateToken = (req, res, next) => {
+const authenticateAccess = (req, res, next) => {
   const authHeader = req.headers['authorization']
   const token = authHeader && authHeader.split(' ')[1]
-
   if (token === 'null' || token === null) {
     return res.status(401).json({ error: 'Токен не предоставлен' })
   } else {
     const accessSecret = process.env.JWT_ACCESS_SECRET || 'jwt_access_secret'
     const refreshSecret =
       process.env.JWT_REFRESH_TOKEN_SECRET || 'jwt_refresh_secret'
-
     jwt.verify(token, accessSecret, (error, user) => {
       if (error) {
         const refreshToken = req.cookies.refreshToken
@@ -21,7 +23,6 @@ const authenticateToken = (req, res, next) => {
             .status(403)
             .json({ error: 'Refresh токен не предоставлен' })
         } else {
-          // Валидация refresh токена
           jwt.verify(refreshToken, refreshSecret, (err, user) => {
             if (err) {
               return res
@@ -34,15 +35,14 @@ const authenticateToken = (req, res, next) => {
             const remainingTime = user.exp - now
 
             if (remainingTime < oneDayInSeconds) {
-              // Если срок действия менее одного дня, перевыпустить refresh токен
               console.log(
                 'Срок действия менее одного дня, перевыпустить refresh токен',
               )
               const newRefreshToken = createRefreshToken(user)
               res.cookie('refreshToken', newRefreshToken, {
                 httpOnly: true,
-                secure: true, // Используйте true, если ваш сервер работает по HTTPS
-                maxAge: 1000 * 60 * 60 * 24 * 7, // 7 дней
+                secure: true,
+                maxAge: 1000 * 60 * 60 * 24 * 7,
                 sameSite: 'Strict',
               })
             }
@@ -51,12 +51,16 @@ const authenticateToken = (req, res, next) => {
             res.json({ accessToken: newAccessToken })
           })
         }
+      } else {
+        req.user = user // добавляем декодированные данные пользователя в req.user
+        res.cookie('username', user.name, {
+          httpOnly: true,
+          maxAge: 1000 * 60 * 60 * 12,
+        })
+        next()
       }
-
-      req.user = user // сохраняем декодированные данные пользователя для дальнейшего использования
-      next() // продолжаем обработку запроса
     })
   }
 }
 
-module.exports = authenticateToken
+module.exports = authenticateAccess

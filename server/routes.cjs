@@ -28,7 +28,6 @@ module.exports = function (app) {
             .json({ error: 'Пользователь с таким именем уже существует' })
         } else {
           // Создаем нового пользователя и сохраняем в db.json
-          console.log('users.length', users.length)
           const newUser = {
             username,
             password: hashedPassword,
@@ -52,6 +51,10 @@ module.exports = function (app) {
                 maxAge: 1000 * 60 * 60 * 24 * 7, // 7 дней
                 sameSite: 'Strict',
               })
+              // res.cookie('username', newUser.username, {
+              //   httpOnly: true,
+              //   maxAge: 1000 * 60 * 60 * 12,
+              // })
               res.status(201).json({
                 message: 'Пользователь успешно зарегистрирован',
                 username: newUser.username,
@@ -129,6 +132,10 @@ module.exports = function (app) {
             sameSite: 'Strict',
             path: '/',
           })
+          // res.cookie('username', username, {
+          //   httpOnly: true,
+          //   maxAge: 1000 * 60 * 60 * 12,
+          // })
           res.status(200).json({ accessToken, username, id: user.id })
         } else {
           return res.sendStatus(401) // Incorrect password

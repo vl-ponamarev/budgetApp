@@ -51,7 +51,7 @@ const CommonTable: React.FC<CommonTableProps> = ({ record, data }) => {
 
   const [dataSource, setDataSource] = useState<DataType[]>([])
   const [count, setCount] = useState(2)
-  const [actualDate, setActualDate] = useState<any>(undefined)
+  const [actualDate, setActualDate] = useState<any>(dayjs(new Date()))
   const [actualIncomesId, setActualIncomesId] = useState<any>(undefined)
   const [addNewItemState, setAddNewItemState] = useState(false)
   const dateFormat = 'YYYY-MM-DD'
@@ -162,6 +162,7 @@ const CommonTable: React.FC<CommonTableProps> = ({ record, data }) => {
             }}
             style={{ width: '100%' }}
             defaultValue={record.date}
+            format="DD.MM.YYYY"
           />
         )
       },

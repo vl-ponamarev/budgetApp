@@ -334,7 +334,7 @@ const IncomesTableSummary: React.FC = () => {
       sum: '',
       isNew: true,
     }
-    setDataSource([...dataSource, newData])
+    setDataSource([newData, ...dataSource])
     setCount(count + 1)
     setAddNewItemState(true)
   }

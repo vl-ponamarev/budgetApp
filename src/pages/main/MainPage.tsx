@@ -46,16 +46,23 @@ const MainPage = () => {
   console.log(userBudgetData)
   console.log(monthBudgetData)
 
+  const id = localStorage.getItem('id')
+
+  console.log(id)
+
   useEffect(() => {
-    const id = localStorage.getItem('id')
     if (id && selectedMonth) {
       getUserBudgetData(selectedMonth, Number(id))
+      console.log('ok')
     }
+  }, [selectedMonth])
+
+  useEffect(() => {
     if (userBudgetData) {
       console.log(userBudgetData)
       return
-    } else {
-      const id = localStorage.getItem('id')
+    } else if (!userBudgetData && selectedMonth) {
+      console.log('ok')
       const newUserData = {
         user_id: Number(id),
         budget_data: {
@@ -68,7 +75,7 @@ const MainPage = () => {
 
       createMonthBudgetData(newUserData, selectedMonth, Number(id))
     }
-  }, [selectedMonth])
+  }, [userBudgetData, id, selectedMonth])
 
   useEffect(() => {
     getCostsCategories()
@@ -105,23 +112,26 @@ const MainPage = () => {
 
       <div>{userName}</div>
       <Titles />
-      <div style={{ display: 'flex', maxWidth: '100vw' }}>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            width: '70vw',
-          }}
-        >
-          <div style={{ display: 'flex', margin: '16px', maxWidth: '100%' }}>
-            <PieChartIncomes />
-            <PieChartCosts />
+      {((userBudgetData && userBudgetData?.budget_data?.incomes.length > 0) ||
+        (userBudgetData && userBudgetData?.budget_data?.costs.length > 0)) && (
+        <div style={{ display: 'flex', maxWidth: '100vw' }}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '70vw',
+            }}
+          >
+            <div style={{ display: 'flex', margin: '16px', maxWidth: '100%' }}>
+              <PieChartIncomes />
+              <PieChartCosts />
+            </div>
+            <IncomesCostsSummary />
           </div>
-          <IncomesCostsSummary />
-        </div>
 
-        <CompareChart />
-      </div>
+          <CompareChart />
+        </div>
+      )}
 
       <IncomesTableSummary />
       <CostsTableSummary />

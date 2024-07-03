@@ -27,6 +27,26 @@
     {
       "id": 7,
       "name": "Здоровье"
+    },
+    {
+      "id": 8,
+      "name": "Семья"
+    },
+    {
+      "id": 9,
+      "name": "Коммунальные услуги"
+    },
+    {
+      "id": 10,
+      "name": "Связь"
+    },
+    {
+      "id": 11,
+      "name": "Хобби"
+    },
+    {
+      "id": 12,
+      "name": "Спорт"
     }
   ],
   "incomes_categories": [
@@ -45,14 +65,18 @@
     {
       "name": "Аренда квартиры",
       "id": 4
+    },
+    {
+      "name": "Разовый доход",
+      "id": 5
     }
   ],
   "data": [
     {
-      "month": 6.2024,
+      "month": 7.2024,
       "users_data": [
         {
-          "user_id": 1,
+          "user_id": 2,
           "budget_data": {
             "incomes_categories": [
               {
@@ -60,186 +84,301 @@
                 "name": "Зарплата"
               },
               {
-                "id": 2,
-                "name": "Проценты по вкладам"
+                "id": 5,
+                "name": "Разовый доход"
               },
               {
-                "id": 3,
-                "name": "Инвестиции"
+                "id": 2,
+                "name": "Проценты по вкладам"
               }
             ],
             "costs_categories": [
+              {
+                "id": 9,
+                "name": "Коммунальные услуги"
+              },
+              {
+                "id": 10,
+                "name": "Связь"
+              },
+              {
+                "id": 2,
+                "name": "Еда"
+              },
+              {
+                "id": 7,
+                "name": "Здоровье"
+              },
+              {
+                "id": 11,
+                "name": "Хобби"
+              },
+              {
+                "id": 6,
+                "name": "Дети"
+              },
+              {
+                "id": 8,
+                "name": "Семья"
+              },
+              {
+                "id": "d5ad98c9-2a34-4be7-93be-209c9fb43d43",
+                "name": "Рестораны"
+              },
+              {
+                "id": "8440622a-69e0-4338-a180-64a0530dc177",
+                "name": "Бензин"
+              },
+              {
+                "id": 4,
+                "name": "Обслуживание авто"
+              },
+              {
+                "id": 3,
+                "name": "Прочее"
+              },
               {
                 "id": 1,
                 "name": "Развлечения"
               },
               {
-                "id": 3,
-                "name": "Прочее"
+                "id": 12,
+                "name": "Спорт"
               }
             ],
             "incomes": [
               {
-                "id": "8f42da4f-71d5-4e92-a583-daca861cd705",
+                "id": "89ecc546-a164-4c28-948d-32969e52f695",
                 "category_id": "1",
-                "amount": "20000",
-                "date": "2024-06-16T21:00:00.000Z",
-                "comment": "лото"
+                "amount": "150000",
+                "date": "2024-07-05T21:00:00.000Z",
+                "comment": "Аванс"
               },
               {
-                "id": "ff000e34-a611-456c-ae1c-80dc35093298",
+                "id": "abf6490a-9adf-475d-be53-5e25dbce5fc0",
                 "category_id": "1",
-                "amount": "29000",
-                "date": "2024-06-17T21:00:00.000Z",
-                "comment": "bonus"
+                "amount": "130000",
+                "date": "2024-07-25T21:00:00.000Z",
+                "comment": "зарплата"
               },
               {
-                "id": "721243b4-c730-4ad9-83e0-7159c93bffea",
-                "category_id": "1",
-                "amount": "50000",
-                "date": "2024-06-18T12:34:58.801Z",
-                "comment": "аваансец"
-              },
-              {
-                "id": "30327524-52b4-427e-838f-bede7c5c4e34",
+                "id": "13073157-4ada-4997-adce-f30ac55daef3",
                 "category_id": "2",
-                "amount": "40000",
-                "date": "2024-06-18T12:35:47.127Z",
-                "comment": "Альфа"
+                "amount": "20000",
+                "date": "2024-07-10T21:00:00.000Z",
+                "comment": "ВТБ"
               },
               {
-                "id": "98b707c9-f854-474f-9113-5ec7b962a104",
-                "category_id": "1",
-                "amount": "50500",
-                "date": "2024-06-18T12:53:47.083Z",
-                "comment": "Подарили"
-              },
-              {
-                "id": "81fe10d7-59a8-4c03-8eeb-ea44c78b787c",
-                "category_id": "3",
-                "amount": "34000",
-                "date": "2024-06-16T21:00:00.000Z",
-                "comment": "дивы"
+                "id": "220e8f91-62a1-4939-947f-65969220e29c",
+                "category_id": "5",
+                "amount": "25000",
+                "date": "2024-07-04T21:00:00.000Z",
+                "comment": "Подарок"
               }
             ],
             "costs": [
               {
-                "id": "2435364c-a467-4edc-854d-29f9b7019967",
-                "category_id": "1",
-                "amount": "5000",
-                "date": "2024-06-12T21:00:00.000Z",
-                "comment": "Цыгане"
+                "id": "f682bbe7-7c73-46dc-bf52-ba625989a599",
+                "category_id": "9",
+                "amount": "20000",
+                "date": "2024-07-25T21:00:00.000Z",
+                "comment": "ЖК"
               },
               {
-                "id": "1e4aaf1b-d59c-498a-893c-a0df9b4d4206",
-                "category_id": "3",
-                "amount": "4000",
-                "date": "2024-06-18T10:53:10.463Z",
-                "comment": "Магарыч"
-              },
-              {
-                "id": "7321753b-a929-4953-9a4f-8bc3b8058769",
-                "category_id": "1",
-                "amount": "2300",
-                "date": "2024-06-18T11:52:57.877Z",
-                "comment": "майка"
-              },
-              {
-                "id": "aef89987-a57a-48a7-a474-ff33e97021f5",
-                "category_id": "1",
-                "amount": "30000",
-                "date": "2024-06-19T21:00:00.000Z",
-                "comment": "Казино"
-              },
-              {
-                "id": "ea3070e5-98fc-4321-a2c1-69605ffc8824",
-                "category_id": "1",
-                "amount": "30000",
-                "date": "2024-06-03T21:00:00.000Z",
-                "comment": "кутили"
-              },
-              {
-                "id": "bf42e043-0be0-43e4-b7a2-b307833df146",
-                "category_id": "1",
-                "amount": "1900",
-                "date": "2024-06-18T13:01:02.968Z",
-                "comment": "то-да-сё"
-              },
-              {
-                "id": "b8372581-d78d-4fad-9830-39a0b3400166",
-                "category_id": "3",
+                "id": "14b816cb-98bf-4e1d-b193-bde1dadb0706",
+                "category_id": "9",
                 "amount": "2000",
-                "date": "2024-06-17T21:00:00.000Z",
-                "comment": "благотворительность"
+                "date": "2024-07-22T21:00:00.000Z",
+                "comment": "Свет"
               },
               {
-                "id": "d98e2879-bb2e-45f7-90f0-4c47902e9dd4",
+                "id": "9ec5d79b-cb5e-41f1-a1e4-72997d1d1ad9",
+                "category_id": "10",
+                "amount": "2000",
+                "date": "2024-07-15T21:00:00.000Z",
+                "comment": "Интернет"
+              },
+              {
+                "id": "731d8d46-92ed-4b20-a8b8-a5e9ff157710",
+                "category_id": "10",
+                "amount": "2500",
+                "date": "2024-07-01T21:00:00.000Z",
+                "comment": "Телефон"
+              },
+              {
+                "id": "e2f4b9d8-31ad-40cb-9a57-99cc97087e34",
+                "category_id": "2",
+                "amount": "10500",
+                "date": "2024-07-03T21:00:00.000Z",
+                "comment": "Ашан"
+              },
+              {
+                "id": "c17305b6-9088-471d-a22a-c5aedb0ae78a",
+                "category_id": "2",
+                "amount": "3600",
+                "date": "2024-07-12T21:00:00.000Z",
+                "comment": "Перекресток"
+              },
+              {
+                "id": "d14fb4cd-2e8a-4828-8f69-e0971293464f",
+                "category_id": "2",
+                "amount": "14000",
+                "date": "2024-07-23T21:00:00.000Z",
+                "comment": "Ашан"
+              },
+              {
+                "id": "f9527a65-1600-4a6f-882f-3f05bc05d6a2",
+                "category_id": "2",
+                "amount": "7300",
+                "date": "2024-07-31T21:00:00.000Z",
+                "comment": "СберМаркет"
+              },
+              {
+                "id": "bda52d57-4c19-4d16-839e-ec89ccbd056e",
+                "category_id": "7",
+                "amount": "15000",
+                "date": "2024-07-17T21:00:00.000Z",
+                "comment": "Стамотология"
+              },
+              {
+                "id": "d8acee74-df81-46f7-b505-59af51a62f51",
+                "category_id": "11",
+                "amount": "12000",
+                "date": "2024-07-22T21:00:00.000Z",
+                "comment": "Спортмастер"
+              },
+              {
+                "id": "fcf0b8bc-eecc-4a8b-bfe5-cd29894b9803",
+                "category_id": "6",
+                "amount": "12000",
+                "date": "2024-07-02T21:00:00.000Z",
+                "comment": "аглийский за месяц"
+              },
+              {
+                "id": "5b12807e-965b-4bfc-8988-05aaba5765bb",
+                "category_id": "6",
+                "amount": "7500",
+                "date": "2024-07-15T21:00:00.000Z",
+                "comment": "танцы"
+              },
+              {
+                "id": "313d89a8-5df6-41f5-aefd-e0972b656b9f",
+                "category_id": "6",
+                "amount": "8000",
+                "date": "2024-07-25T21:00:00.000Z",
+                "comment": "одежда"
+              },
+              {
+                "id": "8d692e1e-c557-4f36-8a80-6cc3b7407490",
+                "category_id": "8",
+                "amount": "100000",
+                "date": "2024-07-03T13:43:50.155Z",
+                "comment": "Таня и Валя"
+              },
+              {
+                "id": "5affe53b-e883-476f-a235-05345e05dabd",
+                "category_id": "d5ad98c9-2a34-4be7-93be-209c9fb43d43",
+                "amount": "7500",
+                "date": "2024-07-09T21:00:00.000Z",
+                "comment": "Piazzo cafe"
+              },
+              {
+                "id": "76ffda60-a8b6-404a-b15c-7e873187227a",
+                "category_id": "8440622a-69e0-4338-a180-64a0530dc177",
+                "amount": "3500",
+                "date": "2024-07-03T13:46:18.765Z",
+                "comment": "Газпромнефть"
+              },
+              {
+                "id": "bf59d6f1-b83b-483a-a16a-1df0d6e3008c",
+                "category_id": "8440622a-69e0-4338-a180-64a0530dc177",
+                "amount": "3800",
+                "date": "2024-07-12T21:00:00.000Z",
+                "comment": "Лукойл"
+              },
+              {
+                "id": "1ba2ee69-6166-4116-aa3a-2b6dd055780d",
+                "category_id": "8440622a-69e0-4338-a180-64a0530dc177",
+                "amount": "3600",
+                "date": "2024-07-25T21:00:00.000Z",
+                "comment": "Лукойл"
+              },
+              {
+                "id": "f6a82064-d4a9-4095-8c52-f50d3c588a41",
+                "category_id": "4",
+                "amount": "1500",
+                "date": "2024-07-03T13:48:03.056Z",
+                "comment": "Мойка"
+              },
+              {
+                "id": "665c1631-2b09-4d70-b631-e139d4a4d54b",
+                "category_id": "4",
+                "amount": "25000",
+                "date": "2024-07-23T21:00:00.000Z",
+                "comment": "ТО"
+              },
+              {
+                "id": "993224f9-1430-4828-b622-c2555b4f0e21",
                 "category_id": "3",
-                "amount": "200000",
-                "date": "2024-06-04T21:00:00.000Z",
-                "comment": "полет на ракете"
+                "amount": "3000",
+                "date": "2024-07-11T21:00:00.000Z",
+                "comment": "Подарок коллеге"
+              },
+              {
+                "id": "1a14f4af-3baa-409d-b2fe-ea1ee8fb71bb",
+                "category_id": "3",
+                "amount": "2500",
+                "date": "2024-07-11T21:00:00.000Z",
+                "comment": "Книги"
+              },
+              {
+                "id": "d5344566-dbb8-4f5c-a221-07f80e1b4f1d",
+                "category_id": "3",
+                "amount": "2500",
+                "date": "2024-07-18T21:00:00.000Z",
+                "comment": "Подписка "
+              },
+              {
+                "id": "c277ecda-3eda-4c93-a52c-29178bb3a32c",
+                "category_id": "1",
+                "amount": "4000",
+                "date": "2024-07-23T21:00:00.000Z",
+                "comment": "Боулинг"
+              },
+              {
+                "id": "1c627921-8e1c-4692-8c27-f022baa0dd7f",
+                "category_id": "1",
+                "amount": "9500",
+                "date": "2024-07-11T21:00:00.000Z",
+                "comment": "Театр"
+              },
+              {
+                "id": "93a8c2ea-8b88-4b5c-bccb-75d84a61255d",
+                "category_id": "12",
+                "amount": "10000",
+                "date": "2024-07-15T21:00:00.000Z",
+                "comment": "Теннис абонемент"
               }
             ]
           }
-        }
-      ],
-      "id": 6.2024
-    },
-    {
-      "month": 5.2024,
-      "users_data": [
+        },
         {
           "user_id": 1,
           "budget_data": {
             "incomes_categories": [
               {
-                "id": 1,
-                "name": "Зарплата"
+                "id": 2,
+                "name": "Проценты по вкладам"
               }
             ],
             "costs_categories": [],
             "incomes": [
               {
-                "id": "82294c78-a9bd-4914-94ab-dc0c41e33523",
-                "category_id": "1",
-                "amount": "200000",
-                "date": "2024-06-16T21:00:00.000Z",
-                "comment": "зарплата"
-              },
-              {
-                "id": "9782a465-5893-45fb-92d6-5a9ea29ecdd2",
-                "category_id": "1",
-                "amount": "35000",
-                "date": "2024-06-18T09:34:21.739Z",
-                "comment": "колым"
-              }
-            ],
-            "costs": []
-          }
-        }
-      ],
-      "id": 5.2024
-    },
-    {
-      "month": 7.2024,
-      "users_data": [
-        {
-          "user_id": 1,
-          "budget_data": {
-            "incomes_categories": [
-              {
-                "id": 1,
-                "name": "Зарплата"
-              }
-            ],
-            "costs_categories": [],
-            "incomes": [
-              {
-                "id": "80721115-9bb8-4f01-9233-0b40843c9633",
-                "category_id": "1",
-                "amount": "150000",
-                "date": "2024-07-10T21:00:00.000Z",
-                "comment": "Аванс"
+                "id": "15ba1790-01f3-44d5-8f41-89d4f8ed76fa",
+                "category_id": "2",
+                "amount": "20000",
+                "date": "2024-07-03T21:00:00.000Z",
+                "comment": "Тинькоф банк"
               }
             ],
             "costs": []
@@ -249,109 +388,113 @@
       "id": 7.2024
     },
     {
-      "month": 4.2024,
+      "month": 6.2024,
       "users_data": [
         {
-          "user_id": 1,
+          "user_id": 2,
           "budget_data": {
             "incomes_categories": [
               {
                 "id": 1,
                 "name": "Зарплата"
+              },
+              {
+                "id": 5,
+                "name": "Разовый доход"
               }
             ],
-            "costs_categories": [],
+            "costs_categories": [
+              {
+                "id": 9,
+                "name": "Коммунальные услуги"
+              },
+              {
+                "id": 8,
+                "name": "Семья"
+              }
+            ],
             "incomes": [
               {
-                "id": "ca6daaf4-4766-4c4a-bb74-c09569b8c142",
+                "id": "d2f3bddb-3d6e-4b21-8aac-d4539d456ed8",
                 "category_id": "1",
-                "amount": "200000",
-                "date": "2024-07-10T21:00:00.000Z",
-                "comment": "аванс"
+                "amount": "150000",
+                "date": "2024-07-05T21:00:00.000Z",
+                "comment": "Аванс"
+              },
+              {
+                "id": "f4dca1da-996b-4f37-a689-64d42d7f682e",
+                "category_id": "1",
+                "amount": "130000",
+                "date": "2024-07-20T21:00:00.000Z",
+                "comment": "зарплата"
+              },
+              {
+                "id": "e18ebe23-1499-40a1-a9b1-71e27af0716c",
+                "category_id": "5",
+                "amount": "15000",
+                "date": "2024-06-10T21:00:00.000Z",
+                "comment": "Консультация"
               }
             ],
-            "costs": []
+            "costs": [
+              {
+                "id": "6b8894df-8bdd-48f3-9347-4b0094d1ecc2",
+                "category_id": "9",
+                "amount": "22000",
+                "date": "2024-07-05T21:00:00.000Z",
+                "comment": "УК"
+              },
+              {
+                "id": "d638b8e4-aa9c-48fb-83e9-969ea2222e1f",
+                "category_id": "9",
+                "amount": "2500",
+                "date": "2024-07-05T21:00:00.000Z",
+                "comment": "Свет"
+              },
+              {
+                "id": "90333a80-13bc-41b5-a1c5-1fbe253eed59",
+                "category_id": "8",
+                "amount": "100000",
+                "date": "2024-07-24T21:00:00.000Z",
+                "comment": "Таня"
+              }
+            ]
           }
         }
       ],
-      "id": 4.2024
-    },
-    {
-      "month": 8.2024,
-      "users_data": [
-        {
-          "user_id": 1,
-          "budget_data": {
-            "incomes_categories": [],
-            "costs_categories": [],
-            "incomes": [],
-            "costs": []
-          }
-        }
-      ],
-      "id": 8.2024
-    },
-    {
-      "month": null,
-      "users_data": [
-        {
-          "user_id": 1,
-          "budget_data": {
-            "incomes_categories": [],
-            "costs_categories": [],
-            "incomes": [],
-            "costs": []
-          }
-        }
-      ],
-      "id": null
-    },
-    {
-      "month": null,
-      "users_data": [
-        {
-          "user_id": 1,
-          "budget_data": {
-            "incomes_categories": [],
-            "costs_categories": [],
-            "incomes": [],
-            "costs": []
-          }
-        }
-      ],
-      "id": null
+      "id": 6.2024
     }
   ],
   "users": [
     {
       "username": "admin",
-      "password": "$2b$04$YXmjQb0L5.Pwwtg8S5IMU./dEJSLcvSaPxOviB0QJWzL6gWqpn1Y.",
+      "password": "$2b$04$vpDg.zV/MBEFH3/ZLh4tu.3KCH5f4/rk4ofOJsJVUM6t0WFCGKrl2",
       "id": 1
     },
     {
-      "username": "admin777",
-      "password": "$2b$04$8OwMFnD0PEJaATD6Rw3r8.oY1qCOc2mB4ac6juUHKKQfka8OvW5j6",
+      "username": "user",
+      "password": "$2b$04$.wXQld1Od5z2ExnthbLxbu1yitFxNjWiabWzsZLlaoXaE./FU0OQe",
       "id": 2
     }
   ],
   "access_tokens": [
     {
       "username": "admin",
-      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTAxNzk0MDQsImV4cCI6MTcxMDIyMjYwNH0.Q-ZtkUtOaeisdMs1Ipnq_psKpBvQwz0JaAXQICVf-Og"
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJpYXQiOjE3MjAwMTA4MzAsImV4cCI6MTcyMDA1NDAzMH0.m96CR_clcXM-ArkIE1HyvhY8ZAK91rQasFYA_8OimfA"
     },
     {
-      "username": "admin777",
-      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTU2MTgyMjMsImV4cCI6MTcxNTY2MTQyM30.z_5FkUkr7O4LJ-0RseiX8cfUfcotebhNW1_CHoz2H2A"
+      "username": "user",
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidXNlciIsImlhdCI6MTcyMDAxMTc5NywiZXhwIjoxNzIwMDU0OTk3fQ.GVm6hy97wlpF4IL8x1d1UJEQtbj9HSQIJ3GJQ7VJZ3c"
     }
   ],
   "refresh_tokens": [
     {
       "username": "admin",
-      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTAxNzk0MDQsImV4cCI6MTcxMDc4NDIwNH0.oFo2c7Oz3r1LsiWNyqse_DV2fw7EeTWSVWiX1XcvHFU"
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJpYXQiOjE3MjAwMTA4MzAsImV4cCI6MTcyMDYxNTYzMH0.pkYsFjb09tuGDFLdsgsiXWCl0q3dxTfsZ1JhCtQFwo8"
     },
     {
-      "username": "admin777",
-      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTU2MTgyMjMsImV4cCI6MTcxNjIyMzAyM30.n2X7Vm5zes_6YoEUH1MD-OKh5XFX8LM-v83v5vqOKgU"
+      "username": "user",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidXNlciIsImlhdCI6MTcyMDAxMTc5NywiZXhwIjoxNzIwNjE2NTk3fQ.IpGfZPD-9md43Jr01I9ODtN1QqSL298pelLj2QV1wLg"
     }
   ]
 }

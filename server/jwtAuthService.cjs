@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 
 const createAccessToken = (user) => {
   const secret = process.env.JWT_SECRET || 'jwt_access_secret'
-  const payload = { name: user.name }
+  const payload = { name: user }
   const options = { expiresIn: '12h' }
 
   return new Promise((resolve, reject) => {
@@ -31,7 +31,7 @@ const verifyToken = (req, res, next) => {
 }
 const createRefreshToken = (user) => {
   const refreshSecret = process.env.JWT_REFRESH_SECRET || 'jwt_refresh_secret'
-  const payload = { name: user.name }
+  const payload = { name: user }
   const options = { expiresIn: '7d' }
 
   return new Promise((resolve, reject) => {
@@ -46,7 +46,6 @@ const createRefreshToken = (user) => {
 }
 
 const refreshAccessToken = (req, res) => {
-  // const { refreshToken } = req.body
   const refreshToken = req.cookies.refreshToken
   const refreshSecret = process.env.JWT_REFRESH_SECRET || 'jwt_refresh_secret'
 
@@ -57,8 +56,6 @@ const refreshAccessToken = (req, res) => {
 
     // Предполагая, что decoded содержит информацию о пользователе:
     const user = { name: decoded.name }
-
-    console.log('user----->>>>>>', user)
 
     createAccessToken(user)
       .then((accessToken) => {

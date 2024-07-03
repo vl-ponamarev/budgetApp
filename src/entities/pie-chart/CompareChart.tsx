@@ -18,12 +18,10 @@ export function CompareChart() {
   const currentDate = getCurrentDate()
 
   const [
-    userBudgetData,
     getUserBudgetDataOnSelectedMonth,
     userBudgetDataOnSelectedMonth,
     monthBudgetData,
   ] = budgetStore((s: IBudgetStore) => [
-    s.userBudgetData,
     s.getUserBudgetDataOnSelectedMonth,
     s.userBudgetDataOnSelectedMonth,
     s.monthBudgetData,
@@ -54,9 +52,7 @@ export function CompareChart() {
     return dates.reverse()
   }
 
-  const dateArray = getPreviousDates(currentDate)
-
-  console.log(dateArray)
+  // const dateArray = getPreviousDates(currentDate)
 
   const [startDate, setStartDate] = useState<Dayjs | undefined | string>(
     undefined,
@@ -79,104 +75,57 @@ export function CompareChart() {
   }
   const currentDateDayjs = dayjs()
 
-  const [getData, setGetData] = useState<any>(true)
+  const [getData, setGetData] = useState<any>(false)
 
   const compareHandler = () => {
-    setGetData(!getData)
+    setGetData(true)
   }
 
   useEffect(() => {
-    console.log(startDate)
-    console.log(endDate)
-
-    if (startDate && endDate) {
+    if (startDate && endDate && getData) {
       const id = localStorage.getItem('id')
-      if (endDate === currentDate) {
-        getUserBudgetDataOnSelectedMonth(startDate.toString(), Number(id))
-        console.log(userBudgetDataOnSelectedMonth)
 
-        if (userBudgetDataOnSelectedMonth) {
-          console.log(userBudgetDataOnSelectedMonth)
+      getUserBudgetDataOnSelectedMonth([
+        { month: startDate.toString(), userId: Number(id) },
+        { month: endDate.toString(), userId: Number(id) },
+      ])
 
-          const incomesStartMonthSumm = getSummary(
-            userBudgetDataOnSelectedMonth.budget_data.incomes,
-          )
-          const costsStartMonthSumm = getSummary(
-            userBudgetDataOnSelectedMonth.budget_data.costs,
-          )
-          const incomesEndMonthSumm = userBudgetData
-            ? getSummary(userBudgetData?.budget_data?.incomes)
-            : 0
-          const costsEndMonthSumm = userBudgetData
-            ? getSummary(userBudgetData?.budget_data?.costs)
-            : 0
-
-          setData([
-            ['Месяц', 'Доходы', 'Расходы'],
-            [startDate, incomesStartMonthSumm, costsStartMonthSumm],
-            [endDate, incomesEndMonthSumm, costsEndMonthSumm],
-          ])
-        } else {
-          setData(undefined)
-        }
-      } else {
-        console.log('oks')
-
-        const dataArray = []
-        let startUserData
-        let endUserData
-
-        console.log(startDate)
-        console.log(endDate)
-
-        getUserBudgetDataOnSelectedMonth(startDate.toString(), Number(id))
-        console.log(userBudgetDataOnSelectedMonth)
-
-        if (userBudgetDataOnSelectedMonth) {
-          startUserData = userBudgetDataOnSelectedMonth
-          dataArray.push({ startUserData })
-        } else {
-          setData(undefined)
-        }
-        if (dataArray.length > 0) {
-          getUserBudgetDataOnSelectedMonth(endDate.toString(), Number(id))
-          if (userBudgetDataOnSelectedMonth) {
-            console.log('oki')
-            console.log(userBudgetDataOnSelectedMonth)
-
-            endUserData = userBudgetDataOnSelectedMonth
-            dataArray.push({ endUserData })
-            console.log(dataArray)
-
-            const incomesStartMonthSumm = getSummary(
-              dataArray[0]?.startUserData?.budget_data.incomes,
-            )
-            const costsStartMonthSumm = getSummary(
-              dataArray[0]?.startUserData?.budget_data.costs,
-            )
-            const incomesEndMonthSumm = dataArray[1]?.endUserData
-              ? getSummary(dataArray[1]?.endUserData?.budget_data?.incomes)
-              : 0
-            const costsEndMonthSumm = dataArray[1]?.endUserData
-              ? getSummary(dataArray[1]?.endUserData?.budget_data?.costs)
-              : 0
-
-            setData([
-              ['Месяц', 'Доходы', 'Расходы'],
-              [startDate, incomesStartMonthSumm, costsStartMonthSumm],
-              [endDate, incomesEndMonthSumm, costsEndMonthSumm],
-            ])
-          }
-        }
-
-        console.log('dataArray', dataArray)
-      }
-    } else {
-      setData(undefined)
+      setGetData(false)
     }
-  }, [getData, startDate, endDate, monthBudgetData])
+    setGetData(false)
+  }, [getData])
 
-  console.log(getData)
+  console.log(userBudgetDataOnSelectedMonth)
+
+  useEffect(() => {
+    if (userBudgetDataOnSelectedMonth) {
+      const incomesStartMonthSumm = getSummary(
+        userBudgetDataOnSelectedMonth &&
+          userBudgetDataOnSelectedMonth[0].budget_data.incomes,
+      )
+      const costsStartMonthSumm = getSummary(
+        userBudgetDataOnSelectedMonth &&
+          userBudgetDataOnSelectedMonth[0].budget_data.costs,
+      )
+      const incomesEndMonthSumm = getSummary(
+        userBudgetDataOnSelectedMonth &&
+          userBudgetDataOnSelectedMonth[1]?.budget_data?.incomes,
+      )
+
+      const costsEndMonthSumm = getSummary(
+        userBudgetDataOnSelectedMonth &&
+          userBudgetDataOnSelectedMonth[1]?.budget_data?.costs,
+      )
+
+      setData([
+        ['Месяц', 'Доходы', 'Расходы'],
+        [startDate, incomesStartMonthSumm, costsStartMonthSumm],
+        [endDate, incomesEndMonthSumm, costsEndMonthSumm],
+      ])
+    }
+
+    setGetData(false)
+  }, [userBudgetDataOnSelectedMonth])
 
   console.log(data)
 
@@ -186,17 +135,17 @@ export function CompareChart() {
         display: 'flex',
         flexDirection: 'column',
 
-        width: '30vw',
+        width: '20vw',
         height: '600px',
       }}
     >
-      <Text style={{ fontSize: '16px', color: 'black', marginBottom: 20 }}>
+      <Text style={{ fontSize: '14px', color: 'black', marginBottom: 20 }}>
         Сравнение доходов и расходов по месяцам
       </Text>
       {data ? (
         <Chart
           chartType="Bar"
-          width="100%"
+          width="90%"
           height="400px"
           data={data}
           options={options}
@@ -243,11 +192,13 @@ export function CompareChart() {
             picker="month"
             // defaultValue={currentDate}
             style={{ marginRight: 5 }}
+            format="MM.YYYY"
           />
           <DatePicker
             onChange={onChangeEndDate}
             picker="month"
             defaultValue={currentDateDayjs}
+            format="MM.YYYY"
           />
         </div>
         <Button style={{ marginTop: 20 }} onClick={compareHandler}>
