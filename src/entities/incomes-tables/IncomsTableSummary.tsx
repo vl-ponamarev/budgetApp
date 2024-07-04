@@ -36,28 +36,14 @@ const IncomesTableSummary: React.FC = () => {
     selectedMonth,
     userBudgetData,
     incomesCategories,
-    monthBudgetData,
     updateBudgetData,
   ] = budgetStore((s: IBudgetStore) => [
     s.selectedMonth,
     s.userBudgetData,
     s.incomesCategories,
-    s.monthBudgetData,
     s.updateBudgetData,
   ])
-
-  // const { Text } = Typography
-  // console.log(selectedMonth)
-  // console.log(userBudgetData)
-  // console.log(incomesCategories)
-  // console.log(monthBudgetData)
-
   const { Text } = Typography
-  // const { user_id } = userBudgetData
-  // console.log(user_id)
-
-  console.log(monthBudgetData)
-
   const {
     budget_data: { incomes_categories },
   } = userBudgetData ?? { budget_data: { incomes_categories: [] } }
@@ -79,7 +65,6 @@ const IncomesTableSummary: React.FC = () => {
         }, {}) ?? []
     }
 
-    console.log(userBudgetData)
 
     const updatedTotalAmountByCategory = { ...totalAmountByCategory }
 
@@ -133,7 +118,6 @@ const IncomesTableSummary: React.FC = () => {
   const [count, setCount] = useState(2)
 
   const handleDelete = (key: React.Key) => {
-    console.log(key)
 
     const newData = dataSource.filter((item) => item.key !== key)
     setDataSource(newData)
@@ -145,7 +129,6 @@ const IncomesTableSummary: React.FC = () => {
       userBudgetDataCopy?.budget_data?.incomes_categories.filter(
         (item) => String(item.id) !== String(key),
       ) ?? []
-    console.log(newIncomesCategories)
 
     const updatedIncomes =
       userBudgetDataCopy?.budget_data?.incomes.filter(
@@ -166,26 +149,19 @@ const IncomesTableSummary: React.FC = () => {
   }
   const [inputTargetValue, setInputTargetValue] = useState('')
 
-  console.log(userBudgetData)
 
   const handleSaveNewItem = (key: React.Key) => {
     let neWIncomesCategory: { [key: string]: string } = {}
-    console.log(key)
 
     const newData = dataSource?.map((item, index) => {
       let selectTargetValueObject
       const [selectValue] = selectTargetValue
-      console.log(selectValue)
 
       if (selectTargetValue.length > 0) {
-        console.log(incomesCategories)
-
         selectTargetValueObject = incomesCategories?.find(
           (category: any) => String(category.id) === String(selectValue),
         )
       }
-      console.log(inputTargetValue)
-      console.log(selectTargetValueObject)
 
       const value = selectTargetValueObject
         ? selectTargetValueObject?.name
@@ -210,8 +186,6 @@ const IncomesTableSummary: React.FC = () => {
         String(inputTargetValue.toLowerCase()),
     )
 
-    console.log(newData)
-
     if (isInputValueExist.length > 0) {
       messageApi.open({
         type: 'error',
@@ -221,8 +195,6 @@ const IncomesTableSummary: React.FC = () => {
       setSelectTargetValue('')
       setInputTargetValue('')
     } else {
-      console.log('oks')
-
       setDataSource(newData)
       setAddNewItemState(false)
       setSelectTargetValue('')
@@ -298,13 +270,7 @@ const IncomesTableSummary: React.FC = () => {
               <Button onClick={() => handleSaveNewItem(record.key)}>
                 Сохранить
               </Button>
-
-              {/* <Popconfirm
-                title="Sure to cancel?"
-                onConfirm={() => handleCancel(record.key)}
-              > */}
               <Button onClick={() => handleCancel(record.key)}>Cancel</Button>
-              {/* </Popconfirm> */}
             </div>
           )
         }

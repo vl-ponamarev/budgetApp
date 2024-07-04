@@ -5,54 +5,32 @@ import dayjs, { Dayjs } from 'dayjs'
 import { useEffect, useState } from 'react'
 import budgetStore, { IBudgetStore } from '@/shared/stores/budget'
 import { getSummary } from '@/shared/utils/getSummary'
-
-// export const data = [
-//   ['Месяц', 'Доходы', 'Расходы'],
-//   ['04.2024', 1000, 400],
-//   ['05.2024', 1170, 460],
-//   ['06.2024', 660, 1120],
-// ]
+import { addSpacesToNumber } from '@/shared/utils/addSpacesToNumber'
 
 export function CompareChart() {
   const { Text } = Typography
   const currentDate = getCurrentDate()
 
-  const [
-    getUserBudgetDataOnSelectedMonth,
-    userBudgetDataOnSelectedMonth,
-    monthBudgetData,
-  ] = budgetStore((s: IBudgetStore) => [
-    s.getUserBudgetDataOnSelectedMonth,
-    s.userBudgetDataOnSelectedMonth,
-    s.monthBudgetData,
-  ])
+  const [getUserBudgetDataOnSelectedMonth, userBudgetDataOnSelectedMonth] =
+    budgetStore((s: IBudgetStore) => [
+      s.getUserBudgetDataOnSelectedMonth,
+      s.userBudgetDataOnSelectedMonth,
+      s.monthBudgetData,
+    ])
 
   const options = {
     chart: {
       title: '',
-      // subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+      // subtitle: 'text',
     },
   }
 
-  console.log(currentDate)
-  console.log(monthBudgetData)
-
-  function getPreviousDates(currentDate: string) {
-    const dates = []
-    const [month, year] = currentDate.split('.').map(Number)
-
-    for (let i = 0; i < 3; i++) {
-      const date = new Date(year, month - 1)
-      date.setMonth(date.getMonth() - i)
-      const formattedMonth = ('0' + (date.getMonth() + 1)).slice(-2)
-      const formattedYear = date.getFullYear()
-      dates.push(`${formattedMonth}.${formattedYear}`)
-    }
-
-    return dates.reverse()
+  interface DataInfo {
+    costsDiff?: number
+    incomesDiff?: number
+    incomeResult?: string
+    costsResult?: string
   }
-
-  // const dateArray = getPreviousDates(currentDate)
 
   const [startDate, setStartDate] = useState<Dayjs | undefined | string>(
     undefined,
@@ -63,15 +41,14 @@ export function CompareChart() {
   )
 
   const onChangeStartDate: DatePickerProps['onChange'] = (date, dateString) => {
-    setStartDate(date.format('MM.YYYY'))
-    console.log(date, dateString)
+    setStartDate(date ? date.format('MM.YYYY') : undefined)
   }
 
   const onPanelChange: DatePickerProps['onPanelChange'] = (value, mode) => {
     console.log(value, mode)
   }
   const onChangeEndDate: DatePickerProps['onChange'] = (date, dateString) => {
-    setEndDate(date.format('MM.YYYY'))
+    setEndDate(date ? date.format('MM.YYYY') : undefined)
   }
   const currentDateDayjs = dayjs()
 
@@ -94,8 +71,6 @@ export function CompareChart() {
     }
     setGetData(false)
   }, [getData])
-
-  console.log(userBudgetDataOnSelectedMonth)
 
   useEffect(() => {
     if (userBudgetDataOnSelectedMonth) {
@@ -127,7 +102,23 @@ export function CompareChart() {
     setGetData(false)
   }, [userBudgetDataOnSelectedMonth])
 
-  console.log(data)
+  let dataInfo: DataInfo = {}
+
+  if (data && data[1] && data[2]) {
+    const [_, firstMonthIncomes, firstMonthCosts] = data[1]
+    const [__, secondMonthIncomes, secondMonthCosts] = data[2]
+    const costsDiff = firstMonthCosts - secondMonthCosts
+    const incomesDiff = firstMonthIncomes - secondMonthIncomes
+    const incomeResult = incomesDiff < 0 ? 'меньше' : 'больше'
+    const costsResult = costsDiff < 0 ? 'меньше' : 'больше'
+
+    dataInfo = {
+      costsDiff,
+      incomesDiff,
+      incomeResult,
+      costsResult,
+    }
+  }
 
   return (
     <div
@@ -170,6 +161,24 @@ export function CompareChart() {
           alignItems: 'start',
         }}
       >
+        {data && data[1] && data[2] && startDate && endDate && (
+          <>
+            <Text keyboard>{`Доходы за ${startDate} ${
+              dataInfo.incomeResult
+            } доходов за ${endDate} на ${addSpacesToNumber(
+              Math.abs(dataInfo.incomesDiff ?? 0),
+            )} ₽`}</Text>
+            <Text
+              keyboard
+              style={{ marginTop: 10 }}
+            >{`Расходы за ${startDate} ${
+              dataInfo.costsResult
+            } расходов за ${endDate} на ${addSpacesToNumber(
+              Math.abs(dataInfo.costsDiff ?? 0),
+            )} ₽`}</Text>
+          </>
+        )}
+
         <Text
           style={{
             fontSize: '16px',
@@ -190,15 +199,16 @@ export function CompareChart() {
             onChange={onChangeStartDate}
             onPanelChange={onPanelChange}
             picker="month"
-            // defaultValue={currentDate}
             style={{ marginRight: 5 }}
             format="MM.YYYY"
+            allowClear
           />
           <DatePicker
             onChange={onChangeEndDate}
             picker="month"
             defaultValue={currentDateDayjs}
             format="MM.YYYY"
+            allowClear
           />
         </div>
         <Button style={{ marginTop: 20 }} onClick={compareHandler}>

@@ -48,20 +48,9 @@ const CostsTableSummary: React.FC = () => {
     s.updateBudgetData,
   ])
 
-  // const { Text } = Typography
-  console.log(selectedMonth)
-  console.log(userBudgetData)
-  console.log(incomesCategories)
-  console.log(monthBudgetData)
-
-  // console.log(user_id)
-
   const {
     budget_data: { costs_categories },
   } = userBudgetData ?? { budget_data: { costs_categories: [] } }
-
-  console.log(costs_categories)
-
   const [dataSource, setDataSource] = useState<DataType[]>([])
   const [messageApi, contextHolder] = message.useMessage()
 
@@ -80,8 +69,6 @@ const CostsTableSummary: React.FC = () => {
     }
 
     const updatedTotalAmountByCategory = { ...totalAmountByCategory }
-
-    console.log(updatedTotalAmountByCategory)
 
     userBudgetData?.budget_data?.costs_categories.forEach((category) => {
       const { id } = category
@@ -153,9 +140,6 @@ const CostsTableSummary: React.FC = () => {
       userBudgetDataCopy.budget_data.costs = updatedCosts
     }
 
-    console.log('userBudgetDataCopy', userBudgetDataCopy)
-    console.log(key)
-
     updateBudgetData(userBudgetDataCopy, selectedMonth, userBudgetData?.user_id)
   }
 
@@ -166,27 +150,17 @@ const CostsTableSummary: React.FC = () => {
   }
   const [inputTargetValue, setInputTargetValue] = useState('')
 
-  console.log(dataSource)
-
   const handleSaveNewItem = (key: React.Key) => {
     let neWCostsCategory: { [key: string]: string } = {}
-    console.log(key)
 
     const newData = dataSource?.map((item, index) => {
       let selectTargetValueObject
       const [selectValue] = selectTargetValue
-      console.log(selectValue)
-
       if (selectTargetValue.length > 0) {
-        console.log(costsCategories)
-
         selectTargetValueObject = costsCategories?.find(
           (category: any) => String(category.id) === String(selectValue),
         )
       }
-      console.log(inputTargetValue)
-      console.log(selectTargetValueObject)
-
       const value = selectTargetValueObject
         ? selectTargetValueObject?.name
         : inputTargetValue
@@ -210,8 +184,6 @@ const CostsTableSummary: React.FC = () => {
         String(inputTargetValue.toLowerCase()),
     )
 
-    console.log(newData)
-
     if (isInputValueExist.length > 0) {
       messageApi.open({
         type: 'error',
@@ -221,8 +193,6 @@ const CostsTableSummary: React.FC = () => {
       setSelectTargetValue('')
       setInputTargetValue('')
     } else {
-      console.log('oks')
-
       setDataSource(newData)
       setAddNewItemState(false)
       setSelectTargetValue('')
@@ -305,12 +275,7 @@ const CostsTableSummary: React.FC = () => {
                 Сохранить
               </Button>
 
-              {/* <Popconfirm
-                title="Sure to cancel?"
-                onConfirm={() => handleCancel(record.key)}
-              > */}
               <Button onClick={() => handleCancel(record.key)}>Cancel</Button>
-              {/* </Popconfirm> */}
             </div>
           )
         }
@@ -333,7 +298,7 @@ const CostsTableSummary: React.FC = () => {
               </Tooltip>
             </Popconfirm>
           </div>
-        ) // Или отображаем что-то другое для существующих записей
+        )
       },
     },
   ]
@@ -399,7 +364,6 @@ const CostsTableSummary: React.FC = () => {
         </Tooltip>
       </div>
       <Table
-        // style={{ width: '90%' }}
         components={components}
         rowClassName={() => 'editable-row'}
         bordered

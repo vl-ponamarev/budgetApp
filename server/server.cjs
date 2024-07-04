@@ -33,9 +33,8 @@ server.use(
 //   console.log('Session ID cookie:', req.cookies.sid)
 //   next()
 // })
-// Setup routes before isAuthenticated middleware
 
-server.use(isAuthenticated) // Перемещаем isAuthenticated перед маршрутом и middleware
+server.use(isAuthenticated)
 
 setupRoutes(server)
 
@@ -47,8 +46,8 @@ function isAuthenticated(req, res, next) {
   }
 }
 
-server.use(router) // Теперь маршруты будут проверять isAuthenticated
-server.use(middlewares) // и затем выполняться middlewares
+server.use(router)
+server.use(middlewares)
 
 const PORT = process.env.VITE_PORT || 5070
 

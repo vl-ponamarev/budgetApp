@@ -21,7 +21,6 @@ const MainPage = () => {
     userBudgetData,
     createMonthBudgetData,
     clearStore,
-    monthBudgetData,
   ] = budgetStore((s: IBudgetStore) => [
     s.selectedMonth,
     s.getUserBudgetData,
@@ -30,7 +29,6 @@ const MainPage = () => {
     s.userBudgetData,
     s.createMonthBudgetData,
     s.clearStore,
-    s.monthBudgetData,
   ])
 
   const handleLogout = useCallback(() => {
@@ -41,28 +39,18 @@ const MainPage = () => {
   }, [logout])
 
   const userName = localStorage.getItem('username')
-
-  console.log(selectedMonth)
-  console.log(userBudgetData)
-  console.log(monthBudgetData)
-
   const id = localStorage.getItem('id')
-
-  console.log(id)
 
   useEffect(() => {
     if (id && selectedMonth) {
       getUserBudgetData(selectedMonth, Number(id))
-      console.log('ok')
     }
   }, [selectedMonth])
 
   useEffect(() => {
     if (userBudgetData) {
-      console.log(userBudgetData)
       return
     } else if (!userBudgetData && selectedMonth) {
-      console.log('ok')
       const newUserData = {
         user_id: Number(id),
         budget_data: {
@@ -82,27 +70,6 @@ const MainPage = () => {
     getIncomesCategories()
   }, [])
 
-  // useEffect(() => {
-  //   if (userBudgetData && Object.keys(userBudgetData).length > 0) {
-  //     return
-  //   } else {
-  //     const id = localStorage.getItem('id')
-  //     const newUserData = {
-  //       user_id: Number(id),
-  //       budget_data: {
-  //         incomes_categories: [],
-  //         costs_categories: [],
-  //         incomes: [],
-  //         costs: [],
-  //       },
-  //     }
-  //     if (selectedMonth) {
-  //       createMonthBudgetData(newUserData, selectedMonth, Number(id))
-  //     }
-  //   }
-  // }, [userBudgetData, selectedMonth])
-  console.log(userBudgetData)
-
   return (
     <>
       <Flex justify={'space-between'} align={'center'} style={{ height: 60 }}>
@@ -110,7 +77,6 @@ const MainPage = () => {
         <Button onClick={() => handleLogout()}>Выйти</Button>
       </Flex>
 
-      <div>{userName}</div>
       <Titles />
       {((userBudgetData && userBudgetData?.budget_data?.incomes.length > 0) ||
         (userBudgetData && userBudgetData?.budget_data?.costs.length > 0)) && (

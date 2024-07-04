@@ -13,8 +13,6 @@ export function PieChartCosts() {
     is3D: true,
   }
 
-  console.log(userBudgetData)
-
   const preparedData = userBudgetData?.budget_data?.costs
     .reduce((acc: any, item: any) => {
       const existingCategory = acc.find(

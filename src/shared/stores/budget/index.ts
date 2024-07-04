@@ -26,7 +26,7 @@ export interface IBudgetStore {
   costsCategories: any
   incomesCategories: any
   getCostCategories: (data?: any) => void
-  setSelectedMonth: (dateString: string) => void
+  setSelectedMonth: (dateString: string | number) => void
   getUserBudgetData: (month: string, userId: number) => Promise<any>
   getUserBudgetDataOnSelectedMonth: (
     data: ILocalPayload[],
@@ -123,13 +123,10 @@ const budgetStore = create<IBudgetStore>(
                 userId,
               },
             ])
-            console.log(response)
 
             if (response[0].success) {
               if (response[0].data !== undefined) {
                 const users_data = response[0].data?.users_data
-                console.log(users_data)
-
                 // const data = produce((draft: IBudgetStore) => {
                 //   draft.userBudgetData = users_data
                 // })
@@ -153,16 +150,12 @@ const budgetStore = create<IBudgetStore>(
               data,
             )
             const [response1, response2] = response
-            console.log(response)
             if (
               response1.success &&
               response2.success &&
               response1.code === 200 &&
               response2.code === 200
             ) {
-              console.log(response[0]?.data?.users_data)
-              console.log(response[1].data)
-
               const users_data = [
                 response1?.data?.users_data,
                 response2?.data?.users_data,
@@ -223,13 +216,10 @@ const budgetStore = create<IBudgetStore>(
               month,
               userId,
             )
-            console.log(response.data)
 
             if (response?.data?.message) {
               return
             } else {
-              console.log(response.data)
-
               // const data = produce((draft: IBudgetStore) => {
               //   draft.monthBudgetData = response?.data
               // })

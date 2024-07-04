@@ -4,7 +4,6 @@ const router = jsonServer.router('./src/assets/db.json')
 const getUsersData = async (username, month) => {
   const db = router.db
   const data = await db.get('data').find({ month }).value()
-  console.log(data)
   const usersData = data.users_data.find((data) => data.user_name === username)
 
   return new Promise((resolve, reject) => {

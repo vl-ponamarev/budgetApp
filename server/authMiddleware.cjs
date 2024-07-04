@@ -52,7 +52,7 @@ const authenticateAccess = (req, res, next) => {
           })
         }
       } else {
-        req.user = user // добавляем декодированные данные пользователя в req.user
+        req.user = user
         res.cookie('username', user.name, {
           httpOnly: true,
           maxAge: 1000 * 60 * 60 * 12,

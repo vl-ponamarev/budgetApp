@@ -8,16 +8,12 @@ export function PieChartIncomes() {
   const incomes_categories = userBudgetData?.budget_data?.incomes_categories
   const [pieChartData, setPieChartData] = useState<any>([])
 
-  console.log(incomes_categories)
-  console.log(userBudgetData)
-
   const options = {
     title: '',
     is3D: true,
     titleTextStyle: {
       fontSize: 16,
       bold: true,
-      // use padding to push the title to the right
       paddingRight: '100px',
     },
   }
@@ -42,11 +38,7 @@ export function PieChartIncomes() {
     [],
   )
 
-  console.log(preparedData1)
-
   const preparedData = preparedData1?.map((item: any) => {
-    console.log(item)
-
     const { name } = incomes_categories
       ? incomes_categories.find(
           (c: any) => String(c.id) === String(item.category_id),
@@ -55,8 +47,6 @@ export function PieChartIncomes() {
     return [name, item.amount]
   })
 
-  console.log(preparedData)
-
   const data = [...[['Task', 'Hours per Day']], ...(preparedData ?? [])]
 
   useEffect(() => {
@@ -64,8 +54,6 @@ export function PieChartIncomes() {
       setPieChartData(data)
     }
   }, [userBudgetData])
-
-  console.log(pieChartData)
 
   return (
     <Chart

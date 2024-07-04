@@ -8,7 +8,6 @@ export const getCostsCategories = async (): Promise<any> => {
     method: endpoint.method,
     url: `${endpoint.url}costs_categories`,
   })
-  console.log('response', response)
 
   return {
     ...response,
